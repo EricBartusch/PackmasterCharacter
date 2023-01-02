@@ -22,6 +22,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
 import thePackmaster.ThePackmaster;
+import thePackmaster.cards.rippack.AbstractRippedTextCard;
 import thePackmaster.packs.AbstractCardPack;
 import thePackmaster.util.CardArtRoller;
 import thePackmaster.util.Wiz;
@@ -291,7 +292,9 @@ public abstract class AbstractPackmasterCard extends CustomCard {
     @Override
     public void render(SpriteBatch sb) {
         super.render(sb);
-        renderTopText(sb, false);
+        if(!(this instanceof AbstractRippedTextCard)) {
+            renderTopText(sb, false);
+        }
     }
 
     @Override
