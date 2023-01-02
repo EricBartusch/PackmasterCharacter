@@ -1,0 +1,12 @@
+{
+  "${ModID}:RipPack": {
+    "TEXT": [
+      "Rip",
+      "A pack of perforated cards that can be torn in half for various effects.",
+      "EricB"
+    ]
+  },
+  "${ModID}:Rip": {
+    "TEXT": ["Rippable"]
+  }
+}
