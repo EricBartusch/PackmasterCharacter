@@ -113,9 +113,5 @@
   "${ModID}:HazardousStrikeText": {
     "NAME": "",
     "DESCRIPTION": "Deal !D! Damage."
-  },
-  "${ModID}:DividedFury": {
-    "NAME": "Divided Fury",
-    "DESCRIPTION": "When you ${ModID}:ripped, an Attack card, deal !M! damage to ALL enemies. NL When you ${ModID}:ripped, a Skill card, gain !M! Block."
   }
 }
