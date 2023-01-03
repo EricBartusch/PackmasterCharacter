@@ -113,5 +113,17 @@
   "${ModID}:HazardousStrikeText": {
     "NAME": "",
     "DESCRIPTION": "Deal !D! Damage."
+  },
+  "${ModID}:TotalWeakness": {
+    "NAME": "Total Weakness",
+    "DESCRIPTION": "Gain !B! Block. NL Apply !M! Weak to ALL enemies."
+  },
+  "${ModID}:TotalWeaknessArt": {
+    "NAME": "Total Weakness",
+    "DESCRIPTION": ""
+  },
+  "${ModID}:TotalWeaknessText": {
+    "NAME": "",
+    "DESCRIPTION": "Gain !B! Block. NL Apply !M! Weak to ALL enemies."
   }
 }
