@@ -43,10 +43,4 @@ public class TotalWeakness extends AbstractRippableCard {
     private void applyWeak(AbstractMonster m){
         applyToEnemy(m, new WeakPower(m, magicNumber, false));
     }
-
-    @Override
-    public void onRip() {
-        super.onRip();
-        atb(new DrawCardAction(magicNumber));
-    }
 }
