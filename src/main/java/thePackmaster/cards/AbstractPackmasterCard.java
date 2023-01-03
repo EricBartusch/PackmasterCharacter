@@ -48,6 +48,8 @@ public abstract class AbstractPackmasterCard extends CustomCard {
 
     private boolean needsArtRefresh = false;
 
+    public boolean isUnnate = false;
+
     private static Color packNameDisplayColor = Settings.CREAM_COLOR.cpy();
 
     public AbstractPackmasterCard(final String cardID, final int cost, final CardType type, final CardRarity rarity, final CardTarget target) {

@@ -26,5 +26,12 @@
       "text_cards"
     ],
     "DESCRIPTION": "The text half of a ripped card. It always exhausts."
+  },
+  {
+    "PROPER_NAME": "Unnate",
+    "NAMES": [
+      "unnate"
+    ],
+    "DESCRIPTION": "Starts each combat at the bottom of your draw pile."
   }
 ]

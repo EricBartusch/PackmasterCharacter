@@ -125,5 +125,10 @@
   "${ModID}:TotalWeaknessText": {
     "NAME": "",
     "DESCRIPTION": "Gain !B! Block. NL Apply !M! Weak to ALL enemies."
+  },
+  "${ModID}:LeftBrain": {
+    "NAME": "Left Brain",
+    "DESCRIPTION": "Exhaust all Art cards in your hand, draw pile, and discard pile. NL Exhaust.",
+    "UPGRADE_DESCRIPTION": "${ModID}:Unnate. NL Exhaust all Art cards in your hand, draw pile, and discard pile. NL Exhaust."
   }
 }
