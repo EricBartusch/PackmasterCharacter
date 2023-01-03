@@ -30,6 +30,9 @@ public class RipPack extends AbstractCardPack {
         cards.add(FragileShrug.ID);
         cards.add(FragileShrugArt.ID);
         cards.add(FragileShrugText.ID);
+        cards.add(HazardousStrike.ID);
+        cards.add(HazardousStrikeArt.ID);
+        cards.add(HazardousStrikeText.ID);
         cards.add(Inspiration.ID);
         cards.add(InspirationArt.ID);
         cards.add(InspirationText.ID);

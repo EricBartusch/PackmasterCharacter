@@ -34,7 +34,6 @@ public class RipCardAction extends AbstractGameAction {
             }
         }
         if(found && rippedCard != null) {
-            rippedCard.onRip();
             artCard.applyPowers();
             textCard.applyPowers();
             if (AbstractDungeon.player.hoveredCard == rippedCard) {
@@ -44,6 +43,7 @@ public class RipCardAction extends AbstractGameAction {
 
             att(new MakeTempCardInHandAction(textCard));
             att(new MakeTempCardInHandAction(artCard));
+            rippedCard.onRip();
             AbstractDungeon.player.hand.moveToExhaustPile(rippedCard);
             p.hand.applyPowers();
             p.hand.glowCheck();
