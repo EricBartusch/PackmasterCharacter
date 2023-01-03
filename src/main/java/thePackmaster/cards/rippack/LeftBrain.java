@@ -20,6 +20,7 @@ public class LeftBrain extends AbstractPackmasterCard {
     @Override
     public void upp() {
         isUnnate = true;
+        uDesc();
     }
 
     @Override
