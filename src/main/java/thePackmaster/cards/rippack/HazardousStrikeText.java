@@ -20,6 +20,6 @@ public class HazardousStrikeText extends AbstractRippedTextCard {
 
     @Override
     public void upp() {
-        upgradeDamage(5);
+        upgradeDamage(6);
     }
 }
