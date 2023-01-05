@@ -37,7 +37,7 @@ public class RipCardAction extends AbstractGameAction {
             artCard.applyPowers();
             textCard.applyPowers();
             artCard.cost = rippedCard.cost;
-            artCard.costForTurn = rippedCard.costForTurn;
+            artCard.costForTurn = rippedCard.costForTurn; //costs need to be updated if the base card's cost gets updated
             if (AbstractDungeon.player.hoveredCard == rippedCard) {
                 AbstractDungeon.player.releaseCard();
             }

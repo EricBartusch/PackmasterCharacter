@@ -68,6 +68,7 @@ public abstract class AbstractRippableCard extends AbstractPackmasterCard {
     }
 
     //For use when needing an upgraded version of the source card for `use`
+    //If we try to upgrade the parts here too, you Stack Overflow
     public void upgradeJustSource() {
         super.upgrade();
     }

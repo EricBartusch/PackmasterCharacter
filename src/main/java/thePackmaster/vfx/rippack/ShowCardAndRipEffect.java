@@ -18,7 +18,7 @@ public class ShowCardAndRipEffect extends AbstractGameEffect {
 
     public ShowCardAndRipEffect(AbstractRippableCard card) {
         this.artCard = (AbstractRippedArtCard) card.getRippedParts().get(0).makeStatEquivalentCopy();
-        this.artCard.costForTurn = card.costForTurn;
+        this.artCard.costForTurn = card.costForTurn; //Update cost here for visual accuracy
         this.textCard = (AbstractRippedTextCard) card.getRippedParts().get(1).makeStatEquivalentCopy();
         identifySpawnLocation(Settings.WIDTH / 2.0F, Settings.HEIGHT / 2.0F);
         this.duration = EFFECT_DUR;
