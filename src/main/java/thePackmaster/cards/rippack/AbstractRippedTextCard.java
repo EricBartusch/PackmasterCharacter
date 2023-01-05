@@ -36,11 +36,12 @@ public abstract class AbstractRippedTextCard extends AbstractPackmasterCard {
 
 
     public AbstractRippedTextCard(String cardID, AbstractRippableCard sourceCard) {
-        super(cardID, 0, sourceCard.type, sourceCard.rarity, sourceCard.target);
+        super(cardID, 0, sourceCard.type, CardRarity.SPECIAL, sourceCard.target);
         this.sourceCard = sourceCard;
         baseMagicNumber = magicNumber = sourceCard.baseMagicNumber;
         baseDamage = damage = sourceCard.baseDamage;
         baseBlock = block = sourceCard.baseBlock;
+        setDisplayRarity(sourceCard.rarity);
         exhaust = true;
     }
 

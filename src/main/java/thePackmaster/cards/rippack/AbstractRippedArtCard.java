@@ -36,8 +36,9 @@ public abstract class AbstractRippedArtCard extends AbstractPackmasterCard {
 
 
     public AbstractRippedArtCard(String cardID, AbstractRippableCard sourceCard) {
-        super(cardID, sourceCard.cost, sourceCard.type, sourceCard.rarity, CardTarget.NONE);
+        super(cardID, sourceCard.cost, sourceCard.type, CardRarity.SPECIAL, CardTarget.NONE);
         this.sourceCard = sourceCard;
+        setDisplayRarity(sourceCard.rarity);
         exhaust = true;
     }
 
