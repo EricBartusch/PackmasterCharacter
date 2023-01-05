@@ -51,13 +51,16 @@ public abstract class AbstractRippedTextCard extends AbstractPackmasterCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
+        sourceCard.damage = damage; //I can't get these values to update properly on upgrade
+        sourceCard.block = block;
+        sourceCard.magicNumber = magicNumber;
         sourceCard.use(p, m);
     }
 
     @Override
     public void upgrade() {
         String prevName = name;
-        if(sourceCard != null) {
+        if(sourceCard != null && !sourceCard.upgraded) {
             sourceCard.upgradeJustSource();
         }
         super.upgrade();

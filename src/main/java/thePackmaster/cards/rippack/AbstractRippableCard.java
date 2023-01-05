@@ -40,8 +40,16 @@ public abstract class AbstractRippableCard extends AbstractPackmasterCard {
 
     protected void setRippedCards(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
         rippedParts = new ArrayList<>();
+        if(upgraded) {
+            artCard.upgrade();
+            textCard.upgrade();
+        }
         rippedParts.add(artCard);
         rippedParts.add(textCard);
+    }
+
+    public ArrayList<AbstractCard> getRippedParts() {
+        return rippedParts;
     }
 
     public void onRightClick() {
@@ -121,9 +129,5 @@ public abstract class AbstractRippableCard extends AbstractPackmasterCard {
         List<TooltipInfo> compoundList = new ArrayList<>(consumableTooltip);
         if (super.getCustomTooltipsTop() != null) compoundList.addAll(super.getCustomTooltipsTop());
         return compoundList;
-    }
-
-    public ArrayList<AbstractCard> getRippedParts() {
-        return rippedParts;
     }
 }

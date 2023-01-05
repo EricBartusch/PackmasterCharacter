@@ -3,8 +3,10 @@ package thePackmaster.cards.rippack;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.VulnerablePower;
 
 import static thePackmaster.SpireAnniversary5Mod.makeID;
+import static thePackmaster.util.Wiz.applyToEnemy;
 
 public class FlimsyBash extends AbstractRippableCard {
     public final static String ID = makeID("FlimsyBash");
@@ -35,5 +37,6 @@ public class FlimsyBash extends AbstractRippableCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         dmg(m, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
+        applyToEnemy(m, new VulnerablePower(m, magicNumber, false));
     }
 }
