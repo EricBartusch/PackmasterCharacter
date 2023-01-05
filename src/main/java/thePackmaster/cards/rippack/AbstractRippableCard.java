@@ -14,6 +14,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.vfx.ThoughtBubble;
 import thePackmaster.actions.rippack.RipCardAction;
 import thePackmaster.cards.AbstractPackmasterCard;
 import thePackmaster.powers.rippack.DividedFuryPower;
@@ -61,6 +62,8 @@ public abstract class AbstractRippableCard extends AbstractPackmasterCard {
             att(new WaitAction(0.1f));
             att(new WaitAction(0.1f));
             att(new VFXAction(new ShowCardAndRipEffect(this)));
+        } else {
+            AbstractDungeon.effectList.add(new ThoughtBubble(AbstractDungeon.player.dialogX, AbstractDungeon.player.dialogY, 2.0F, uiStrings.TEXT[1], true));
         }
     }
 
