@@ -22,27 +22,13 @@ public class RipPack extends AbstractCardPack {
     public ArrayList<String> getCards() {
         ArrayList<String> cards = new ArrayList<>();
         cards.add(ArtAttack.ID);
-        cards.add(ArtAttackArt.ID);
-        cards.add(ArtAttackText.ID);
         cards.add(FlimsyBash.ID);
-        cards.add(FlimsyBashArt.ID);
-        cards.add(FlimsyBashText.ID);
         cards.add(FragileShrug.ID);
-        cards.add(FragileShrugArt.ID);
-        cards.add(FragileShrugText.ID);
         cards.add(HazardousStrike.ID);
-        cards.add(HazardousStrikeArt.ID);
-        cards.add(HazardousStrikeText.ID);
         cards.add(Inspiration.ID);
-        cards.add(InspirationArt.ID);
-        cards.add(InspirationText.ID);
         cards.add(DividedFury.ID);
         cards.add(SurprisePack.ID);
-        cards.add(SurprisePackArt.ID);
-        cards.add(SurprisePackText.ID);
         cards.add(ViciousCycle.ID);
-        cards.add(ViciousCycleArt.ID);
-        cards.add(ViciousCycleText.ID);
         return cards;
     }
 }
