@@ -19,8 +19,6 @@ https://docs.github.com/en/get-started/quickstart/contributing-to-projects
   
 I recommend using the Github desktop client for this if you have no experience with Github  
 https://desktop.github.com/  
-  
-**MAKE YOUR PRs TO THE DEVELOPMENT BRANCH**
 
 ## Technical
 ### How to make a Pack
@@ -61,11 +59,12 @@ To test your cards simply use the Custom Draft toggle in the character select sc
 * We have our own AbstractCard Class, **AbstractPackmasterCard** please make use of it for your cards
 * To get a card's Pack, you can call getParent on a PackmasterCard or use the method in the Wiz class getPackByCard
 * We have some lists and maps to get card packs, these are allPacks, packsByID, cardParentMap
+* If you want to add your own CardBack for your Pack preview card, you can do so by adding it to the `images/512` and `1024` with the png file having the same name as your pack
 
 ### Reminders and veto ruling
 Please look at the google docs to get a full refresher of the rules for your contribution. Specifically the complxity cap is important.
 Here is a TL;DR:
-* 10 cards per pack, token cards are allowed but please be reasonable (high amount of tokens is allowed by precedent, only if these cards cannot be easily obtained)
+* 10 cards per pack, token cards are allowed but please be reasonable (3 token cards max, no exceptions other than the few made already)
 * No duplicate cards, if a card exists in another pack, it may not be in another.
 * No additional UI, please use powers/orbs/stances if you need them
 * Most of your cards should have less than 6 lines of text.
