@@ -3,6 +3,7 @@ package thePackmaster.cards.rippack;
 import basemod.helpers.TooltipInfo;
 import basemod.patches.com.megacrit.cardcrawl.dungeons.AbstractDungeon.NoPools;
 import basemod.patches.com.megacrit.cardcrawl.screens.compendium.CardLibraryScreen.NoCompendium;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.LoseHPAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -32,6 +33,11 @@ public class ArtAttackArt extends AbstractRippedArtCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         atb(new LoseHPAction(m, m, magicNumber));
         atb(new VFXAction(new FlashAtkImgEffect(m.hb.cX, m.hb.cY, BLUNT_LIGHT)));
+    }
+
+    @Override
+    public void upp() {
+        upgradeBaseCost(0);
     }
 
     @Override

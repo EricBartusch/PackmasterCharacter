@@ -28,7 +28,7 @@ public class ArtAttack extends AbstractRippableCard {
 
     @Override
     public void upp() {
-
+        upgradeBaseCost(0);
     }
 
     @Override
