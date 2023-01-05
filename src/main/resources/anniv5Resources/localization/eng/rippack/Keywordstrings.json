@@ -3,7 +3,8 @@
     "PROPER_NAME": "Rippable",
     "NAMES": [
       "rippable",
-      "ripped"
+      "ripped",
+      "rip"
     ],
     "DESCRIPTION": "Right click to rip in half."
   },

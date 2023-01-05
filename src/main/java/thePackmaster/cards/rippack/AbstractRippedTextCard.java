@@ -54,6 +54,7 @@ public abstract class AbstractRippedTextCard extends AbstractPackmasterCard {
         sourceCard.damage = damage; //I can't get these values to update properly on upgrade
         sourceCard.block = block;
         sourceCard.magicNumber = magicNumber;
+        sourceCard.secondMagic = secondMagic;
         sourceCard.use(p, m);
     }
 
