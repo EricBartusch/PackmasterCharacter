@@ -56,15 +56,15 @@ public class ShowCardAndRipEffect extends AbstractGameEffect {
             artCard.target_x = Settings.WIDTH * 0.5F - 200.F * Settings.scale;
             textCard.target_x = Settings.WIDTH * 0.5F + 200.F * Settings.scale;
         }
-        this.duration -= Gdx.graphics.getDeltaTime();
+        duration -= Gdx.graphics.getDeltaTime();
         artCard.update();
         textCard.update();
-        if (this.duration < 0.0F)
-            this.isDone = true;
+        if (duration < 0.0F)
+            isDone = true;
     }
 
     public void render(SpriteBatch sb) {
-        if (!this.isDone) {
+        if (!isDone) {
             artCard.render(sb);
             textCard.render(sb);
         }
