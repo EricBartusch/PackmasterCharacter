@@ -30,8 +30,7 @@ import static thePackmaster.SpireAnniversary5Mod.*;
 public abstract class AbstractRippedTextCard extends AbstractPackmasterCard {
 
     AbstractRippableCard sourceCard;
-    private static ShaderProgram shader = null;
-    private static final Texture TEXT_GLOW = ImageMaster.loadImage(modID + "Resources/images/512/rip/card_text.png");
+    public static ShaderProgram shader = null;
     private static ArrayList<TooltipInfo> consumableTooltip;
 
 
@@ -112,76 +111,6 @@ public abstract class AbstractRippedTextCard extends AbstractPackmasterCard {
                 System.out.println("ERROR: Failed to init textHalf shader:");
                 e.printStackTrace();
             }
-        }
-    }
-
-    @SpirePatch(clz = AbstractCard.class, method = "renderPortrait")
-    public static class SkipPortrait {
-
-        @SpirePrefixPatch()
-        public static SpireReturn Prefix(AbstractCard __instance, SpriteBatch sb) {
-            if (__instance instanceof AbstractRippedTextCard) {
-                return SpireReturn.Return();
-            } else {
-                return SpireReturn.Continue();
-            }
-        }
-    }
-
-    @SpirePatch(clz = AbstractCard.class, method = "renderDescription")
-    @SpirePatch(clz = AbstractCard.class, method = "renderDescriptionCN")
-    public static class SkipDescription {
-
-        @SpirePrefixPatch()
-        public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
-            if (__instance instanceof AbstractRippedTextCard) {
-                sb.setShader(null);
-            }
-        }
-    }
-
-    @SpirePatch(clz = AbstractCard.class, method = "renderDescription")
-    @SpirePatch(clz = AbstractCard.class, method = "renderDescriptionCN")
-    public static class SkipDescriptionPost {
-
-        @SpirePostfixPatch()
-        public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
-            if (__instance instanceof AbstractRippedTextCard) {
-                sb.setShader(shader);
-            }
-        }
-    }
-
-    @SpirePatch(clz = CardFlashVfx.class, method = "render")
-    public static class CutOffFlash {
-
-        @SpirePrefixPatch()
-        public static void Prefix(CardFlashVfx __instance, SpriteBatch sb, AbstractCard ___card, Color ___color, boolean ___isSuper) {
-            if (___card instanceof AbstractRippedTextCard) {
-                ReflectionHacks.setPrivate(__instance, CardFlashVfx.class, "img", new TextureAtlas.AtlasRegion(TEXT_GLOW, 0, 0, TEXT_GLOW.getWidth(), TEXT_GLOW.getHeight()));
-            }
-        }
-    }
-    @SpirePatch(clz = CardGlowBorder.class, method = SpirePatch.CONSTRUCTOR, paramtypez = {AbstractCard.class, Color.class})
-    public static class CutOffGlow {
-
-        @SpirePostfixPatch()
-        public static void Postfix(CardGlowBorder __instance, AbstractCard ___card) {
-            if (___card instanceof AbstractRippedTextCard) {
-                ReflectionHacks.setPrivate(__instance, CardGlowBorder.class, "img", new TextureAtlas.AtlasRegion(TEXT_GLOW, 0, 0, TEXT_GLOW.getWidth(), TEXT_GLOW.getHeight()));
-            }
-        }
-    }
-
-    @SpirePatch(clz = AbstractCard.class, method = "getCardBgAtlas")
-    public static class CutOffCardBg {
-
-        @SpirePrefixPatch()
-        public static SpireReturn<TextureAtlas.AtlasRegion> Postfix(AbstractCard __instance) {
-            if (__instance instanceof AbstractRippedTextCard) {
-                return SpireReturn.Return(new TextureAtlas.AtlasRegion(TEXT_GLOW, 0, 0, TEXT_GLOW.getWidth(), TEXT_GLOW.getHeight()));
-            }
-            return SpireReturn.Continue();
         }
     }
 }
