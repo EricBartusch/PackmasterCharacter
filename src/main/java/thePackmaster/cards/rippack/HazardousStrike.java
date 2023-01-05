@@ -1,10 +1,12 @@
 package thePackmaster.cards.rippack;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import thePackmaster.actions.rippack.ExhaustRandomNonArtCardsAction;
+import thePackmaster.vfx.rippack.SlashDiagonalOppositeEffect;
 
 import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.util.Wiz.atb;
@@ -37,7 +39,8 @@ public class HazardousStrike extends AbstractRippableCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        dmg(m, AbstractGameAction.AttackEffect.NONE);
+        dmg(m, AbstractGameAction.AttackEffect.SLASH_DIAGONAL);
+        atb(new VFXAction(new SlashDiagonalOppositeEffect(m.hb.cX, m.hb.cY)));
     }
 
     @Override
