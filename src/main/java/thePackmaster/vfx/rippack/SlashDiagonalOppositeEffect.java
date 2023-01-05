@@ -20,8 +20,6 @@ public class SlashDiagonalOppositeEffect extends AbstractGameEffect {
 
     private float tY;
 
-    private boolean triggered = false;
-
     public SlashDiagonalOppositeEffect(float x, float y) {
         this.duration = 0.6F;
         this.startingDuration = 0.6F;
@@ -41,9 +39,9 @@ public class SlashDiagonalOppositeEffect extends AbstractGameEffect {
     }
 
     public void render(SpriteBatch sb) {
-        if (this.img != null) {
+        if (img != null) {
             sb.setColor(this.color);
-            sb.draw(this.img, this.x, this.y, this.img.packedWidth / 2.0F, this.img.packedHeight / 2.0F, this.img.packedWidth, this.img.packedHeight, this.scale, this.scale, this.rotation);
+            sb.draw(img, x, y, img.packedWidth / 2.0F, img.packedHeight / 2.0F, img.packedWidth, img.packedHeight, scale, scale, rotation);
         }
     }
 
