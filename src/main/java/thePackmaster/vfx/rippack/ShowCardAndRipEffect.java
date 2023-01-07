@@ -2,6 +2,7 @@ package thePackmaster.vfx.rippack;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
@@ -9,6 +10,8 @@ import com.megacrit.cardcrawl.vfx.combat.CardPoofEffect;
 import thePackmaster.cards.rippack.AbstractRippableCard;
 import thePackmaster.cards.rippack.AbstractRippedArtCard;
 import thePackmaster.cards.rippack.AbstractRippedTextCard;
+
+import static thePackmaster.SpireAnniversary5Mod.makeID;
 
 public class ShowCardAndRipEffect extends AbstractGameEffect {
     private static final float EFFECT_DUR = 0.8F;
@@ -52,6 +55,9 @@ public class ShowCardAndRipEffect extends AbstractGameEffect {
     }
 
     public void update() {
+        if(duration == EFFECT_DUR) {
+            CardCrawlGame.sound.play(makeID("rip"));
+        }
         if(duration < EFFECT_DUR / 2.0F) {
             artCard.target_x = Settings.WIDTH * 0.5F - 200.F * Settings.scale;
             textCard.target_x = Settings.WIDTH * 0.5F + 200.F * Settings.scale;

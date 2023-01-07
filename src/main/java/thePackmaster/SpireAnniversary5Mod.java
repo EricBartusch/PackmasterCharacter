@@ -308,6 +308,7 @@ public class SpireAnniversary5Mod implements
         BaseMod.addAudio(ELEPHANT_KEY, ELEPHANT_OGG);
         BaseMod.addAudio(PEW_KEY, PEW_OGG);
         BaseMod.addAudio("UpgradesPack_ShortUpgrade","anniv5Resources/audio/UpgradesPack_ShortUpgrade.ogg");
+        BaseMod.addAudio(makeID("rip"), makePath("audio/rippack/rip.mp3"));
     }
 
     @Override
