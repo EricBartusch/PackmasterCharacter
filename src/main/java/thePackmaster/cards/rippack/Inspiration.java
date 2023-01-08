@@ -1,9 +1,13 @@
 package thePackmaster.cards.rippack;
 
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
+import thePackmaster.vfx.rippack.InspirationEffect;
 
 import java.util.stream.Collectors;
 
@@ -53,6 +57,21 @@ public class Inspiration extends AbstractRippableCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        atb(new DrawCardAction(AbstractDungeon.player.exhaustPile.group.stream().filter(card -> card instanceof AbstractRippedArtCard).collect(Collectors.toList()).size()));
+        int artCardsInExhaust = AbstractDungeon.player.exhaustPile.group.stream().filter(card -> card instanceof AbstractRippedArtCard).collect(Collectors.toList()).size();
+
+        AbstractGameEffect off = InspirationEffect.Off();
+        atb(new VFXAction(off));
+        if(artCardsInExhaust > 0) {
+            atb(new AbstractGameAction() {
+                @Override
+                public void update() {
+                    if (off.isDone) {
+                        isDone = true;
+                    }
+                }
+            });
+            atb(new VFXAction(InspirationEffect.On()));
+            atb(new DrawCardAction(artCardsInExhaust));
+        }
     }
 }

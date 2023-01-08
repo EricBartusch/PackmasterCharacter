@@ -31,12 +31,7 @@
   },
   "${ModID}:ArtAttackArt": {
     "NAME": "Art Attack",
-    "DESCRIPTION": "",
-    "EXTENDED_DESCRIPTION": [
-      "The target loses #b12 HP.",
-      "Art Card",
-      "The art half of a ripped card."
-    ]
+    "DESCRIPTION": "The target loses 12 HP."
   },
   "${ModID}:ArtAttackText": {
     "NAME": "",
