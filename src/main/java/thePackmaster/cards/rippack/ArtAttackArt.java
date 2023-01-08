@@ -63,18 +63,6 @@ public class ArtAttackArt extends AbstractRippedArtCard {
         target = CardTarget.ENEMY;
     }
 
-    @Override
-    public List<TooltipInfo> getCustomTooltipsTop() {
-        if (consumableTooltip == null)
-        {
-            consumableTooltip = new ArrayList<>();
-            consumableTooltip.add(new TooltipInfo(cardStrings.EXTENDED_DESCRIPTION[1], cardStrings.EXTENDED_DESCRIPTION[2]));
-            consumableTooltip.add(new TooltipInfo(name, cardStrings.EXTENDED_DESCRIPTION[0]));
-        }
-        List<TooltipInfo> compoundList = new ArrayList<>(consumableTooltip);
-        return compoundList;
-    }
-
     public ArtAttackArt(ArtAttack sourceCard) {
         super(ID, sourceCard);
     }
