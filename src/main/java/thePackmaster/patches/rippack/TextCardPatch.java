@@ -41,7 +41,8 @@ public class TextCardPatch {
     //A side effect of the shader causes some characters of the description to be removed
     @SpirePatch(clz = AbstractCard.class, method = "renderDescription")
     @SpirePatch(clz = AbstractCard.class, method = "renderDescriptionCN")
-    public static class SkipDescription {
+    @SpirePatch(clz = AbstractCard.class, method = "renderType")
+    public static class ISeeTreesOfGreen {
 
         @SpirePrefixPatch()
         public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
@@ -53,7 +54,8 @@ public class TextCardPatch {
 
     @SpirePatch(clz = AbstractCard.class, method = "renderDescription")
     @SpirePatch(clz = AbstractCard.class, method = "renderDescriptionCN")
-    public static class SkipDescriptionPost {
+    @SpirePatch(clz = AbstractCard.class, method = "renderType")
+    public static class RedRosesToo {
 
         @SpirePostfixPatch()
         public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
