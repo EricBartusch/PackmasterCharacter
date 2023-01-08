@@ -15,8 +15,8 @@ void main() {
 	vec4 color = texture(u_texture, v_texCoord);
 	vec4 transparentColor = vec4(1.0, 1.0, 1.0, 0.0);
 	vec4 finalColor;
-	if(v_texCoord.y < 0.5) {
-	    finalColor = mix(color, transparentColor, 1.0);
+	if(v_texCoord.y > 0.6) {
+	    finalColor = mix(color, transparentColor, 0.7);
 	} else {
 	    finalColor = v_color * texture2D(u_texture, v_texCoord);
 	}

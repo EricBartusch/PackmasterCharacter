@@ -89,8 +89,8 @@ public abstract class AbstractRippedArtCard extends AbstractPackmasterCard {
         if (shader == null) {
             try {
                 shader = new ShaderProgram(
-                        Gdx.files.internal(makeShaderPath("artHalf/vertex.vs")),
-                        Gdx.files.internal(makeShaderPath("artHalf/fragment.fs"))
+                        Gdx.files.internal(makeShaderPath("rippack/artHalf/vertex.vs")),
+                        Gdx.files.internal(makeShaderPath("rippack/artHalf/fragment.fs"))
                 );
                 if (!shader.isCompiled()) {
                     System.err.println(shader.getLog());
