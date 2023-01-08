@@ -298,9 +298,7 @@ public abstract class AbstractPackmasterCard extends CustomCard {
     @Override
     public void render(SpriteBatch sb) {
         super.render(sb);
-        if(!(this instanceof AbstractRippedTextCard)) { //I don't want the top text on Text cards since there is no card there
-            renderTopText(sb, false);
-        }
+        renderTopText(sb, false);
     }
 
     @Override
