@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.ThoughtBubble;
+import thePackmaster.actions.rippack.DividedFuryAction;
 import thePackmaster.actions.rippack.RipCardAction;
 import thePackmaster.cards.AbstractPackmasterCard;
 import thePackmaster.powers.rippack.DividedFuryPower;
@@ -99,14 +100,7 @@ public abstract class AbstractRippableCard extends AbstractPackmasterCard {
         cardsRippedThisTurn++;
         AbstractPower pow = AbstractDungeon.player.getPower(DividedFuryPower.POWER_ID);
         if(pow != null) {
-            int amount = pow.amount;
-            if(type == CardType.SKILL) {
-                pow.flash();
-                atb(new GainBlockAction(AbstractDungeon.player, amount));
-
-            } else if(type == CardType.ATTACK) {
-                pow.flash();
-                atb(new DamageAllEnemiesAction(null, DamageInfo.createDamageMatrix(amount, true), DamageInfo.DamageType.THORNS, AbstractGameAction.AttackEffect.BLUNT_LIGHT));}
+            atb(new DividedFuryAction(this));
         }
     }
 
