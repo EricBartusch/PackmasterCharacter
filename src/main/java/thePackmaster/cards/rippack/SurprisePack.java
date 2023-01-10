@@ -1,12 +1,13 @@
 package thePackmaster.cards.rippack;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
-import static thePackmaster.SpireAnniversary5Mod.makeID;
+import static thePackmaster.SpireAnniversary5Mod.*;
 import static thePackmaster.util.Wiz.atb;
 
 public class SurprisePack extends AbstractRippableCard {
@@ -30,8 +31,17 @@ public class SurprisePack extends AbstractRippableCard {
     }
 
     @Override
+    protected Texture getPortraitImage() {
+        if (upgraded) {
+            return ImageMaster.loadImage(makeImagePath("cards/SurprisePack_u_p.png"));
+        }
+        return super.getPortraitImage();
+    }
+
+    @Override
     public void upp() {
         upgradeSecondMagic(1);
+        loadCardImage(makeImagePath("cards/SurprisePack_u.png"));
         uDesc();
     }
 
