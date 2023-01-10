@@ -9,7 +9,7 @@
   "${ModID}:Rip": {
     "TEXT": [
       "Rippable",
-      "I need room in my hand for both halves of the card."
+      "I need room for both halves of the card in my hand."
     ]
   }
 }

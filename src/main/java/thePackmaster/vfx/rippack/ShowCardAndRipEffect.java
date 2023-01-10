@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.vfx.combat.CardPoofEffect;
 import thePackmaster.cards.rippack.AbstractRippableCard;
 import thePackmaster.cards.rippack.AbstractRippedArtCard;
 import thePackmaster.cards.rippack.AbstractRippedTextCard;
+import thePackmaster.cards.rippack.SurprisePackArt;
 
 import static thePackmaster.SpireAnniversary5Mod.makeID;
 
@@ -18,6 +19,7 @@ public class ShowCardAndRipEffect extends AbstractGameEffect {
 
     private AbstractRippedArtCard artCard;
     private AbstractRippedTextCard textCard;
+    private boolean hasPlayedSound;
 
     public ShowCardAndRipEffect(AbstractRippableCard card) {
         this.artCard = (AbstractRippedArtCard) card.getRippedParts().get(0).makeStatEquivalentCopy();
@@ -58,7 +60,13 @@ public class ShowCardAndRipEffect extends AbstractGameEffect {
         if(duration == EFFECT_DUR) {
             CardCrawlGame.sound.play(makeID("rip"));
         }
+
+        if(duration < EFFECT_DUR / 1.5f && !hasPlayedSound && artCard instanceof SurprisePackArt) {
+            CardCrawlGame.sound.play(makeID("party"));
+            hasPlayedSound = true;
+        }
         if(duration < EFFECT_DUR / 2.0F) {
+
             artCard.target_x = Settings.WIDTH * 0.5F - 200.F * Settings.scale;
             textCard.target_x = Settings.WIDTH * 0.5F + 200.F * Settings.scale;
         }
