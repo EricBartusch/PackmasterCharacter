@@ -1,25 +1,14 @@
 package thePackmaster.cards.rippack;
 
 import basemod.BaseMod;
-import basemod.ReflectionHacks;
 import basemod.helpers.TooltipInfo;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.vfx.cardManip.CardFlashVfx;
-import com.megacrit.cardcrawl.vfx.cardManip.CardGlowBorder;
+import thePackmaster.ThePackmaster;
 import thePackmaster.cards.AbstractPackmasterCard;
 
 import java.util.ArrayList;
@@ -34,8 +23,9 @@ public abstract class AbstractRippedArtCard extends AbstractPackmasterCard {
     private static ArrayList<TooltipInfo> consumableTooltip;
 
 
+
     public AbstractRippedArtCard(String cardID, AbstractRippableCard sourceCard) {
-        super(cardID, sourceCard.cost, sourceCard.type, CardRarity.SPECIAL, CardTarget.NONE);
+        super(cardID, sourceCard.cost, sourceCard.type, CardRarity.SPECIAL, CardTarget.NONE, ThePackmaster.Enums.PACKMASTER_RAINBOW, getCardTextureString(sourceCard.cardID.replace(modID + ":", ""), sourceCard.type));
         this.sourceCard = sourceCard;
         setDisplayRarity(sourceCard.rarity);
         exhaust = true;

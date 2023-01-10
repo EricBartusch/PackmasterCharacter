@@ -31,11 +31,11 @@
   },
   "${ModID}:ArtAttackArt": {
     "NAME": "Art Attack",
-    "DESCRIPTION": "The target loses 12 HP."
+    "DESCRIPTION": ""
   },
   "${ModID}:ArtAttackText": {
     "NAME": "",
-    "DESCRIPTION": "Deal !D! damage. NL The ${ModID}:Art Card causes the target to lose !M! HP."
+    "DESCRIPTION": "Deal !D! damage."
   },
   "${ModID}:SurprisePack": {
     "NAME": "Surprise Pack",

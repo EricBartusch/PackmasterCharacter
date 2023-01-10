@@ -22,7 +22,6 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
 import thePackmaster.ThePackmaster;
-import thePackmaster.cards.rippack.AbstractRippedTextCard;
 import thePackmaster.packs.AbstractCardPack;
 import thePackmaster.util.CardArtRoller;
 import thePackmaster.util.Wiz;
@@ -57,8 +56,11 @@ public abstract class AbstractPackmasterCard extends CustomCard {
     }
 
     public AbstractPackmasterCard(final String cardID, final int cost, final CardType type, final CardRarity rarity, final CardTarget target, final CardColor color) {
-        super(cardID, "", getCardTextureString(cardID.replace(modID + ":", ""), type),
-                cost, "", type, color, rarity, target);
+        this(cardID, cost, type, rarity, target, color, getCardTextureString(cardID.replace(modID + ":", ""), type));
+    }
+
+    public AbstractPackmasterCard(final String cardID, final int cost, final CardType type, final CardRarity rarity, final CardTarget target, final CardColor color, final String textureString) {
+        super(cardID, "", textureString, cost, "", type, color, rarity, target);
         cardStrings = CardCrawlGame.languagePack.getCardStrings(this.cardID);
         rawDescription = cardStrings.DESCRIPTION;
         name = originalName = cardStrings.NAME;
@@ -77,8 +79,6 @@ public abstract class AbstractPackmasterCard extends CustomCard {
                 "anniv5Resources/images/1024/coreset/" + type.name().toLowerCase() + ".png"
         );
     }
-
-
 
     @Override
     protected Texture getPortraitImage() {
