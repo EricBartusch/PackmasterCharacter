@@ -40,7 +40,7 @@ public class HazardousStrike extends AbstractRippableCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         dmg(m, AbstractGameAction.AttackEffect.SLASH_DIAGONAL);
-        atb(new VFXAction(new SlashDiagonalOppositeEffect(m.hb.cX, m.hb.cY)));
+        atb(new VFXAction(new SlashDiagonalOppositeEffect(m.hb.cX, m.hb.cY, true)));
     }
 
     @Override

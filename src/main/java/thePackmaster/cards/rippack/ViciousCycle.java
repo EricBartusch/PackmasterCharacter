@@ -1,10 +1,15 @@
 package thePackmaster.cards.rippack;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.animations.VFXAction;
+import com.megacrit.cardcrawl.actions.common.DamageAction;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import thePackmaster.vfx.rippack.SlashDiagonalOppositeEffect;
 
 import static thePackmaster.SpireAnniversary5Mod.makeID;
+import static thePackmaster.util.Wiz.atb;
 
 public class ViciousCycle extends AbstractRippableCard {
     public final static String ID = makeID("ViciousCycle");
@@ -52,8 +57,22 @@ public class ViciousCycle extends AbstractRippableCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         dmg(m, AbstractGameAction.AttackEffect.SLASH_DIAGONAL);
 
-        for(int i = 0; i < cardsRippedThisTurn; i++) {
-            dmg(m, AbstractGameAction.AttackEffect.SLASH_DIAGONAL);
+        for(int i = 1; i <= cardsRippedThisTurn; i++) {
+            switch(i % 4) {
+                case 1:
+                    atb(new VFXAction(new SlashDiagonalOppositeEffect(m.hb.cX, m.hb.cY, false)));
+                    atb(new DamageAction(m, new DamageInfo(p, damage, damageTypeForTurn), AbstractGameAction.AttackEffect.NONE));
+                    break;
+                case 2:
+                    dmg(m, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL);
+                    break;
+                case 3:
+                    dmg(m, AbstractGameAction.AttackEffect.SLASH_VERTICAL);
+                    break;
+                default:
+                    dmg(m, AbstractGameAction.AttackEffect.SLASH_DIAGONAL);
+                    break;
+            }
         }
     }
 }

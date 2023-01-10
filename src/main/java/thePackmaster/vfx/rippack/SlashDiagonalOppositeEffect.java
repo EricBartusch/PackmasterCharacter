@@ -20,7 +20,7 @@ public class SlashDiagonalOppositeEffect extends AbstractGameEffect {
 
     private float tY;
 
-    public SlashDiagonalOppositeEffect(float x, float y) {
+    public SlashDiagonalOppositeEffect(float x, float y, boolean mute) {
         this.duration = 0.6F;
         this.startingDuration = 0.6F;
         this.img = ImageMaster.ATK_SLASH_D;
@@ -33,6 +33,9 @@ public class SlashDiagonalOppositeEffect extends AbstractGameEffect {
         }
         this.color = Color.WHITE.cpy();
         this.scale = Settings.scale;
+        if(!mute) {
+            CardCrawlGame.sound.play("ATTACK_FAST");
+        }
         this.y = y;
         this.sY = y;
         this.tY = y;
