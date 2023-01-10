@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 
 import static thePackmaster.SpireAnniversary5Mod.modID;
 
-public class ArtAttackEffect {
+public class ArtAttackArtEffect {
     public static Texture RAINBOW = new Texture(modID + "Resources/images/vfx/rippack/rainbow.png");
 
     public static AbstractGameEffect RainbowBoomerang(AbstractMonster m) {

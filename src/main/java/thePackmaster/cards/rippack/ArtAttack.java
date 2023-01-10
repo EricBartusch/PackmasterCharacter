@@ -1,10 +1,16 @@
 package thePackmaster.cards.rippack;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.animations.VFXAction;
+import com.megacrit.cardcrawl.actions.common.DamageAction;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
+import thePackmaster.vfx.rippack.ArtAttackTextEffect;
 
 import static thePackmaster.SpireAnniversary5Mod.makeID;
+import static thePackmaster.util.Wiz.atb;
 
 public class ArtAttack extends AbstractRippableCard {
     public final static String ID = makeID("ArtAttack");
@@ -33,6 +39,17 @@ public class ArtAttack extends AbstractRippableCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        dmg(m, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        AbstractGameEffect rainbowSplash = new ArtAttackTextEffect(m.hb.cX, m.hb.cY);
+        atb(new VFXAction(rainbowSplash));
+        atb(new AbstractGameAction() {
+            @Override
+            public void update() {
+                if (rainbowSplash.isDone) {
+                    isDone = true;
+                }
+            }
+        });
+        atb(new DamageAction(m, new DamageInfo(p, damage, damageTypeForTurn), AbstractGameAction.AttackEffect.NONE));
+
     }
 }

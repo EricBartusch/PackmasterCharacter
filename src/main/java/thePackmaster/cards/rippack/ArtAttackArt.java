@@ -11,7 +11,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
-import thePackmaster.vfx.rippack.ArtAttackEffect;
+import thePackmaster.vfx.rippack.ArtAttackArtEffect;
 
 import static com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect.NONE;
 import static thePackmaster.SpireAnniversary5Mod.makeID;
@@ -29,7 +29,7 @@ public class ArtAttackArt extends AbstractRippedArtCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        AbstractGameEffect rainbowEffect = ArtAttackEffect.RainbowBoomerang(m);
+        AbstractGameEffect rainbowEffect = ArtAttackArtEffect.RainbowBoomerang(m);
 
         CardCrawlGame.sound.play(makeID("yay"));
         atb(new VFXAction(rainbowEffect));
