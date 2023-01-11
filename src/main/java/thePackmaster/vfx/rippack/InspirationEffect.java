@@ -32,7 +32,7 @@ public class InspirationEffect {
         AbstractPlayer p = AbstractDungeon.player;
         return new VfxBuilder(BRIGHT, p.hb.cX + 100.0f * Settings.scale, p.hb.cY + 100.0f * Settings.scale, 1.0f)
                 .setScale(0.6f)
-                .playSoundAt(0.0F, makeID("ding"))
+                .playSoundAt(0.0F, makeID("RipPack_Ding"))
                 .fadeOut(0.5f)
                 .build();
     }

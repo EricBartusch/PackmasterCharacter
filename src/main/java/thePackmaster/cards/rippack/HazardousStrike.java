@@ -2,11 +2,11 @@ package thePackmaster.cards.rippack;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
-import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import thePackmaster.actions.rippack.ExhaustRandomNonArtCardsAction;
-import thePackmaster.vfx.rippack.SlashDiagonalOppositeEffect;
+import thePackmaster.vfx.rippack.HazardousStrikeEffect;
 
 import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.util.Wiz.atb;
@@ -23,6 +23,7 @@ public class HazardousStrike extends AbstractRippableCard {
         super(ID, 3, CardType.ATTACK, CardRarity.UNCOMMON, CardTarget.ENEMY);
         baseDamage = damage = 28;
         baseMagicNumber = magicNumber = 3;
+        tags.add(CardTags.STRIKE);
         if (artCard == null && textCard == null) {
             setRippedCards(new HazardousStrikeArt(this), new HazardousStrikeText(this));
         } else if(artCard == null){
@@ -39,8 +40,17 @@ public class HazardousStrike extends AbstractRippableCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        dmg(m, AbstractGameAction.AttackEffect.SLASH_DIAGONAL);
-        atb(new VFXAction(new SlashDiagonalOppositeEffect(m.hb.cX, m.hb.cY, true)));
+        AbstractGameEffect yeet = HazardousStrikeEffect.SwordThrow(m);
+        atb(new VFXAction(yeet));
+        atb(new AbstractGameAction() {
+            @Override
+            public void update() {
+                if (yeet.isDone) {
+                    isDone = true;
+                }
+            }
+        });
+        dmg(m, AbstractGameAction.AttackEffect.NONE);
     }
 
     @Override

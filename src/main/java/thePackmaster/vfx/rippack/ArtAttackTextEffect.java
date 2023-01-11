@@ -77,7 +77,7 @@ public class ArtAttackTextEffect extends AbstractGameEffect {
         duration -= Gdx.graphics.getDeltaTime();
         if (duration < 0.0F) {
             isDone = true;
-            CardCrawlGame.sound.play(makeID("splash"));
+            CardCrawlGame.sound.play(makeID("RipPack_Splash"));
         } else if (duration < 0.2F) {
             if (!impactHook) {
                 impactHook = true;

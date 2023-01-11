@@ -58,11 +58,11 @@ public class ShowCardAndRipEffect extends AbstractGameEffect {
 
     public void update() {
         if(duration == EFFECT_DUR) {
-            CardCrawlGame.sound.play(makeID("rip"));
+            CardCrawlGame.sound.play(makeID("RipPack_Rip"));
         }
 
         if(duration < EFFECT_DUR / 1.5f && !hasPlayedSound && artCard instanceof SurprisePackArt) {
-            CardCrawlGame.sound.play(makeID("party"));
+            CardCrawlGame.sound.play(makeID("RipPack_Party"));
             hasPlayedSound = true;
         }
         if(duration < EFFECT_DUR / 2.0F) {

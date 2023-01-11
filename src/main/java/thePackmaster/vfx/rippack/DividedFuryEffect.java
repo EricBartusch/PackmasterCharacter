@@ -59,7 +59,7 @@ public class DividedFuryEffect {
                     .build();
         } else {
             return new VfxBuilder(SPEAR, p.hb.cX, p.hb.cY + (p.hb.height / 2), 0.5f)
-                    .playSoundAt(0.01f, makeID("spearCharge"))
+                    .playSoundAt(0.01f, makeID("RipPack_Charge"))
                     .setAngle(angle)
                     .setColor(color)
                     .scale(0.0f, 0.3f)
@@ -81,7 +81,7 @@ public class DividedFuryEffect {
                                     .setColor(color)
                                     .build(), 0.01f)
                     .andThen(0.2f)
-                    .playSoundAt(0.01f, makeID("spearThrow"))
+                    .playSoundAt(0.01f, makeID("RipPack_SpearThrow"))
                     .setScale(0.3f)
                     .moveX(p.hb.cX, c.hb.cX)
                     .moveY(p.hb.cY + (p.hb.height / 2), c.hb.cY)
@@ -118,7 +118,7 @@ public class DividedFuryEffect {
         } else {
             return new VfxBuilder(SPEAR, p.hb.cX, p.hb.cY + (p.hb.height / 2), 0.25f)
                     .setAngle(angle)
-                    .playSoundAt(0.01f, makeID("spearThrow"))
+                    .playSoundAt(0.01f, makeID("RipPack_SpearThrow"))
                     .setScale(0.3f)
                     .moveX(p.hb.cX, c.hb.cX)
                     .moveY(p.hb.cY + (p.hb.height / 2), c.hb.cY)

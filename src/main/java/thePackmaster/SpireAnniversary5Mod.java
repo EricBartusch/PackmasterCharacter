@@ -308,14 +308,14 @@ public class SpireAnniversary5Mod implements
         BaseMod.addAudio(ELEPHANT_KEY, ELEPHANT_OGG);
         BaseMod.addAudio(PEW_KEY, PEW_OGG);
         BaseMod.addAudio("UpgradesPack_ShortUpgrade","anniv5Resources/audio/UpgradesPack_ShortUpgrade.ogg");
-        BaseMod.addAudio(makeID("rip"), makePath("audio/rippack/rip.mp3"));
-        BaseMod.addAudio(makeID("yay"), makePath("audio/rippack/yay.ogg"));
-        BaseMod.addAudio(makeID("ding"), makePath("audio/rippack/ding.ogg"));
-        BaseMod.addAudio(makeID("spearCharge"), makePath("audio/rippack/spearcharge.mp3"));
-        BaseMod.addAudio(makeID("spearThrow"), makePath("audio/rippack/spearthrow.mp3"));
-        BaseMod.addAudio(makeID("morningStarThrow"), makePath("audio/rippack/scythe.ogg"));
-        BaseMod.addAudio(makeID("party"), makePath("audio/rippack/party.ogg"));
-        BaseMod.addAudio(makeID("splash"), makePath("audio/rippack/splash.mp3"));
+        BaseMod.addAudio(makeID("RipPack_Rip"), makePath("audio/rippack/rip.mp3"));
+        BaseMod.addAudio(makeID("RipPack_Yay"), makePath("audio/rippack/yay.ogg"));
+        BaseMod.addAudio(makeID("RipPack_Ding"), makePath("audio/rippack/ding.ogg"));
+        BaseMod.addAudio(makeID("RipPack_Charge"), makePath("audio/rippack/spearcharge.mp3"));
+        BaseMod.addAudio(makeID("RipPack_SpearThrow"), makePath("audio/rippack/spearthrow.mp3"));
+        BaseMod.addAudio(makeID("RipPack_MorningStarThrow"), makePath("audio/rippack/scythe.ogg"));
+        BaseMod.addAudio(makeID("RipPack_Party"), makePath("audio/rippack/party.ogg"));
+        BaseMod.addAudio(makeID("RipPack_Splash"), makePath("audio/rippack/splash.mp3"));
 
     }
 

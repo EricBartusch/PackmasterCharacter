@@ -12,9 +12,11 @@ public class HazardousStrikeArt extends AbstractRippedArtCard {
 
     public HazardousStrikeArt() {
         super(ID, new HazardousStrike());
+        tags.add(CardTags.STRIKE);
     }
 
     public HazardousStrikeArt(HazardousStrike sourceCard) {
         super(ID, sourceCard);
+        tags.add(CardTags.STRIKE);
     }
 }

@@ -39,7 +39,7 @@ public class FlimsyBashEffect {
                                 .fadeOutFromAlpha(0.5f, 0.4f)
                                 .setScale(scale)
                                 .build(), 0.01f)
-                .playSoundAt(0.01f, makeID("morningStarThrow"))
+                .playSoundAt(0.01f, makeID("RipPack_MorningStarThrow"))
                 .rotate(-1000.0f)
                 .moveX(aboveHeadX, c.hb.cX)
                 .moveY(aboveHeadY, c.hb.cY)

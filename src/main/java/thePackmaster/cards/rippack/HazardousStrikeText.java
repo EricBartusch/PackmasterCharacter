@@ -12,10 +12,12 @@ public class HazardousStrikeText extends AbstractRippedTextCard {
 
     public HazardousStrikeText() {
         super(ID, new HazardousStrike());
+        tags.add(CardTags.STRIKE);
     }
 
     public HazardousStrikeText(HazardousStrike sourceCard) {
         super(ID, sourceCard);
+        tags.add(CardTags.STRIKE);
     }
 
     @Override

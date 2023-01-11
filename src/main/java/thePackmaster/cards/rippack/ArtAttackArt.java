@@ -31,7 +31,7 @@ public class ArtAttackArt extends AbstractRippedArtCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         AbstractGameEffect rainbowEffect = ArtAttackArtEffect.RainbowBoomerang(m);
 
-        CardCrawlGame.sound.play(makeID("yay"));
+        CardCrawlGame.sound.play(makeID("RipPack_Yay"));
         atb(new VFXAction(rainbowEffect));
         atb(new AbstractGameAction() {
             @Override
