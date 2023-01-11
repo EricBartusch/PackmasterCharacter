@@ -2,6 +2,7 @@ package thePackmaster.vfx.rippack;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -62,7 +63,11 @@ public class ShowCardAndRipEffect extends AbstractGameEffect {
         }
 
         if(duration < EFFECT_DUR / 1.5f && !hasPlayedSound && artCard instanceof SurprisePackArt) {
-            CardCrawlGame.sound.play(makeID("RipPack_Party"));
+            if(MathUtils.randomBoolean(0.01f)) {
+                CardCrawlGame.sound.play(makeID("RipPack_Ohh"));
+            } else {
+                CardCrawlGame.sound.play(makeID("RipPack_Party"));
+            }
             hasPlayedSound = true;
         }
         if(duration < EFFECT_DUR / 2.0F) {
