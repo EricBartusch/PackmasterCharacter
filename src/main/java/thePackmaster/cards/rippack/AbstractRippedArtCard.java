@@ -16,7 +16,7 @@ import java.util.List;
 
 import static thePackmaster.SpireAnniversary5Mod.*;
 
-public abstract class AbstractRippedArtCard extends AbstractPackmasterCard {
+public abstract class AbstractRippedArtCard extends AbstractRipCard {
 
     AbstractRippableCard sourceCard;
     public static ShaderProgram shader = null;

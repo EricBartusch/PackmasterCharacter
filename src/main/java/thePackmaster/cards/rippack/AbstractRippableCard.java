@@ -28,7 +28,7 @@ import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.util.Wiz.atb;
 import static thePackmaster.util.Wiz.att;
 
-public abstract class AbstractRippableCard extends AbstractPackmasterCard {
+public abstract class AbstractRippableCard extends AbstractRipCard {
     private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(makeID("Rip"));
     private AbstractGameAction action;
     protected ArrayList<AbstractCard> rippedParts;

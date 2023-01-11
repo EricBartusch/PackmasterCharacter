@@ -9,7 +9,7 @@ import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.util.Wiz.applyToSelf;
 
 
-public class DividedFury extends AbstractPackmasterCard {
+public class DividedFury extends AbstractRipCard {
     public final static String ID = makeID("DividedFury");
 
     public DividedFury() {

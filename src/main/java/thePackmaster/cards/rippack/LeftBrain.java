@@ -9,7 +9,7 @@ import thePackmaster.cards.AbstractPackmasterCard;
 import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.util.Wiz.atb;
 
-public class LeftBrain extends AbstractPackmasterCard {
+public class LeftBrain extends AbstractRipCard {
     public final static String ID = makeID("LeftBrain");
 
 
