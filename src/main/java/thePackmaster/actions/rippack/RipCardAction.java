@@ -52,6 +52,6 @@ public class RipCardAction extends AbstractGameAction {
             artCard.superFlash();
             textCard.superFlash();
         }
-        this.isDone = true;
+        isDone = true;
     }
 }
