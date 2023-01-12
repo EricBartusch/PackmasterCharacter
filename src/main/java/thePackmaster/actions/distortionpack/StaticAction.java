@@ -38,8 +38,8 @@ public class StaticAction extends AbstractGameAction {
             ApplyPowerAction instant = new ApplyPowerAction(m, p, new DistortionPower(m, p, m.lastDamageTaken), m.lastDamageTaken);
             ReflectionHacks.setPrivate(instant, ApplyPowerAction.class, "startingDuration", 0.01f);
             ReflectionHacks.setPrivate(instant, AbstractGameAction.class, "duration", 0.01f);
+            this.addToTop(new ImproveAction(m, m.lastDamageTaken, instant));
             this.addToTop(instant);
-            this.addToTop(new ImproveAction(m));
         }
 
         if (AbstractDungeon.getCurrRoom().monsters.areMonstersBasicallyDead()) {

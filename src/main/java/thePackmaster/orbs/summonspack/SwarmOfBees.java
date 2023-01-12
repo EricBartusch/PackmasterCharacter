@@ -7,7 +7,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
-import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.evacipated.cardcrawl.mod.stslib.patches.ColoredDamagePatch;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.common.DamageAction;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -17,6 +20,7 @@ import com.megacrit.cardcrawl.localization.OrbStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.powers.FocusPower;
 import thePackmaster.SpireAnniversary5Mod;
 import thePackmaster.util.Wiz;
 
@@ -24,10 +28,9 @@ import java.util.ArrayList;
 
 import static com.badlogic.gdx.math.MathUtils.*;
 import static thePackmaster.SpireAnniversary5Mod.makePath;
-import static thePackmaster.util.Wiz.adp;
-import static thePackmaster.util.Wiz.getRandomSlash;
+import static thePackmaster.util.Wiz.*;
 
-public class SwarmOfBees extends CustomOrb implements OnPlayCardOrb {
+public class SwarmOfBees extends CustomOrb {
     public static final String ORB_ID = SpireAnniversary5Mod.makeID(SwarmOfBees.class.getSimpleName());
     private static final OrbStrings orbString = CardCrawlGame.languagePack.getOrbString(ORB_ID);
     public static final String NAME = orbString.NAME;
@@ -36,8 +39,9 @@ public class SwarmOfBees extends CustomOrb implements OnPlayCardOrb {
     private static final String IMG_PATH = makePath("images/vfx/summonspack/Bee.png");
     private static final Texture BEE_IMG = ImageMaster.loadImage(IMG_PATH);
     private static final int BEE_COUNT = 120;
-    public static final int STING_DAMAGE = 1;
-    public static final int EVOKE_BONUS = 5;
+    public static final int BASE_PASSIVE = 2;
+    public static final int BASE_EVOKE = 6;
+    private static final Color STING_COLOR = Color.GOLDENROD.cpy();
 
     private final ArrayList<Bee> bees = new ArrayList<>();
 
@@ -139,10 +143,9 @@ public class SwarmOfBees extends CustomOrb implements OnPlayCardOrb {
 
     public SwarmOfBees()
     {
-        super(ORB_ID, NAME, STING_DAMAGE, 0, "", "", IMG_PATH_O);
-        basePassiveAmount = STING_DAMAGE;
-        baseEvokeAmount = basePassiveAmount + EVOKE_BONUS;
-        showEvokeValue = true;
+        super(ORB_ID, NAME, BASE_PASSIVE, BASE_EVOKE, "", "", IMG_PATH_O);
+        basePassiveAmount = BASE_PASSIVE;
+        showEvokeValue = false;
 
         generateBees();
 
@@ -160,13 +163,15 @@ public class SwarmOfBees extends CustomOrb implements OnPlayCardOrb {
 
     @Override
     public void applyFocus() {
-        AbstractPower power = adp().getPower("Focus");
-        if (power != null)
+        AbstractPower power = adp().getPower(FocusPower.POWER_ID);
+        if (power != null) {
             passiveAmount = Math.max(0, basePassiveAmount + power.amount);
-        else
+            evokeAmount = Math.max(0, baseEvokeAmount + power.amount);
+        }
+        else {
             passiveAmount = basePassiveAmount;
-
-        evokeAmount = passiveAmount + EVOKE_BONUS;
+            evokeAmount = baseEvokeAmount;
+        }
     }
 
     @Override
@@ -175,16 +180,25 @@ public class SwarmOfBees extends CustomOrb implements OnPlayCardOrb {
     }
 
     @Override
-    public void onPlayCard(AbstractCard card) {
-        AbstractMonster m = Wiz.getRandomEnemy();
-        Wiz.thornDmg(m, passiveAmount, getRandomSlash());
+    public void onEndOfTurn() {
+        for (AbstractMonster m : Wiz.getEnemies()) {
+            DamageInfo info = new DamageInfo(adp(), passiveAmount, DamageInfo.DamageType.THORNS);
+            AbstractGameAction action = new DamageAction(m, info, Wiz.getRandomSlash());
+            ColoredDamagePatch.DamageActionColorField.damageColor.set(action, STING_COLOR);
+            ColoredDamagePatch.DamageActionColorField.fadeSpeed.set(action, ColoredDamagePatch.FadeSpeed.NONE);
+            atb(action);
+        }
     }
 
     @Override
     public void onEvoke() {
-        AbstractMonster target = AbstractDungeon.getMonsters().getRandomMonster(true);
-        if (target != null)
-            Wiz.thornDmg(target, evokeAmount, getRandomSlash());
+        for (AbstractMonster m : Wiz.getEnemies()) {
+            DamageInfo info = new DamageInfo(adp(), passiveAmount, DamageInfo.DamageType.THORNS);
+            AbstractGameAction action = new DamageAction(m, info, Wiz.getRandomSlash());
+            ColoredDamagePatch.DamageActionColorField.damageColor.set(action, STING_COLOR);
+            ColoredDamagePatch.DamageActionColorField.fadeSpeed.set(action, ColoredDamagePatch.FadeSpeed.NONE);
+            atb(action);
+        }
     }
 
     @Override

@@ -1,44 +1,58 @@
 {
   "${ModID}:SummonBulldog": {
     "NAME": "Summon Bulldog",
-    "DESCRIPTION": "Channel a !M! damage ${ModID}:Bulldog."
+    "DESCRIPTION": "Channel a !M! damage ${ModID}:Bulldog.",
+    "FLAVOR": "I call him Bitey McBiteFace."
   },
   "${ModID}:SummonVegetables": {
     "NAME": "Summon Vegetables",
-    "DESCRIPTION": "Deal !D! damage for each attack played this turn, including this one."
+    "DESCRIPTION": "Deal !D! damage for each Skill played this turn.",
+    "EXTENDED_DESCRIPTION": [
+      " NL (",
+      " Skill played.)",
+      " Skills played.)"
+      ],
+    "FLAVOR": "Eat your vegetables."
   },
   "${ModID}:SummonTrees": {
     "NAME": "Summon Trees",
-    "DESCRIPTION": "Gain !B! Block. NL Take !M! less damage from Attacks this turn."
+    "DESCRIPTION": "Gain !B! Block. NL Take !M! less damage from Attacks this turn.",
+    "FLAVOR": "There's a lot of weapons that are awkward to swing when you're surrounded by obstacles.  Like trees."
   },
   "${ModID}:SummonElephant": {
     "NAME": "Summon Elephant",
-    "DESCRIPTION": "Deal !D! damage to ALL enemies. NL Take !M! damage. NL Exhaust."
+    "DESCRIPTION": "Deal !D! damage to ALL enemies. NL Take !M! damage.",
+    "FLAVOR": "This is my favorite card.  I hope you like it."
   },
   "${ModID}:SummonBrambles": {
     "NAME": "Summon Brambles",
-    "DESCRIPTION": "Gain !B! Block. NL Gain !M! Thorns."
+    "DESCRIPTION": "Gain !B! Block. NL Gain !M! Thorns.",
+    "FLAVOR": "I'm feeling thorny."
   },
-  "${ModID}:SummonPython": {
-    "NAME": "Summon Python",
-    "DESCRIPTION": "Apply !M! ${ModID}:Constricted."
+  "${ModID}:RainbowLouse": {
+    "NAME": "Rainbow Louse",
+    "DESCRIPTION": "Channel a ${ModID}:Rainbow\u00a0Louse.",
+    "FLAVOR": "The result of an unwise magic experiment."
   },
   "${ModID}:SummonBees": {
     "NAME": "Summon Bees",
-    "DESCRIPTION": "Channel a ${ModID}:Swarm\u00a0of\u00a0Bees X times. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "Channel a ${ModID}:Swarm\u00a0of\u00a0Bees X+1 times. NL Exhaust."
+    "DESCRIPTION": "Channel !M! ${ModID}:Swarms\u00a0of\u00a0Bees. NL Exhaust.",
+    "FLAVOR": "Absolutely terrifying."
   },
-  "${ModID}:SummonDisease": {
-    "NAME": "Summon Disease",
-    "DESCRIPTION": "Apply !${ModID}:m2! Weak. NL Enemy loses !M! Strength. NL Exhaust."
+  "${ModID}:Control": {
+    "NAME": "Control",
+    "DESCRIPTION": "Gain !M! Orb slots and !M! Focus.",
+    "FLAVOR": "It isn't just about what you can summon, but how effectively you can direct them."
   },
-  "${ModID}:SummonDemon": {
-    "NAME": "Summon Demon",
+  "${ModID}:DemonicRitual": {
+    "NAME": "Demonic Ritual",
     "DESCRIPTION": "Exhaust your hand. NL Gain Strength equal to its total cost.",
-    "UPGRADE_DESCRIPTION": "Exhaust your hand. NL Gain Strength equal to its total cost + 1."
+    "UPGRADE_DESCRIPTION": "Exhaust your hand. NL Gain Strength equal to its total cost + !M!.",
+    "FLAVOR": "This is a good idea and can not in anyway backfire."
   },
   "${ModID}:SummonPandas": {
     "NAME": "Summon Pandas",
-    "DESCRIPTION": "At the start of your turn, Channel a !M! damage ${ModID}:Panda."
+    "DESCRIPTION": "At the start of your turn, Channel a !M! damage ${ModID}:Panda.",
+    "FLAVOR": "Pandamonium."
   }
 }

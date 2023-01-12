@@ -3,7 +3,6 @@ package thePackmaster.packs;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import thePackmaster.SpireAnniversary5Mod;
-import thePackmaster.cards.dimensiongatepack.*;
 import thePackmaster.cards.summonspack.*;
 
 import java.util.ArrayList;
@@ -27,11 +26,11 @@ public class SummonsPack extends AbstractCardPack {
         cards.add(SummonTrees.ID);
         cards.add(SummonElephant.ID);
         cards.add(SummonBrambles.ID);
-        cards.add(SummonPython.ID);
+        cards.add(RainbowLouse.ID);
         cards.add(SummonBees.ID);
-        cards.add(SummonDemon.ID);
+        cards.add(DemonicRitual.ID);
         cards.add(SummonPandas.ID);
-        cards.add(SummonDisease.ID);
+        cards.add(Control.ID);
         return cards;
     }
 }
