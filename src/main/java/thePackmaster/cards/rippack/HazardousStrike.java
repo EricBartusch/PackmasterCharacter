@@ -40,12 +40,12 @@ public class HazardousStrike extends AbstractRippableCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        AbstractGameEffect yeet = HazardousStrikeEffect.SwordThrow(m);
-        atb(new VFXAction(yeet));
+        AbstractGameEffect hyyah = HazardousStrikeEffect.JumpSlash(m);
+        atb(new VFXAction(hyyah));
         atb(new AbstractGameAction() {
             @Override
             public void update() {
-                if (yeet.isDone) {
+                if (hyyah.isDone) {
                     isDone = true;
                 }
             }

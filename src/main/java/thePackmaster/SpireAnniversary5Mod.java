@@ -318,6 +318,7 @@ public class SpireAnniversary5Mod implements
         BaseMod.addAudio(makeID("RipPack_Splash"), makePath("audio/rippack/splash.mp3"));
         BaseMod.addAudio(makeID("RipPack_Ahh"), makePath("audio/rippack/ahh.ogg"));
         BaseMod.addAudio(makeID("RipPack_Ohh"), makePath("audio/rippack/ohh.mp3"));
+        BaseMod.addAudio(makeID("RipPack_Sword"), makePath("audio/rippack/sword.ogg"));
 
     }
 
