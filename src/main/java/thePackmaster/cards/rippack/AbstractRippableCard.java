@@ -5,11 +5,8 @@ import basemod.helpers.TooltipInfo;
 import com.evacipated.cardcrawl.mod.stslib.patches.HitboxRightClick;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
-import com.megacrit.cardcrawl.actions.common.DamageAllEnemiesAction;
-import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
@@ -17,7 +14,6 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.ThoughtBubble;
 import thePackmaster.actions.rippack.DividedFuryAction;
 import thePackmaster.actions.rippack.RipCardAction;
-import thePackmaster.cards.AbstractPackmasterCard;
 import thePackmaster.powers.rippack.DividedFuryPower;
 import thePackmaster.vfx.rippack.ShowCardAndRipEffect;
 
@@ -33,7 +29,6 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
     private AbstractGameAction action;
     protected ArrayList<AbstractCard> rippedParts;
     private static ArrayList<TooltipInfo> consumableTooltip;
-
     public static int cardsRippedThisTurn;
 
     public AbstractRippableCard(String cardID, int cost, CardType type, CardRarity rarity, CardTarget target) {
@@ -55,16 +50,19 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
     }
 
     public void onRightClick() {
-        if (canRip() && action == null) {
-            CardCrawlGame.sound.play("MAP_CLOSE", 0.0F);
-            att(new RipCardAction(this, rippedParts.get(0), rippedParts.get(1)));
-            att(new WaitAction(0.1f));
-            att(new WaitAction(0.1f));
-            att(new WaitAction(0.1f));
-            att(new WaitAction(0.1f));
-            att(new VFXAction(new ShowCardAndRipEffect(this)));
-        } else {
-            AbstractDungeon.effectList.add(new ThoughtBubble(AbstractDungeon.player.dialogX, AbstractDungeon.player.dialogY, 2.0F, uiStrings.TEXT[1], true));
+        if(action == null) {
+            if (canRip()) {
+                CardCrawlGame.sound.play("MAP_CLOSE", 0.0F);
+                action = new RipCardAction(this, rippedParts.get(0), rippedParts.get(1));
+                att(action);
+                att(new WaitAction(0.1f));
+                att(new WaitAction(0.1f));
+                att(new WaitAction(0.1f));
+                att(new WaitAction(0.1f));
+                att(new VFXAction(new ShowCardAndRipEffect(this)));
+            } else{
+                AbstractDungeon.effectList.add(new ThoughtBubble(AbstractDungeon.player.dialogX, AbstractDungeon.player.dialogY, 2.0F, uiStrings.TEXT[1], true));
+            }
         }
     }
 
