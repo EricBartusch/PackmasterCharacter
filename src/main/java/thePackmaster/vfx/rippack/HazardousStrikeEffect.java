@@ -19,6 +19,13 @@ public class HazardousStrikeEffect {
     public static Texture BOLT = new Texture(modID + "Resources/images/vfx/rippack/bolt.png");
     public static float scale = 0.3f;
 
+    public static AbstractGameEffect CutCardsInHand() {
+        return new VfxBuilder(SWORD, -20.0f * Settings.scale, 50.0f * Settings.scale, 0.75f)
+                .setAngle(270.0f)
+                .moveX(-20.0f * Settings.scale, Settings.WIDTH + 50.0f * Settings.scale)
+                .build();
+    }
+
 
     public static AbstractGameEffect SwordThrow(AbstractCreature c) {
         AbstractPlayer p = AbstractDungeon.player;

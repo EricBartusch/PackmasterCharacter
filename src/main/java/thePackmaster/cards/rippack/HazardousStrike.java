@@ -57,5 +57,6 @@ public class HazardousStrike extends AbstractRippableCard {
     public void onRip() {
         super.onRip();
         att(new ExhaustRandomNonArtCardsAction(magicNumber)); //att to it runs before making the new text/art cards in hand
+        att(new VFXAction(HazardousStrikeEffect.CutCardsInHand()));
     }
 }
