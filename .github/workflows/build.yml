@@ -3,9 +3,9 @@ name: Build Packmaster
 
 on:
   workflow_dispatch:
-  push:
+  pull_request:
     branches:
-      - testing/runner
+      - main
 
 jobs:
   build:
