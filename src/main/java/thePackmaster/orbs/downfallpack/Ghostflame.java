@@ -1,4 +1,4 @@
-package thePackmaster.orbs.downfallpack;
+package thePackmaster.orbs.downfallpack
 
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.Gdx;
