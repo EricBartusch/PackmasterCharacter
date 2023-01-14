@@ -11,6 +11,6 @@ jobs:
   build:
     runs-on: [self-hosted, StS]
     steps:
-      - uses: rtCamp/action-cleanup@master
+      # - uses: rtCamp/action-cleanup@master
       - uses: actions/checkout@v3
       - run: mvn clean package
