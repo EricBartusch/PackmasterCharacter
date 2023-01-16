@@ -20,7 +20,7 @@ public class Fury extends AbstractRippableCard {
 
     public Fury(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
         super(ID, 2, CardType.ATTACK, CardRarity.SPECIAL, CardTarget.ENEMY);
-        baseDamage = 16;
+        baseDamage = 14;
         if (artCard == null && textCard == null) {
             setRippedCards(new FuryArt(this), new FuryText(this));
         } else if(artCard == null){
@@ -32,7 +32,7 @@ public class Fury extends AbstractRippableCard {
 
     @Override
     public void upp() {
-        upgradeDamage(5);
+        upgradeDamage(4);
     }
 
     @Override
