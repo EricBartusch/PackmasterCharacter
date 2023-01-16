@@ -11,19 +11,15 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.ThoughtBubble;
 import thePackmaster.SpireAnniversary5Mod;
-import thePackmaster.actions.rippack.DividedFuryAction;
 import thePackmaster.actions.rippack.RipCardAction;
-import thePackmaster.powers.rippack.DividedFuryPower;
 import thePackmaster.vfx.rippack.ShowCardAndRipEffect;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static thePackmaster.SpireAnniversary5Mod.makeID;
-import static thePackmaster.util.Wiz.atb;
 import static thePackmaster.util.Wiz.att;
 
 public abstract class AbstractRippableCard extends AbstractRipCard {
@@ -104,10 +100,6 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
 
     public void onRip() {
         cardsRippedThisTurn++;
-        AbstractPower pow = AbstractDungeon.player.getPower(DividedFuryPower.POWER_ID);
-        if(pow != null) {
-            atb(new DividedFuryAction(this));
-        }
     }
 
 

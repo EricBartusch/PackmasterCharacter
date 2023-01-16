@@ -1,7 +1,8 @@
 {
   "${ModID}:DividedFury": {
     "NAME": "Divided Fury",
-    "DESCRIPTION": "When you *rip an Attack, deal !M! damage to ALL enemies. NL When you *rip a Skill, gain !M! Block."
+    "DESCRIPTION": "At the start of your turn, add a *Fury into your hand.",
+    "UPGRADE_DESCRIPTION": "Innate. NL At the start of your turn, add a *Fury into your hand."
   },
   "${ModID}:ViciousCycle": {
     "NAME": "Vicious Cycle",
@@ -125,5 +126,17 @@
     "NAME": "Left Brain",
     "DESCRIPTION": "Exhaust all Art cards in your hand, draw pile, and discard pile. NL Exhaust.",
     "UPGRADE_DESCRIPTION": "${ModID}:Unnate. NL Exhaust all Art cards in your hand, draw pile, and discard pile. NL Exhaust."
+  },
+  "${ModID}:Fury": {
+    "NAME": "Fury",
+    "DESCRIPTION": "Deal !D! damage."
+  },
+  "${ModID}:FuryArt": {
+    "NAME": "Fury",
+    "DESCRIPTION": ""
+  },
+  "${ModID}:FuryText": {
+    "NAME": "",
+    "DESCRIPTION": "Deal !D! damage."
   }
 }
