@@ -2,7 +2,7 @@ package thePackmaster.cards.rippack;
 
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import thePackmaster.actions.rippack.ExhaustAllArtCardsAction;
+import thePackmaster.actions.rippack.LeftBrainAction;
 
 import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.util.Wiz.atb;
@@ -13,7 +13,7 @@ public class LeftBrain extends AbstractRipCard {
 
     public LeftBrain() {
         super(ID, 0, CardType.SKILL, CardRarity.RARE, CardTarget.NONE);
-        exhaust = true;
+        baseMagicNumber = magicNumber = 1;
     }
 
     @Override
@@ -24,6 +24,6 @@ public class LeftBrain extends AbstractRipCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        atb(new ExhaustAllArtCardsAction());
+        atb(new LeftBrainAction());
     }
 }

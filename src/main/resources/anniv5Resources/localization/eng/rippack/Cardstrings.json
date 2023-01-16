@@ -124,8 +124,8 @@
   },
   "${ModID}:LeftBrain": {
     "NAME": "Left Brain",
-    "DESCRIPTION": "Exhaust all Art cards in your hand, draw pile, and discard pile. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "${ModID}:Unnate. NL Exhaust all Art cards in your hand, draw pile, and discard pile. NL Exhaust."
+    "DESCRIPTION": "Exhaust ALL your Art and Status cards. Gain !M! Strength for each card Exhausted.",
+    "UPGRADE_DESCRIPTION": "${ModID}:Unnate. NL Exhaust ALL your Art and Status cards. Gain !M! Strength for each card Exhausted."
   },
   "${ModID}:FuryAttack": {
     "NAME": "Fury",
