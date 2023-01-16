@@ -7,19 +7,14 @@ import static thePackmaster.SpireAnniversary5Mod.makeID;
 
 @NoCompendium
 @NoPools
-public class FuryText extends AbstractRippedTextCard {
-    public final static String ID = makeID("FuryText");
+public class FurySkillArt extends AbstractRippedArtCard {
+    public final static String ID = makeID("FurySkillArt");
 
-    public FuryText() {
-        super(ID, new Fury());
+    public FurySkillArt() {
+        super(ID, new FurySkill());
     }
 
-    public FuryText(Fury sourceCard) {
+    public FurySkillArt(FurySkill sourceCard) {
         super(ID, sourceCard);
-    }
-
-    @Override
-    public void upp() {
-        upgradeDamage(5);
     }
 }

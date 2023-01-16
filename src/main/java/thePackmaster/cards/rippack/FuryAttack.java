@@ -11,22 +11,22 @@ import thePackmaster.vfx.rippack.DividedFuryEffect;
 import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.util.Wiz.atb;
 
-public class Fury extends AbstractRippableCard {
-    public final static String ID = makeID("Fury");
+public class FuryAttack extends AbstractRippableCard {
+    public final static String ID = makeID("FuryAttack");
 
-    public Fury() {
+    public FuryAttack() {
         this(null, null);
     }
 
-    public Fury(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
+    public FuryAttack(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
         super(ID, 2, CardType.ATTACK, CardRarity.SPECIAL, CardTarget.ENEMY);
         baseDamage = 14;
         if (artCard == null && textCard == null) {
-            setRippedCards(new FuryArt(this), new FuryText(this));
+            setRippedCards(new FuryAttackArt(this), new FuryAttackText(this));
         } else if(artCard == null){
-            setRippedCards(new FuryArt(this), textCard);
+            setRippedCards(new FuryAttackArt(this), textCard);
         } else {
-            setRippedCards(artCard, new FuryText(this));
+            setRippedCards(artCard, new FuryAttackText(this));
         }
     }
 

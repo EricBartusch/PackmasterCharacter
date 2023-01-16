@@ -127,16 +127,28 @@
     "DESCRIPTION": "Exhaust all Art cards in your hand, draw pile, and discard pile. NL Exhaust.",
     "UPGRADE_DESCRIPTION": "${ModID}:Unnate. NL Exhaust all Art cards in your hand, draw pile, and discard pile. NL Exhaust."
   },
-  "${ModID}:Fury": {
+  "${ModID}:FuryAttack": {
     "NAME": "Fury",
     "DESCRIPTION": "Deal !D! damage."
   },
-  "${ModID}:FuryArt": {
+  "${ModID}:FuryAttackArt": {
     "NAME": "Fury",
     "DESCRIPTION": ""
   },
-  "${ModID}:FuryText": {
+  "${ModID}:FuryAttackText": {
     "NAME": "",
     "DESCRIPTION": "Deal !D! damage."
+  },
+  "${ModID}:FurySkill": {
+    "NAME": "Fury",
+    "DESCRIPTION": "Gain !B! Block."
+  },
+  "${ModID}:FurySkillArt": {
+    "NAME": "Fury",
+    "DESCRIPTION": ""
+  },
+  "${ModID}:FurySkillText": {
+    "NAME": "",
+    "DESCRIPTION": "Gain !B! Block."
   }
 }

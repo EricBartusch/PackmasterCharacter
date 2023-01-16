@@ -1,10 +1,12 @@
 package thePackmaster.powers.rippack;
 
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
-import thePackmaster.cards.rippack.Fury;
+import thePackmaster.cards.rippack.FuryAttack;
+import thePackmaster.cards.rippack.FurySkill;
 import thePackmaster.powers.AbstractPackmasterPower;
 
 import static thePackmaster.SpireAnniversary5Mod.makeID;
@@ -27,8 +29,10 @@ public class DividedFuryPower extends AbstractPackmasterPower {
     public void atStartOfTurn() {
         if (!AbstractDungeon.getMonsters().areMonstersBasicallyDead()) {
             flash();
-            for (int i = 0; i < amount; i++)
-                addToBot(new MakeTempCardInHandAction(new Fury()));
+            for (int i = 0; i < amount; i++) {
+                AbstractCard card = AbstractDungeon.cardRandomRng.randomBoolean() ? new FuryAttack() : new FurySkill();
+                addToBot(new MakeTempCardInHandAction(card));
+            }
         }
     }
 
