@@ -21,8 +21,8 @@ public class HazardousStrike extends AbstractRippableCard {
 
     public HazardousStrike(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
         super(ID, 3, CardType.ATTACK, CardRarity.UNCOMMON, CardTarget.ENEMY);
-        baseDamage = damage = 28;
-        baseMagicNumber = magicNumber = 3;
+        baseDamage = damage = 18;
+        baseMagicNumber = magicNumber = 2;
         tags.add(CardTags.STRIKE);
         if (artCard == null && textCard == null) {
             setRippedCards(new HazardousStrikeArt(this), new HazardousStrikeText(this));
@@ -35,7 +35,7 @@ public class HazardousStrike extends AbstractRippableCard {
 
     @Override
     public void upp() {
-        upgradeDamage(6);
+        upgradeDamage(8);
     }
 
     @Override
