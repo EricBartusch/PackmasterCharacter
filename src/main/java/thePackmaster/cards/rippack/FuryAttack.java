@@ -19,7 +19,7 @@ public class FuryAttack extends AbstractRippableCard {
     }
 
     public FuryAttack(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
-        super(ID, 2, CardType.ATTACK, CardRarity.SPECIAL, CardTarget.ENEMY);
+        super(ID, 2, CardType.ATTACK, CardRarity.SPECIAL, CardTarget.ENEMY, CardColor.COLORLESS);
         baseDamage = 14;
         if (artCard == null && textCard == null) {
             setRippedCards(new FuryAttackArt(this), new FuryAttackText(this));

@@ -13,7 +13,7 @@ public class FurySkill extends AbstractRippableCard {
     }
 
     public FurySkill(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
-        super(ID, 2, CardType.SKILL, CardRarity.SPECIAL, CardTarget.NONE);
+        super(ID, 2, CardType.SKILL, CardRarity.SPECIAL, CardTarget.NONE, CardColor.COLORLESS);
         baseBlock = 10;
         if (artCard == null && textCard == null) {
             setRippedCards(new FurySkillArt(this), new FurySkillText(this));

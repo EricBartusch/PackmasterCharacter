@@ -11,10 +11,10 @@ public class FurySkillArt extends AbstractRippedArtCard {
     public final static String ID = makeID("FurySkillArt");
 
     public FurySkillArt() {
-        super(ID, new FurySkill());
+        super(ID, new FurySkill(), CardColor.COLORLESS);
     }
 
     public FurySkillArt(FurySkill sourceCard) {
-        super(ID, sourceCard);
+        super(ID, sourceCard, CardColor.COLORLESS);
     }
 }

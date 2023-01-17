@@ -11,11 +11,11 @@ public class FurySkillText extends AbstractRippedTextCard {
     public final static String ID = makeID("FurySkillText");
 
     public FurySkillText() {
-        super(ID, new FurySkill());
+        super(ID, new FurySkill(), CardColor.COLORLESS);
     }
 
     public FurySkillText(FurySkill sourceCard) {
-        super(ID, sourceCard);
+        super(ID, sourceCard, CardColor.COLORLESS);
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.vfx.ThoughtBubble;
 import thePackmaster.SpireAnniversary5Mod;
+import thePackmaster.ThePackmaster;
 import thePackmaster.actions.rippack.RipCardAction;
 import thePackmaster.vfx.rippack.ShowCardAndRipEffect;
 
@@ -29,14 +30,18 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
     private static ArrayList<TooltipInfo> consumableTooltip;
     public static int cardsRippedThisTurn;
 
-    public AbstractRippableCard(String cardID, int cost, CardType type, CardRarity rarity, CardTarget target) {
-        super(cardID, cost, type, rarity, target);
+    public AbstractRippableCard(String cardID, int cost, CardType type, CardRarity rarity, CardTarget target, CardColor color) {
+        super(cardID, cost, type, rarity, target, color);
 
         if (!SpireAnniversary5Mod.oneFrameMode)
-        setBackgroundTexture(
-                "anniv5Resources/images/512/rip/" + type.name().toLowerCase() + "-rippable.png",
-                "anniv5Resources/images/1024/rip/" + type.name().toLowerCase() + "-rippable.png"
-        );
+            setBackgroundTexture(
+                    "anniv5Resources/images/512/rip/" + type.name().toLowerCase() + "-rippable.png",
+                    "anniv5Resources/images/1024/rip/" + type.name().toLowerCase() + "-rippable.png"
+            );
+    }
+
+    public AbstractRippableCard(String cardID, int cost, CardType type, CardRarity rarity, CardTarget target) {
+        this(cardID, cost, type, rarity, target, ThePackmaster.Enums.PACKMASTER_RAINBOW);
     }
 
     protected void setRippedCards(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
