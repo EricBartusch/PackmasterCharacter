@@ -3,6 +3,7 @@ package thePackmaster.cards.rippack;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import thePackmaster.actions.rippack.ExhaustRandomNonArtCardsAction;
@@ -57,6 +58,6 @@ public class HazardousStrike extends AbstractRippableCard {
     public void onRip() {
         super.onRip();
         att(new ExhaustRandomNonArtCardsAction(magicNumber)); //att to it runs before making the new text/art cards in hand
-        att(new VFXAction(HazardousStrikeEffect.CutCardsInHand()));
+        att(new VFXAction(AbstractDungeon.player, HazardousStrikeEffect.CutCardsInHand(), 0.25f,true));
     }
 }
