@@ -68,7 +68,7 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
                 att(new WaitAction(0.1f));
                 att(new WaitAction(0.1f));
                 att(new WaitAction(0.1f));
-//                att(new VFXAction(new ShowCardAndRipEffect(this)));
+                att(new VFXAction(new ShowCardAndRipEffect(this)));
             } else{
                 AbstractDungeon.effectList.add(new ThoughtBubble(AbstractDungeon.player.dialogX, AbstractDungeon.player.dialogY, 2.0F, uiStrings.TEXT[1], true));
             }

@@ -37,10 +37,8 @@ public class RipCardAction2 extends AbstractGameAction {
                 AbstractDungeon.player.releaseCard();
             }
             AbstractDungeon.actionManager.cardQueue.removeIf(q -> q.card == rippedCard);
-
             att(new MakeTempCardInHandAction(artCard));
             rippedCard.onRip();
-            AbstractDungeon.player.hand.removeCard(rippedCard);
             p.hand.applyPowers();
             p.hand.glowCheck();
             artCard.superFlash();
