@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.vfx.cardManip.CardFlashVfx;
 import com.megacrit.cardcrawl.vfx.cardManip.CardGlowBorder;
 import thePackmaster.cards.rippack.AbstractRippedArtCard;
+import thePackmaster.cards.rippack.ArtCard;
 
 import static thePackmaster.SpireAnniversary5Mod.modID;
 
@@ -29,7 +30,7 @@ public class ArtCardPatch {
 
         @SpirePrefixPatch()
         public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
-            if (__instance instanceof AbstractRippedArtCard) {
+            if (__instance instanceof AbstractRippedArtCard  || __instance instanceof ArtCard) {
                 sb.setShader(null);
             }
         }
@@ -40,7 +41,7 @@ public class ArtCardPatch {
 
         @SpirePostfixPatch()
         public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
-            if (__instance instanceof AbstractRippedArtCard) {
+            if (__instance instanceof AbstractRippedArtCard || __instance instanceof ArtCard) {
                 sb.setShader(shader);
             }
         }
@@ -53,7 +54,7 @@ public class ArtCardPatch {
 
         @SpirePrefixPatch()
         public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
-            if (__instance instanceof AbstractRippedArtCard) {
+            if (__instance instanceof AbstractRippedArtCard || __instance instanceof ArtCard) {
                 sb.setShader(null);
             }
         }
@@ -64,7 +65,7 @@ public class ArtCardPatch {
 
         @SpirePostfixPatch()
         public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
-            if (__instance instanceof AbstractRippedArtCard) {
+            if (__instance instanceof AbstractRippedArtCard || __instance instanceof ArtCard) {
                 sb.setShader(shader);
             }
         }
@@ -76,7 +77,7 @@ public class ArtCardPatch {
 
         @SpirePrefixPatch()
         public static void Prefix(CardFlashVfx __instance, SpriteBatch sb, AbstractCard ___card, Color ___color, boolean ___isSuper) {
-            if (___card instanceof AbstractRippedArtCard) {
+            if (___card instanceof AbstractRippedArtCard || ___card instanceof ArtCard) {
                 ReflectionHacks.setPrivate(__instance, CardFlashVfx.class, "img", new TextureAtlas.AtlasRegion(ART_GLOW, 0, 0, ART_GLOW.getWidth(), ART_GLOW.getHeight()));
 
             }
@@ -89,7 +90,7 @@ public class ArtCardPatch {
 
         @SpirePostfixPatch()
         public static void Postfix(CardGlowBorder __instance, AbstractCard ___card) {
-            if (___card instanceof AbstractRippedArtCard) {
+            if (___card instanceof AbstractRippedArtCard || ___card instanceof ArtCard) {
                 ReflectionHacks.setPrivate(__instance, CardGlowBorder.class, "img", new TextureAtlas.AtlasRegion(ART_GLOW, 0, 0, ART_GLOW.getWidth(), ART_GLOW.getHeight()));
             }
         }
@@ -101,7 +102,7 @@ public class ArtCardPatch {
 
         @SpirePrefixPatch()
         public static SpireReturn<TextureAtlas.AtlasRegion> Postfix(AbstractCard __instance) {
-            if (__instance instanceof AbstractRippedArtCard) {
+            if (__instance instanceof AbstractRippedArtCard || __instance instanceof ArtCard) {
                 return SpireReturn.Return(new TextureAtlas.AtlasRegion(ART_GLOW, 0, 0, ART_GLOW.getWidth(), ART_GLOW.getHeight()));
             }
             return SpireReturn.Continue();

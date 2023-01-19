@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.vfx.ThoughtBubble;
 import thePackmaster.SpireAnniversary5Mod;
 import thePackmaster.ThePackmaster;
 import thePackmaster.actions.rippack.RipCardAction;
+import thePackmaster.actions.rippack.RipCardAction2;
 import thePackmaster.vfx.rippack.ShowCardAndRipEffect;
 
 import java.util.ArrayList;
@@ -61,13 +62,13 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
     public void onRightClick() {
         if(action == null) {
             if (canRip()) {
-                action = new RipCardAction(this, rippedParts.get(0), rippedParts.get(1));
+                action = new RipCardAction2(this);
                 att(action);
                 att(new WaitAction(0.1f));
                 att(new WaitAction(0.1f));
                 att(new WaitAction(0.1f));
                 att(new WaitAction(0.1f));
-                att(new VFXAction(new ShowCardAndRipEffect(this)));
+//                att(new VFXAction(new ShowCardAndRipEffect(this)));
             } else{
                 AbstractDungeon.effectList.add(new ThoughtBubble(AbstractDungeon.player.dialogX, AbstractDungeon.player.dialogY, 2.0F, uiStrings.TEXT[1], true));
             }

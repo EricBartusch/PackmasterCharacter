@@ -1,4 +1,8 @@
 {
+  "${ModID}:ArtCard": {
+    "NAME": "",
+    "DESCRIPTION": ""
+  },
   "${ModID}:DividedFury": {
     "NAME": "Divided Fury",
     "DESCRIPTION": "At the start of your turn, add a *Fury into your hand.",
