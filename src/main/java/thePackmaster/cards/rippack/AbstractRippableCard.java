@@ -7,18 +7,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.evacipated.cardcrawl.mod.stslib.patches.HitboxRightClick;
+import com.evacipated.cardcrawl.modthespire.lib.SpireOverride;
+import com.evacipated.cardcrawl.modthespire.lib.SpireSuper;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.utility.WaitAction;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.vfx.ThoughtBubble;
 import thePackmaster.SpireAnniversary5Mod;
 import thePackmaster.ThePackmaster;
-import thePackmaster.actions.rippack.RipCardAction2;
-import thePackmaster.packs.AbstractCardPack;
+import thePackmaster.actions.rippack.RipCardAction;
 import thePackmaster.vfx.rippack.ShowCardAndRipEffect;
 
 import java.util.ArrayList;
@@ -50,11 +50,10 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
         this(cardID, cost, type, rarity, target, ThePackmaster.Enums.PACKMASTER_RAINBOW);
     }
 
-
     public void onRightClick() {
         if(action == null && !isRipped) {
             if (canRip()) {
-                action = new RipCardAction2(this);
+                action = new RipCardAction(this);
                 att(action);
                 att(new WaitAction(0.1f));
                 att(new WaitAction(0.1f));
@@ -131,6 +130,13 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
             sb.setShader(null);
         } else {
             super.render(sb);
+        }
+    }
+
+    @SpireOverride
+    public void renderEnergy(SpriteBatch sb) {
+        if(!isRipped) {
+            SpireSuper.call(sb);
         }
     }
 

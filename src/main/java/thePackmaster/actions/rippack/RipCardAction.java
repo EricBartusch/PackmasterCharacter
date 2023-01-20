@@ -7,20 +7,18 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import thePackmaster.cards.rippack.AbstractRippableCard;
+import thePackmaster.cards.rippack.ArtCard;
 
 import static thePackmaster.util.Wiz.att;
 
 public class RipCardAction extends AbstractGameAction {
     private AbstractRippableCard rippedCard;
-    private AbstractCard artCard;
-    private AbstractCard textCard;
+    private ArtCard artCard;
 
-    public RipCardAction(AbstractRippableCard rippedCard, AbstractCard artCard, AbstractCard textCard) {
+    public RipCardAction(AbstractRippableCard rippedCard) {
         this.actionType = ActionType.SPECIAL;
         this.duration = Settings.ACTION_DUR_MED;
         this.rippedCard = rippedCard;
-        this.artCard = artCard;
-        this.textCard = textCard;
     }
 
     @Override
@@ -34,24 +32,24 @@ public class RipCardAction extends AbstractGameAction {
             }
         }
         if(found && rippedCard != null) {
-            artCard.applyPowers();
-            textCard.applyPowers();
-            artCard.cost = rippedCard.cost;
-            artCard.costForTurn = rippedCard.costForTurn; //costs need to be updated if the base card's cost gets updated
+            artCard = new ArtCard(rippedCard);
+            rippedCard.cost = 0;
+            rippedCard.costForTurn = 0;
+            rippedCard.isRipped = true;
+            rippedCard.name = "";
             if (AbstractDungeon.player.hoveredCard == rippedCard) {
                 AbstractDungeon.player.releaseCard();
             }
             AbstractDungeon.actionManager.cardQueue.removeIf(q -> q.card == rippedCard);
-
-            att(new MakeTempCardInHandAction(textCard));
+            att(new MakeTempCardInHandAction(rippedCard));
             att(new MakeTempCardInHandAction(artCard));
             rippedCard.onRip();
             AbstractDungeon.player.hand.removeCard(rippedCard);
             p.hand.applyPowers();
             p.hand.glowCheck();
             artCard.superFlash();
-            textCard.superFlash();
         }
         isDone = true;
     }
+
 }
