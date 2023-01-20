@@ -20,21 +20,11 @@ import static thePackmaster.util.Wiz.att;
 public class FlimsyBash extends AbstractRippableCard {
     public final static String ID = makeID("FlimsyBash");
 
-    public FlimsyBash() {
-        this(null, null);
-    }
 
-    public FlimsyBash(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
+    public FlimsyBash() {
         super(ID, 2, CardType.ATTACK, CardRarity.COMMON, CardTarget.ENEMY);
         baseDamage = damage = 8;
         baseMagicNumber = magicNumber = 2;
-        if (artCard == null && textCard == null) {
-            setRippedCards(new FlimsyBashArt(this), new FlimsyBashText(this));
-        } else if(artCard == null){
-            setRippedCards(new FlimsyBashArt(this), textCard);
-        } else {
-            setRippedCards(artCard, new FlimsyBashText(this));
-        }
     }
 
     @Override

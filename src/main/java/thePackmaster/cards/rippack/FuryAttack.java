@@ -14,20 +14,10 @@ import static thePackmaster.util.Wiz.atb;
 public class FuryAttack extends AbstractRippableCard {
     public final static String ID = makeID("FuryAttack");
 
-    public FuryAttack() {
-        this(null, null);
-    }
 
-    public FuryAttack(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
+    public FuryAttack() {
         super(ID, 2, CardType.ATTACK, CardRarity.SPECIAL, CardTarget.ENEMY, CardColor.COLORLESS);
         baseDamage = 14;
-        if (artCard == null && textCard == null) {
-            setRippedCards(new FuryAttackArt(this), new FuryAttackText(this));
-        } else if(artCard == null){
-            setRippedCards(new FuryAttackArt(this), textCard);
-        } else {
-            setRippedCards(artCard, new FuryAttackText(this));
-        }
     }
 
     @Override

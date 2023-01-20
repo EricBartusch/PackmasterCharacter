@@ -16,22 +16,12 @@ import static thePackmaster.util.Wiz.att;
 public class HazardousStrike extends AbstractRippableCard {
     public final static String ID = makeID("HazardousStrike");
 
-    public HazardousStrike() {
-        this(null, null);
-    }
 
-    public HazardousStrike(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
+    public HazardousStrike() {
         super(ID, 3, CardType.ATTACK, CardRarity.UNCOMMON, CardTarget.ENEMY);
         baseDamage = damage = 18;
         baseMagicNumber = magicNumber = 2;
         tags.add(CardTags.STRIKE);
-        if (artCard == null && textCard == null) {
-            setRippedCards(new HazardousStrikeArt(this), new HazardousStrikeText(this));
-        } else if(artCard == null){
-            setRippedCards(new HazardousStrikeArt(this), textCard);
-        } else {
-            setRippedCards(artCard, new HazardousStrikeText(this));
-        }
     }
 
     @Override

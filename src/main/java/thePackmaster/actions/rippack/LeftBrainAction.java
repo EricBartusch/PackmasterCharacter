@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.StrengthPower;
-import thePackmaster.cards.rippack.AbstractRippedArtCard;
+import thePackmaster.cards.rippack.ArtCard;
 
 import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.util.Wiz.applyToSelfTop;
@@ -42,6 +42,6 @@ public class LeftBrainAction extends AbstractGameAction {
     }
 
     private boolean isArtOrStatus(AbstractCard c) {
-        return (c instanceof AbstractRippedArtCard || c.type == AbstractCard.CardType.STATUS);
+        return (c instanceof ArtCard || c.type == AbstractCard.CardType.STATUS);
     }
 }

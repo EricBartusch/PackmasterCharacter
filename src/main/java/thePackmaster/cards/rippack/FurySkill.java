@@ -8,20 +8,10 @@ import static thePackmaster.SpireAnniversary5Mod.makeID;
 public class FurySkill extends AbstractRippableCard {
     public final static String ID = makeID("FurySkill");
 
-    public FurySkill() {
-        this(null, null);
-    }
 
-    public FurySkill(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
+    public FurySkill() {
         super(ID, 2, CardType.SKILL, CardRarity.SPECIAL, CardTarget.NONE, CardColor.COLORLESS);
         baseBlock = 10;
-        if (artCard == null && textCard == null) {
-            setRippedCards(new FurySkillArt(this), new FurySkillText(this));
-        } else if(artCard == null){
-            setRippedCards(new FurySkillArt(this), textCard);
-        } else {
-            setRippedCards(artCard, new FurySkillText(this));
-        }
     }
 
     @Override

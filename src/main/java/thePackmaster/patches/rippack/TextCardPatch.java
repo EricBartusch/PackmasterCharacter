@@ -15,13 +15,12 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.vfx.cardManip.CardFlashVfx;
 import com.megacrit.cardcrawl.vfx.cardManip.CardGlowBorder;
 import thePackmaster.cards.rippack.AbstractRippableCard;
-import thePackmaster.cards.rippack.AbstractRippedTextCard;
 
 import static thePackmaster.SpireAnniversary5Mod.modID;
 
 public class TextCardPatch {
 
-    private static ShaderProgram shader = AbstractRippedTextCard.shader;
+    private static ShaderProgram shader = AbstractRippableCard.shader;
     private static final Texture TEXT_GLOW = ImageMaster.loadImage(modID + "Resources/images/512/rip/card_text.png");
 
     //Completely skip rendering the portrait on text cards
@@ -116,7 +115,6 @@ public class TextCardPatch {
     }
 
     private static boolean shouldApply(AbstractCard card) {
-        return card instanceof AbstractRippedTextCard ||
-                (card instanceof AbstractRippableCard && ((AbstractRippableCard)card).isRipped);
+        return card instanceof AbstractRippableCard && ((AbstractRippableCard)card).isRipped;
     }
 }

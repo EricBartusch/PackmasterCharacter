@@ -31,7 +31,6 @@ import static thePackmaster.util.Wiz.att;
 public abstract class AbstractRippableCard extends AbstractRipCard {
     private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(makeID("Rip"));
     private AbstractGameAction action;
-    protected ArrayList<AbstractCard> rippedParts;
     private static ArrayList<TooltipInfo> consumableTooltip;
     public static int cardsRippedThisTurn;
     public boolean isRipped = false;
@@ -51,19 +50,6 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
         this(cardID, cost, type, rarity, target, ThePackmaster.Enums.PACKMASTER_RAINBOW);
     }
 
-    protected void setRippedCards(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
-        rippedParts = new ArrayList<>();
-        if(upgraded) {
-            artCard.upgrade();
-            textCard.upgrade();
-        }
-        rippedParts.add(artCard);
-        rippedParts.add(textCard);
-    }
-
-    public ArrayList<AbstractCard> getRippedParts() {
-        return rippedParts;
-    }
 
     public void onRightClick() {
         if(action == null && !isRipped) {
@@ -79,19 +65,6 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
                 AbstractDungeon.effectList.add(new ThoughtBubble(AbstractDungeon.player.dialogX, AbstractDungeon.player.dialogY, 2.0F, uiStrings.TEXT[1], true));
             }
         }
-    }
-
-    //For use when needing an upgraded version of the source card for `use`
-    //If we try to upgrade the parts here too, you Stack Overflow
-    public void upgradeJustSource() {
-        super.upgrade();
-    }
-
-    @Override
-    public void upgrade() {
-        super.upgrade();
-        rippedParts.get(0).upgrade();
-        rippedParts.get(1).upgrade();
     }
 
     @Override

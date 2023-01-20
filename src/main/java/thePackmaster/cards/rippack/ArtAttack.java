@@ -16,20 +16,9 @@ public class ArtAttack extends AbstractRippableCard {
     public final static String ID = makeID("ArtAttack");
 
     public ArtAttack() {
-        this(null, null);
-    }
-
-    public ArtAttack(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
         super(ID, 1, CardType.ATTACK, CardRarity.RARE, CardTarget.ENEMY);
         baseDamage = damage = 12;
         baseMagicNumber = magicNumber = 12;
-        if (artCard == null && textCard == null) {
-            setRippedCards(new ArtAttackArt(this), new ArtAttackText(this));
-        } else if(artCard == null){
-            setRippedCards(new ArtAttackArt(this), textCard);
-        } else {
-            setRippedCards(artCard, new ArtAttackText(this));
-        }
     }
 
     @Override

@@ -10,21 +10,11 @@ import static thePackmaster.util.Wiz.atb;
 public class FragileShrug extends AbstractRippableCard {
     public final static String ID = makeID("FragileShrug");
 
-    public FragileShrug() {
-        this(null, null);
-    }
 
-    public FragileShrug(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
+    public FragileShrug() {
         super(ID, 1, CardType.SKILL, CardRarity.COMMON, CardTarget.NONE);
         baseBlock = block = 7;
         baseMagicNumber = magicNumber = 1;
-        if (artCard == null && textCard == null) {
-            setRippedCards(new FragileShrugArt(this), new FragileShrugText(this));
-        } else if(artCard == null){
-            setRippedCards(new FragileShrugArt(this), textCard);
-        } else {
-            setRippedCards(artCard, new FragileShrugText(this));
-        }
     }
 
     @Override

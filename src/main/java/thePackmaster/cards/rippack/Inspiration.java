@@ -17,28 +17,18 @@ import static thePackmaster.util.Wiz.atb;
 public class Inspiration extends AbstractRippableCard {
     public final static String ID = makeID("Inspiration");
 
-    public Inspiration() {
-        this(null, null);
-    }
 
-    public Inspiration(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
+    public Inspiration() {
         super(ID, 0, CardType.SKILL, CardRarity.UNCOMMON, CardTarget.NONE);
         baseDamage = damage = 12;
         baseMagicNumber = magicNumber = 12;
-        if (artCard == null && textCard == null) {
-            setRippedCards(new InspirationArt(this), new InspirationText(this));
-        } else if(artCard == null){
-            setRippedCards(new InspirationArt(this), textCard);
-        } else {
-            setRippedCards(artCard, new InspirationText(this));
-        }
         exhaust = true;
     }
 
     @Override
     public void applyPowers() {
         super.applyPowers();
-        int artCardsInExhaust = AbstractDungeon.player.exhaustPile.group.stream().filter(card -> card instanceof AbstractRippedArtCard).collect(Collectors.toList()).size();
+        int artCardsInExhaust = AbstractDungeon.player.exhaustPile.group.stream().filter(card -> card instanceof ArtCard).collect(Collectors.toList()).size();
         rawDescription = upgraded ? cardStrings.UPGRADE_DESCRIPTION : cardStrings.DESCRIPTION;
         rawDescription += cardStrings.EXTENDED_DESCRIPTION[0] + artCardsInExhaust;
         if (artCardsInExhaust == 1) {
@@ -57,7 +47,7 @@ public class Inspiration extends AbstractRippableCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        int statusAndArtCardsInExhaust = AbstractDungeon.player.exhaustPile.group.stream().filter(card -> card instanceof AbstractRippedArtCard || card.type == CardType.STATUS).collect(Collectors.toList()).size();
+        int statusAndArtCardsInExhaust = AbstractDungeon.player.exhaustPile.group.stream().filter(card -> card instanceof ArtCard || card.type == CardType.STATUS).collect(Collectors.toList()).size();
 
         AbstractGameEffect off = InspirationEffect.Off();
         atb(new VFXAction(off));

@@ -13,21 +13,11 @@ import static thePackmaster.util.Wiz.atb;
 public class SurprisePack extends AbstractRippableCard {
     public final static String ID = makeID("SurprisePack");
 
-    public SurprisePack() {
-        this(null, null);
-    }
 
-    public SurprisePack(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
+    public SurprisePack() {
         super(ID, 1, CardType.SKILL, CardRarity.RARE, CardTarget.NONE);
         baseMagicNumber = magicNumber = 3;
         baseSecondMagic = secondMagic = 1;
-        if (artCard == null && textCard == null) {
-            setRippedCards(new SurprisePackArt(this), new SurprisePackText(this));
-        } else if(artCard == null){
-            setRippedCards(new SurprisePackArt(this), textCard);
-        } else {
-            setRippedCards(artCard, new SurprisePackText(this));
-        }
     }
 
     @Override

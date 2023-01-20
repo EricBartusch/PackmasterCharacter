@@ -14,20 +14,10 @@ import static thePackmaster.util.Wiz.atb;
 public class ViciousCycle extends AbstractRippableCard {
     public final static String ID = makeID("ViciousCycle");
 
-    public ViciousCycle() {
-        this(null, null);
-    }
 
-    public ViciousCycle(AbstractRippedArtCard artCard, AbstractRippedTextCard textCard) {
+    public ViciousCycle() {
         super(ID, 1, CardType.ATTACK, CardRarity.UNCOMMON, CardTarget.ENEMY);
         baseDamage = damage = 6;
-        if (artCard == null && textCard == null) {
-            setRippedCards(new ViciousCycleArt(this), new ViciousCycleText(this));
-        } else if(artCard == null){
-            setRippedCards(new ViciousCycleArt(this), textCard);
-        } else {
-            setRippedCards(artCard, new ViciousCycleText(this));
-        }
     }
 
     @Override
