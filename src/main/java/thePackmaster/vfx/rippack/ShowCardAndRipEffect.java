@@ -18,13 +18,11 @@ public class ShowCardAndRipEffect extends AbstractGameEffect {
 
     private ArtCard artCard;
     private AbstractCard textCard;
-    private AbstractCard sourceCard;
     private boolean hasPlayedSound;
 
     public ShowCardAndRipEffect(AbstractRippableCard sourceCard) {
         this.artCard = new ArtCard(sourceCard);
         this.textCard = sourceCard.makeStatEquivalentCopy();
-        this.sourceCard = sourceCard;
         identifySpawnLocation(Settings.WIDTH / 2.0F, Settings.HEIGHT / 2.0F);
         this.duration = EFFECT_DUR;
 
@@ -59,7 +57,6 @@ public class ShowCardAndRipEffect extends AbstractGameEffect {
     public void update() {
         if(duration == EFFECT_DUR) {
             CardCrawlGame.sound.play(makeID("RipPack_Rip"));
-            AbstractDungeon.player.limbo.addToTop(sourceCard);
         }
 
         if(duration < EFFECT_DUR / 1.5f && !hasPlayedSound && textCard instanceof SurprisePackArt) {
@@ -79,7 +76,6 @@ public class ShowCardAndRipEffect extends AbstractGameEffect {
         artCard.update();
         textCard.update();
         if (duration < 0.0F) {
-            AbstractDungeon.player.limbo.addToHand(sourceCard);
             isDone = true;
         }
     }
