@@ -18,6 +18,7 @@ import com.megacrit.cardcrawl.vfx.ThoughtBubble;
 import thePackmaster.SpireAnniversary5Mod;
 import thePackmaster.ThePackmaster;
 import thePackmaster.actions.rippack.RipCardAction2;
+import thePackmaster.packs.AbstractCardPack;
 import thePackmaster.vfx.rippack.ShowCardAndRipEffect;
 
 import java.util.ArrayList;
@@ -65,9 +66,8 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
     }
 
     public void onRightClick() {
-        if(action == null) {
+        if(action == null && !isRipped) {
             if (canRip()) {
-                updateRippedCardValues();
                 action = new RipCardAction2(this);
                 att(action);
                 att(new WaitAction(0.1f));
@@ -79,14 +79,6 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
                 AbstractDungeon.effectList.add(new ThoughtBubble(AbstractDungeon.player.dialogX, AbstractDungeon.player.dialogY, 2.0F, uiStrings.TEXT[1], true));
             }
         }
-    }
-
-    private void updateRippedCardValues() {
-        cost = 0;
-        costForTurn = 0;
-        isRipped = true;
-        name = "";
-        initializeTitle();
     }
 
     //For use when needing an upgraded version of the source card for `use`
@@ -130,9 +122,13 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
 
     @Override
     public List<String> getCardDescriptors() {
-        ArrayList<String> retVal = new ArrayList<>();
-        retVal.add(uiStrings.TEXT[0]);
-        return retVal;
+        if(!isRipped) {
+            ArrayList<String> retVal = new ArrayList<>();
+            retVal.add(uiStrings.TEXT[0]);
+            return retVal;
+        } else {
+            return super.getCardDescriptors();
+        }
     }
 
     public void clickUpdate() {
@@ -162,6 +158,15 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
             sb.setShader(null);
         } else {
             super.render(sb);
+        }
+    }
+
+    @Override
+    public String getTopText() {
+        if(isRipped) {
+            return null;
+        } else {
+            return super.getTopText();
         }
     }
 

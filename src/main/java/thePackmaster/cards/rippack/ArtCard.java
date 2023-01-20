@@ -65,6 +65,7 @@ public class ArtCard extends AbstractRipCard {
         loadCardImage(makeImagePath("cards/" + sourceCard.cardID.replace(modID + ":", "") + ".png"));
         exhaust = true;
         baseMagicNumber = magicNumber = 12;
+        upgraded = sourceCard.upgraded;
     }
 
     @Override
