@@ -103,8 +103,20 @@ public class TextCardPatch {
         }
     }
 
+    @SpirePatch(clz = AbstractCard.class, method = "makeStatEquivalentCopy")
+    public static class CopyRippedStatus {
+
+        @SpirePostfixPatch
+        public static AbstractCard Postfix(AbstractCard __result, AbstractCard __instance) {
+            if(__instance instanceof AbstractRippableCard && __result instanceof AbstractRippableCard) {
+                ((AbstractRippableCard) __result).isRipped = ((AbstractRippableCard) __instance).isRipped;
+            }
+            return __result;
+        }
+    }
+
     private static boolean shouldApply(AbstractCard card) {
         return card instanceof AbstractRippedTextCard ||
-                card instanceof AbstractRippableCard && ((AbstractRippableCard)card).isRipped;
+                (card instanceof AbstractRippableCard && ((AbstractRippableCard)card).isRipped);
     }
 }

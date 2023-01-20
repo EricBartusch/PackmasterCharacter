@@ -47,4 +47,5 @@ public class RipCardAction2 extends AbstractGameAction {
         }
         isDone = true;
     }
+
 }
