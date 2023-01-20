@@ -23,6 +23,7 @@ public class ShowCardAndRipEffect extends AbstractGameEffect {
     public ShowCardAndRipEffect(AbstractRippableCard sourceCard) {
         artCard = new ArtCard(sourceCard);
         textCard = sourceCard.makeStatEquivalentCopy();
+        ((AbstractRippableCard)textCard).isRipped = true;
         identifySpawnLocation(Settings.WIDTH / 2.0F, Settings.HEIGHT / 2.0F);
         this.duration = EFFECT_DUR;
 

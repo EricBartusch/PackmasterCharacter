@@ -14,6 +14,7 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.vfx.cardManip.CardFlashVfx;
 import com.megacrit.cardcrawl.vfx.cardManip.CardGlowBorder;
+import thePackmaster.cards.rippack.AbstractRippableCard;
 import thePackmaster.cards.rippack.AbstractRippedTextCard;
 
 import static thePackmaster.SpireAnniversary5Mod.modID;
@@ -29,7 +30,7 @@ public class TextCardPatch {
 
         @SpirePrefixPatch()
         public static SpireReturn Prefix(AbstractCard __instance, SpriteBatch sb) {
-            if (__instance instanceof AbstractRippedTextCard) {
+            if (shouldApply(__instance)) {
                 return SpireReturn.Return();
             } else {
                 return SpireReturn.Continue();
@@ -46,7 +47,7 @@ public class TextCardPatch {
 
         @SpirePrefixPatch()
         public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
-            if (__instance instanceof AbstractRippedTextCard) {
+            if (shouldApply(__instance)) {
                 sb.setShader(null);
             }
         }
@@ -59,7 +60,7 @@ public class TextCardPatch {
 
         @SpirePostfixPatch()
         public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
-            if (__instance instanceof AbstractRippedTextCard) {
+            if (shouldApply(__instance)) {
                 sb.setShader(shader);
             }
         }
@@ -71,7 +72,7 @@ public class TextCardPatch {
 
         @SpirePrefixPatch()
         public static void Prefix(CardFlashVfx __instance, SpriteBatch sb, AbstractCard ___card, Color ___color, boolean ___isSuper) {
-            if (___card instanceof AbstractRippedTextCard) {
+            if (shouldApply(___card)) {
                 ReflectionHacks.setPrivate(__instance, CardFlashVfx.class, "img", new TextureAtlas.AtlasRegion(TEXT_GLOW, 0, 0, TEXT_GLOW.getWidth(), TEXT_GLOW.getHeight()));
             }
         }
@@ -83,7 +84,7 @@ public class TextCardPatch {
 
         @SpirePostfixPatch()
         public static void Postfix(CardGlowBorder __instance, AbstractCard ___card) {
-            if (___card instanceof AbstractRippedTextCard) {
+            if (shouldApply(___card)) {
                 ReflectionHacks.setPrivate(__instance, CardGlowBorder.class, "img", new TextureAtlas.AtlasRegion(TEXT_GLOW, 0, 0, TEXT_GLOW.getWidth(), TEXT_GLOW.getHeight()));
             }
         }
@@ -95,10 +96,15 @@ public class TextCardPatch {
 
         @SpirePrefixPatch()
         public static SpireReturn<TextureAtlas.AtlasRegion> Postfix(AbstractCard __instance) {
-            if (__instance instanceof AbstractRippedTextCard) {
+            if (shouldApply(__instance)) {
                 return SpireReturn.Return(new TextureAtlas.AtlasRegion(TEXT_GLOW, 0, 0, TEXT_GLOW.getWidth(), TEXT_GLOW.getHeight()));
             }
             return SpireReturn.Continue();
         }
+    }
+
+    private static boolean shouldApply(AbstractCard card) {
+        return card instanceof AbstractRippedTextCard ||
+                card instanceof AbstractRippableCard && ((AbstractRippableCard)card).isRipped;
     }
 }

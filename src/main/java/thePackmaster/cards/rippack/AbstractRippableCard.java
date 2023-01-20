@@ -2,10 +2,13 @@ package thePackmaster.cards.rippack;
 
 import basemod.BaseMod;
 import basemod.helpers.TooltipInfo;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.evacipated.cardcrawl.mod.stslib.patches.HitboxRightClick;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
-import com.megacrit.cardcrawl.actions.utility.SFXAction;
 import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -14,7 +17,6 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.vfx.ThoughtBubble;
 import thePackmaster.SpireAnniversary5Mod;
 import thePackmaster.ThePackmaster;
-import thePackmaster.actions.rippack.RipCardAction;
 import thePackmaster.actions.rippack.RipCardAction2;
 import thePackmaster.vfx.rippack.ShowCardAndRipEffect;
 
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static thePackmaster.SpireAnniversary5Mod.makeID;
+import static thePackmaster.SpireAnniversary5Mod.makeShaderPath;
 import static thePackmaster.util.Wiz.att;
 
 public abstract class AbstractRippableCard extends AbstractRipCard {
@@ -30,6 +33,8 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
     protected ArrayList<AbstractCard> rippedParts;
     private static ArrayList<TooltipInfo> consumableTooltip;
     public static int cardsRippedThisTurn;
+    public boolean isRipped = false;
+    public static ShaderProgram shader = null;
 
     public AbstractRippableCard(String cardID, int cost, CardType type, CardRarity rarity, CardTarget target, CardColor color) {
         super(cardID, cost, type, rarity, target, color);
@@ -137,5 +142,35 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
         List<TooltipInfo> compoundList = new ArrayList<>(consumableTooltip);
         if (super.getCustomTooltipsTop() != null) compoundList.addAll(super.getCustomTooltipsTop());
         return compoundList;
+    }
+
+    @Override
+    public void render(SpriteBatch sb) {
+        if(isRipped) {
+            initShader();
+            sb.setShader(shader);
+            super.render(sb);
+            sb.setShader(null);
+        }
+    }
+
+    private static void initShader() {
+        if (shader == null) {
+            try {
+                shader = new ShaderProgram(
+                        Gdx.files.internal(makeShaderPath("rippack/textHalf/vertex.vs")),
+                        Gdx.files.internal(makeShaderPath("rippack/textHalf/fragment.fs"))
+                );
+                if (!shader.isCompiled()) {
+                    System.err.println(shader.getLog());
+                }
+                if (shader.getLog().length() > 0) {
+                    System.out.println(shader.getLog());
+                }
+            } catch (GdxRuntimeException e) {
+                System.out.println("ERROR: Failed to init textHalf shader:");
+                e.printStackTrace();
+            }
+        }
     }
 }
