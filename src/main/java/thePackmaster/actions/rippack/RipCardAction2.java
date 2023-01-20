@@ -40,6 +40,7 @@ public class RipCardAction2 extends AbstractGameAction {
             att(new MakeTempCardInHandAction(artCard));
             att(new MakeTempCardInHandAction(rippedCard));
             rippedCard.onRip();
+            AbstractDungeon.player.hand.removeCard(rippedCard);
             p.hand.applyPowers();
             p.hand.glowCheck();
             artCard.superFlash();
