@@ -23,8 +23,9 @@ public class TextCardPatch {
     private static ShaderProgram shader = AbstractRippableCard.shader;
     private static final Texture TEXT_GLOW = ImageMaster.loadImage(modID + "Resources/images/512/rip/card_text.png");
 
-    //Completely skip rendering the portrait on text cards
+    //Completely skip rendering the portrait and title on text cards
     @SpirePatch(clz = AbstractCard.class, method = "renderPortrait")
+    @SpirePatch(clz = AbstractCard.class, method = "renderTitle")
     public static class SkipPortrait {
 
         @SpirePrefixPatch()
