@@ -1,12 +1,13 @@
 package thePackmaster.cards.rippack;
 
+import basemod.helpers.CardModifierManager;
 import basemod.helpers.TooltipInfo;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import thePackmaster.SpireAnniversary5Mod;
 import thePackmaster.ThePackmaster;
+import thePackmaster.cardmodifiers.rippack.AddRippableModifier;
 import thePackmaster.patches.rippack.AnyCardRippablePatches;
 
 import java.util.ArrayList;
@@ -19,12 +20,12 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
     private static ArrayList<TooltipInfo> consumableTooltip;
     public static int cardsRippedThisTurn;
     public boolean isRipped = false;
-    public static ShaderProgram shader = null;
 
     public AbstractRippableCard(String cardID, int cost, CardType type, CardRarity rarity, CardTarget target, CardColor color) {
         super(cardID, cost, type, rarity, target, color);
 
         AnyCardRippablePatches.AbstractCardFields.isRippable.set(this, true);
+        CardModifierManager.addModifier(this, new AddRippableModifier());
         if (!SpireAnniversary5Mod.oneFrameMode)
             setBackgroundTexture(
                     "anniv5Resources/images/512/rip/" + type.name().toLowerCase() + "-rippable.png",

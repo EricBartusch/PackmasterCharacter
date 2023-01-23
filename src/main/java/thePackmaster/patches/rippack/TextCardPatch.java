@@ -14,13 +14,12 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.vfx.cardManip.CardFlashVfx;
 import com.megacrit.cardcrawl.vfx.cardManip.CardGlowBorder;
-import thePackmaster.cards.rippack.AbstractRippableCard;
 
 import static thePackmaster.SpireAnniversary5Mod.modID;
 
 public class TextCardPatch {
 
-    private static ShaderProgram shader = AbstractRippableCard.shader;
+    private static ShaderProgram shader = AnyCardRippablePatches.shader;
     private static final Texture TEXT_GLOW = ImageMaster.loadImage(modID + "Resources/images/512/rip/card_text.png");
 
     //Completely skip rendering the portrait and title on text cards
@@ -61,7 +60,29 @@ public class TextCardPatch {
         @SpirePostfixPatch()
         public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
             if (shouldApply(__instance)) {
-                sb.setShader(shader);
+                sb.setShader(AnyCardRippablePatches.shader);
+            }
+        }
+    }
+
+    @SpirePatch(clz = AbstractCard.class, method = "renderEnergy")
+    public static class PleaseMakeEnergyTransparent {
+
+        @SpirePrefixPatch()
+        public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
+            if (shouldApply(__instance)) {
+                sb.setShader(AnyCardRippablePatches.shader);
+            }
+        }
+    }
+
+    @SpirePatch(clz = AbstractCard.class, method = "renderEnergy")
+    public static class IBegOfYou {
+
+        @SpirePostfixPatch()
+        public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
+            if (shouldApply(__instance)) {
+                sb.setShader(null);
             }
         }
     }
