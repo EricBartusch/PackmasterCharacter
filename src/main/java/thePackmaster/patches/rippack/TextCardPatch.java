@@ -107,14 +107,13 @@ public class TextCardPatch {
 
         @SpirePostfixPatch
         public static AbstractCard Postfix(AbstractCard __result, AbstractCard __instance) {
-            if(__instance instanceof AbstractRippableCard && __result instanceof AbstractRippableCard) {
-                ((AbstractRippableCard) __result).isRipped = ((AbstractRippableCard) __instance).isRipped;
-            }
+            AnyCardRippablePatches.AbstractCardFields.isRipped.set(__result, AnyCardRippablePatches.AbstractCardFields.isRipped.get(__instance));
+            AnyCardRippablePatches.AbstractCardFields.isRippable.set(__result, AnyCardRippablePatches.AbstractCardFields.isRippable.get(__instance));
             return __result;
         }
     }
 
     private static boolean shouldApply(AbstractCard card) {
-        return card instanceof AbstractRippableCard && ((AbstractRippableCard)card).isRipped;
+        return AnyCardRippablePatches.AbstractCardFields.isRipped.get(card);
     }
 }

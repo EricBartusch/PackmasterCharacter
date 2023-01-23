@@ -12,10 +12,10 @@ import thePackmaster.cards.rippack.ArtCard;
 import static thePackmaster.util.Wiz.att;
 
 public class RipCardAction extends AbstractGameAction {
-    private AbstractRippableCard rippedCard;
+    private AbstractCard rippedCard;
     private ArtCard artCard;
 
-    public RipCardAction(AbstractRippableCard rippedCard) {
+    public RipCardAction(AbstractCard rippedCard) {
         this.actionType = ActionType.SPECIAL;
         this.duration = Settings.ACTION_DUR_MED;
         this.rippedCard = rippedCard;
@@ -35,7 +35,6 @@ public class RipCardAction extends AbstractGameAction {
             artCard = new ArtCard(rippedCard);
             rippedCard.cost = 0;
             rippedCard.costForTurn = 0;
-            rippedCard.isRipped = true;
             rippedCard.name = "";
             if (AbstractDungeon.player.hoveredCard == rippedCard) {
                 AbstractDungeon.player.releaseCard();
@@ -43,7 +42,10 @@ public class RipCardAction extends AbstractGameAction {
             AbstractDungeon.actionManager.cardQueue.removeIf(q -> q.card == rippedCard);
             att(new MakeTempCardInHandAction(rippedCard));
             att(new MakeTempCardInHandAction(artCard));
-            rippedCard.onRip();
+            if(rippedCard instanceof AbstractRippableCard) {
+                ((AbstractRippableCard)rippedCard).onRip();
+            }
+            AbstractRippableCard.cardsRippedThisTurn++;
             AbstractDungeon.player.hand.removeCard(rippedCard);
             p.hand.applyPowers();
             p.hand.glowCheck();

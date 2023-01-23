@@ -31,12 +31,10 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.events.city.BackToBasics;
 import com.megacrit.cardcrawl.helpers.CardHelper;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.*;
-import com.megacrit.cardcrawl.orbs.*;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.ArtifactPower;
 import com.megacrit.cardcrawl.powers.watcher.VigorPower;
@@ -44,7 +42,6 @@ import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.stances.AbstractStance;
 import com.megacrit.cardcrawl.stances.CalmStance;
-import com.megacrit.cardcrawl.stances.NeutralStance;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import javassist.CtClass;
 import org.apache.logging.log4j.LogManager;
@@ -56,17 +53,13 @@ import thePackmaster.cards.bitingcoldpack.GrowingAffliction;
 import thePackmaster.cards.cardvars.SecondDamage;
 import thePackmaster.cards.cardvars.SecondMagicNumber;
 import thePackmaster.cards.ringofpainpack.Slime;
+import thePackmaster.cards.rippack.AbstractRippableCard;
 import thePackmaster.events.BlackMarketDealerEvent;
 import thePackmaster.hats.HatMenu;
 import thePackmaster.hats.Hats;
-import thePackmaster.orbs.WitchesStrike.CrescentMoon;
-import thePackmaster.orbs.WitchesStrike.FullMoon;
-import thePackmaster.orbs.downfallpack.Ghostflame;
-import thePackmaster.orbs.entropy.Oblivion;
 import thePackmaster.orbs.summonspack.Leprechaun;
 import thePackmaster.orbs.summonspack.Louse;
 import thePackmaster.orbs.summonspack.Panda;
-import thePackmaster.orbs.summonspack.SwarmOfBees;
 import thePackmaster.packs.*;
 import thePackmaster.patches.MainMenuUIPatch;
 import thePackmaster.patches.contentcreatorpack.DisableCountingStartOfTurnDrawPatch;
@@ -98,7 +91,6 @@ import thePackmaster.ui.CurrentRunCardsTopPanelItem;
 import thePackmaster.ui.InfestTextIcon;
 import thePackmaster.ui.PackFilterMenu;
 import thePackmaster.util.TexLoader;
-import thePackmaster.util.Wiz;
 import thePackmaster.util.cardvars.HoardVar;
 import thePackmaster.vfx.distortionpack.ImproveEffect;
 
@@ -669,6 +661,7 @@ public class SpireAnniversary5Mod implements
     @Override
     public void receiveOnPlayerTurnStart() {
         Leprechaun.staticStartOfTurn();
+        AbstractRippableCard.cardsRippedThisTurn = 0;
     }
 
     public static void declarePacks() {
