@@ -136,6 +136,6 @@ public class TextCardPatch {
     }
 
     private static boolean shouldApply(AbstractCard card) {
-        return AnyCardRippablePatches.AbstractCardFields.isRipped.get(card);
+        return AllCardsRippablePatches.AbstractCardFields.ripStatus.get(card) == AllCardsRippablePatches.RipStatus.TEXT;
     }
 }

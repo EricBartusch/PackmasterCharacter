@@ -7,13 +7,14 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import thePackmaster.cards.rippack.AbstractRippableCard;
-import thePackmaster.cards.rippack.ArtCard;
+import thePackmaster.patches.rippack.AllCardsRippablePatches;
 
 import static thePackmaster.util.Wiz.att;
 
 public class RipCardAction extends AbstractGameAction {
     private AbstractCard rippedCard;
-    private ArtCard artCard;
+    private AbstractCard textCard;
+    private AbstractCard artCard;
 
     public RipCardAction(AbstractCard rippedCard) {
         this.actionType = ActionType.SPECIAL;
@@ -32,15 +33,22 @@ public class RipCardAction extends AbstractGameAction {
             }
         }
         if(found && rippedCard != null) {
-            artCard = new ArtCard(rippedCard);
-            rippedCard.cost = 0;
-            rippedCard.costForTurn = 0;
-            rippedCard.name = "";
+            artCard = rippedCard.makeStatEquivalentCopy();
+            artCard.type = AbstractCard.CardType.STATUS;
+            artCard.rawDescription = "";
+            artCard.initializeDescription();
+            artCard.target = AbstractCard.CardTarget.NONE;
+            textCard = rippedCard.makeStatEquivalentCopy();
+            AllCardsRippablePatches.AbstractCardFields.ripStatus.set(artCard, AllCardsRippablePatches.RipStatus.ART);
+            AllCardsRippablePatches.AbstractCardFields.ripStatus.set(textCard, AllCardsRippablePatches.RipStatus.TEXT);
+            textCard.cost = 0;
+            textCard.costForTurn = 0;
+            textCard.name = "";
             if (AbstractDungeon.player.hoveredCard == rippedCard) {
                 AbstractDungeon.player.releaseCard();
             }
             AbstractDungeon.actionManager.cardQueue.removeIf(q -> q.card == rippedCard);
-            att(new MakeTempCardInHandAction(rippedCard));
+            att(new MakeTempCardInHandAction(textCard));
             att(new MakeTempCardInHandAction(artCard));
             if(rippedCard instanceof AbstractRippableCard) {
                 ((AbstractRippableCard)rippedCard).onRip();
@@ -50,6 +58,7 @@ public class RipCardAction extends AbstractGameAction {
             p.hand.applyPowers();
             p.hand.glowCheck();
             artCard.superFlash();
+            textCard.superFlash();
         }
         isDone = true;
     }
