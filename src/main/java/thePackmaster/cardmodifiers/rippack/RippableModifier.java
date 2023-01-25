@@ -14,7 +14,7 @@ import static thePackmaster.SpireAnniversary5Mod.makeID;
 
 public class RippableModifier extends AbstractCardModifier {
 
-    public static String ID = makeID("AddRippableModifier");
+    public static String ID = makeID("RippableModifier");
 
     public static String[] TEXT = CardCrawlGame.languagePack.getUIString(ID).TEXT;
 

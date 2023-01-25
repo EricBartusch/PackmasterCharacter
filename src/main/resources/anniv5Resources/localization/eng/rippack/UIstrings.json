@@ -20,7 +20,7 @@
       "Artisan Hat"
     ]
   },
-  "${ModID}:AddRippableModifier": {
+  "${ModID}:RippableModifier": {
     "TEXT": [
       "Rippable "
     ]

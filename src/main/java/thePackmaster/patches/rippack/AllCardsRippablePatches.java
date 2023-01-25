@@ -22,7 +22,9 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.CorruptionPower;
 import com.megacrit.cardcrawl.vfx.ThoughtBubble;
 import thePackmaster.actions.rippack.RipCardAction;
+import thePackmaster.cardmodifiers.rippack.ArtCardModifier;
 import thePackmaster.cardmodifiers.rippack.RippableModifier;
+import thePackmaster.cardmodifiers.rippack.TextCardModifier;
 import thePackmaster.cards.rippack.ArtAttack;
 import thePackmaster.vfx.rippack.ShowCardAndRipEffect;
 
@@ -104,6 +106,12 @@ public class AllCardsRippablePatches {
             if(!isWholeCard(__result)) {
                 CardModifierManager.removeModifiersById(__result, RippableModifier.ID, true);
                 __result.exhaust = true;
+            }
+            if(isArtCard(__result)) {
+                CardModifierManager.addModifier(__result, new ArtCardModifier());
+            }
+            if(isTextCard(__result)) {
+                CardModifierManager.addModifier(__result, new TextCardModifier());
             }
             return __result;
         }
