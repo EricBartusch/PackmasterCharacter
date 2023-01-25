@@ -1,6 +1,7 @@
 package thePackmaster.patches.rippack;
 
 import basemod.BaseMod;
+import basemod.helpers.CardModifierManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
@@ -21,6 +22,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.CorruptionPower;
 import com.megacrit.cardcrawl.vfx.ThoughtBubble;
 import thePackmaster.actions.rippack.RipCardAction;
+import thePackmaster.cardmodifiers.rippack.RippableModifier;
 import thePackmaster.cards.rippack.ArtAttack;
 import thePackmaster.vfx.rippack.ShowCardAndRipEffect;
 
@@ -100,6 +102,7 @@ public class AllCardsRippablePatches {
         public static AbstractCard Postfix(AbstractCard __result, AbstractCard __instance) {
             AbstractCardFields.ripStatus.set(__result, AbstractCardFields.ripStatus.get(__instance));
             if(!isWholeCard(__result)) {
+                CardModifierManager.removeModifiersById(__result, RippableModifier.ID, true);
                 __result.exhaust = true;
             }
             return __result;

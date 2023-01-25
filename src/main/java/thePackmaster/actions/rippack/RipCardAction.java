@@ -1,6 +1,5 @@
 package thePackmaster.actions.rippack;
 
-import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -8,12 +7,11 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import thePackmaster.SpireAnniversary5Mod;
-import thePackmaster.cardmodifiers.rippack.RippableModifier;
 import thePackmaster.cards.rippack.ArtAttack;
 import thePackmaster.cards.rippack.OnRipInterface;
 import thePackmaster.patches.rippack.AllCardsRippablePatches;
 
-import static thePackmaster.util.Wiz.*;
+import static thePackmaster.util.Wiz.att;
 
 public class RipCardAction extends AbstractGameAction {
     private AbstractCard rippedCard;
@@ -55,18 +53,6 @@ public class RipCardAction extends AbstractGameAction {
                 AbstractDungeon.player.releaseCard();
             }
             AbstractDungeon.actionManager.cardQueue.removeIf(q -> q.card == rippedCard);
-            att(new AbstractGameAction() {
-                @Override
-                public void update() {
-                    //Once rip action is done, find the text/art cards and remove the rippable mod
-                    for(AbstractCard card : AbstractDungeon.player.hand.group) {
-                        if(isArtCard(card) || isTextCard(card)) {
-                            CardModifierManager.removeModifiersById(card, RippableModifier.ID, true);
-                        }
-                    }
-                    isDone = true;
-                }
-            });
             att(new MakeTempCardInHandAction(textCard));
             att(new MakeTempCardInHandAction(artCard));
             if(rippedCard instanceof OnRipInterface) {
