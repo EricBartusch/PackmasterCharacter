@@ -1,5 +1,6 @@
 package thePackmaster.cards.rippack;
 
+import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
@@ -10,6 +11,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
+import thePackmaster.cardmodifiers.rippack.RippableModifier;
 import thePackmaster.vfx.rippack.ArtAttackArtEffect;
 import thePackmaster.vfx.rippack.ArtAttackTextEffect;
 
@@ -18,13 +20,14 @@ import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.util.Wiz.atb;
 import static thePackmaster.util.Wiz.isArtCard;
 
-public class ArtAttack extends AbstractRippableCard {
+public class ArtAttack extends AbstractRipCard {
     public final static String ID = makeID("ArtAttack");
 
     public ArtAttack() {
         super(ID, 1, CardType.ATTACK, CardRarity.RARE, CardTarget.ENEMY);
         baseDamage = damage = 12;
         baseMagicNumber = magicNumber = 12;
+        CardModifierManager.addModifier(this, new RippableModifier());
     }
 
     @Override

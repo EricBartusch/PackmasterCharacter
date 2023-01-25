@@ -1,5 +1,6 @@
 package thePackmaster.cards.rippack;
 
+import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
@@ -7,6 +8,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
+import thePackmaster.cardmodifiers.rippack.RippableModifier;
 import thePackmaster.vfx.rippack.InspirationEffect;
 
 import java.util.stream.Collectors;
@@ -15,7 +17,7 @@ import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.util.Wiz.atb;
 import static thePackmaster.util.Wiz.isArtCard;
 
-public class Inspiration extends AbstractRippableCard {
+public class Inspiration extends AbstractRipCard {
     public final static String ID = makeID("Inspiration");
 
 
@@ -24,6 +26,7 @@ public class Inspiration extends AbstractRippableCard {
         baseDamage = damage = 12;
         baseMagicNumber = magicNumber = 12;
         exhaust = true;
+        CardModifierManager.addModifier(this, new RippableModifier());
     }
 
     @Override

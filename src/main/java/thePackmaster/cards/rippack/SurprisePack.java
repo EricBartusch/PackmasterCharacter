@@ -1,16 +1,18 @@
 package thePackmaster.cards.rippack;
 
+import basemod.helpers.CardModifierManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import thePackmaster.cardmodifiers.rippack.RippableModifier;
 
 import static thePackmaster.SpireAnniversary5Mod.*;
 import static thePackmaster.util.Wiz.atb;
 
-public class SurprisePack extends AbstractRippableCard implements OnRipInterface {
+public class SurprisePack extends AbstractRipCard implements OnRipInterface {
     public final static String ID = makeID("SurprisePack");
 
 
@@ -18,6 +20,7 @@ public class SurprisePack extends AbstractRippableCard implements OnRipInterface
         super(ID, 1, CardType.SKILL, CardRarity.RARE, CardTarget.NONE);
         baseMagicNumber = magicNumber = 3;
         baseSecondMagic = secondMagic = 1;
+        CardModifierManager.addModifier(this, new RippableModifier());
     }
 
     @Override

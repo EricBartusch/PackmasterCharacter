@@ -1,5 +1,6 @@
 package thePackmaster.cards.rippack;
 
+import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -7,13 +8,14 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import thePackmaster.actions.rippack.ExhaustRandomNonArtCardsAction;
+import thePackmaster.cardmodifiers.rippack.RippableModifier;
 import thePackmaster.vfx.rippack.HazardousStrikeEffect;
 
 import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.util.Wiz.atb;
 import static thePackmaster.util.Wiz.att;
 
-public class HazardousStrike extends AbstractRippableCard implements OnRipInterface {
+public class HazardousStrike extends AbstractRipCard implements OnRipInterface {
     public final static String ID = makeID("HazardousStrike");
 
 
@@ -22,6 +24,7 @@ public class HazardousStrike extends AbstractRippableCard implements OnRipInterf
         baseDamage = damage = 18;
         baseMagicNumber = magicNumber = 2;
         tags.add(CardTags.STRIKE);
+        CardModifierManager.addModifier(this, new RippableModifier());
     }
 
     @Override

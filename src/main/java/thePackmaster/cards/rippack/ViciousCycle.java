@@ -1,24 +1,27 @@
 package thePackmaster.cards.rippack;
 
+import basemod.helpers.CardModifierManager;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import thePackmaster.cardmodifiers.rippack.RippableModifier;
 import thePackmaster.vfx.rippack.SlashDiagonalOppositeEffect;
 
 import static thePackmaster.SpireAnniversary5Mod.cardsRippedThisTurn;
 import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.util.Wiz.atb;
 
-public class ViciousCycle extends AbstractRippableCard {
+public class ViciousCycle extends AbstractRipCard {
     public final static String ID = makeID("ViciousCycle");
 
 
     public ViciousCycle() {
         super(ID, 1, CardType.ATTACK, CardRarity.UNCOMMON, CardTarget.ENEMY);
         baseDamage = damage = 6;
+        CardModifierManager.addModifier(this, new RippableModifier());
     }
 
     @Override
