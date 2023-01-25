@@ -35,6 +35,9 @@ public class AllCardsRippablePatches {
         @SpirePostfixPatch
         public static AbstractCard Postfix(AbstractCard __result, AbstractCard __instance) {
             AbstractCardFields.ripStatus.set(__result, AbstractCardFields.ripStatus.get(__instance));
+            if(AbstractCardFields.ripStatus.get(__result) != RipStatus.WHOLE) {
+                __result.exhaust = true;
+            }
             return __result;
         }
     }

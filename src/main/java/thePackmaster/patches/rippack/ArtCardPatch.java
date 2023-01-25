@@ -10,13 +10,13 @@ import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.cardManip.CardFlashVfx;
 import com.megacrit.cardcrawl.vfx.cardManip.CardGlowBorder;
+import thePackmaster.cards.rippack.ArtAttack;
 
 import static thePackmaster.SpireAnniversary5Mod.modID;
 import static thePackmaster.patches.rippack.AllCardsRippablePatches.RipStatus.ART;
@@ -123,14 +123,15 @@ public class ArtCardPatch {
         }
     }
 
+    //I don't want to see the quick attack animation when playing Art Halves of Attack cards
+    //Skips over other stuff at the start of useCard, picks up at UseCardAction since I do want playing card type side-effects to happen
+    //I'm sorry
     @SpirePatch(clz = AbstractPlayer.class, method = "useCard")
-    public static class SetCardToStatusAndDontDoStuff {
+    public static class DontDoStuffWhenArtCardUnlessArtAttackWhoopsLol {
 
         @SpirePrefixPatch()
         public static SpireReturn Prefix(AbstractPlayer __instance, @ByRef AbstractCard card[], AbstractMonster monster, int energyOnUse) {
-            if (AllCardsRippablePatches.AbstractCardFields.ripStatus.get(card[0]) == ART) {
-                card[0].type = AbstractCard.CardType.STATUS;
-                card[0].exhaust = true;
+            if (AllCardsRippablePatches.AbstractCardFields.ripStatus.get(card[0]) == ART && card[0].cardID != ArtAttack.ID) {
                 AbstractDungeon.actionManager.addToBottom(new UseCardAction(card[0], monster));
                 if (!card[0].dontTriggerOnUseCard) {
                     __instance.hand.triggerOnOtherCardPlayed(card[0]);
@@ -145,17 +146,6 @@ public class ArtCardPatch {
                 return SpireReturn.Return();
             }
             return SpireReturn.Continue();
-        }
-    }
-
-    @SpirePatch(clz = UseCardAction.class, method = SpirePatch.CONSTRUCTOR, paramtypez = { AbstractCard.class, AbstractCreature.class })
-    public static class SetCardToStatus {
-
-        @SpirePrefixPatch()
-        public static void Prefix(UseCardAction __instance, @ByRef AbstractCard card[], AbstractCreature target) {
-            if (AllCardsRippablePatches.AbstractCardFields.ripStatus.get(card[0]) == ART) {
-                card[0].type = AbstractCard.CardType.STATUS;
-            }
         }
     }
 }

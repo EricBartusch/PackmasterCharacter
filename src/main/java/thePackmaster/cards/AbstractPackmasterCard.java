@@ -24,7 +24,7 @@ import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
 import thePackmaster.SpireAnniversary5Mod;
 import thePackmaster.ThePackmaster;
 import thePackmaster.packs.AbstractCardPack;
-import thePackmaster.patches.rippack.AnyCardRippablePatches;
+import thePackmaster.patches.rippack.AllCardsRippablePatches;
 import thePackmaster.util.CardArtRoller;
 import thePackmaster.util.Wiz;
 
@@ -343,7 +343,7 @@ public abstract class AbstractPackmasterCard extends CustomCard {
 
     public String getTopText() {
         AbstractCardPack parent = getParent();
-        if(parent != null && !AnyCardRippablePatches.AbstractCardFields.isRipped.get(this)) {
+        if(parent != null && AllCardsRippablePatches.AbstractCardFields.ripStatus.get(this) != AllCardsRippablePatches.RipStatus.TEXT) {
             return parent.name;
         }
 

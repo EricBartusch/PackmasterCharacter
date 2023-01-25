@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import thePackmaster.cards.rippack.AbstractRippableCard;
+import thePackmaster.cards.rippack.ArtAttack;
 import thePackmaster.patches.rippack.AllCardsRippablePatches;
 
 import static thePackmaster.util.Wiz.att;
@@ -33,17 +34,20 @@ public class RipCardAction extends AbstractGameAction {
             }
         }
         if(found && rippedCard != null) {
+            //Set up Art Half properties
             artCard = rippedCard.makeStatEquivalentCopy();
-            artCard.type = AbstractCard.CardType.STATUS;
             artCard.rawDescription = "";
             artCard.initializeDescription();
-            artCard.target = AbstractCard.CardTarget.NONE;
-            textCard = rippedCard.makeStatEquivalentCopy();
+            artCard.target = artCard.cardID == ArtAttack.ID ? artCard.target : AbstractCard.CardTarget.NONE;
             AllCardsRippablePatches.AbstractCardFields.ripStatus.set(artCard, AllCardsRippablePatches.RipStatus.ART);
+
+            //Set up Text Half properties
+            textCard = rippedCard.makeStatEquivalentCopy();
             AllCardsRippablePatches.AbstractCardFields.ripStatus.set(textCard, AllCardsRippablePatches.RipStatus.TEXT);
             textCard.cost = 0;
             textCard.costForTurn = 0;
             textCard.name = "";
+
             if (AbstractDungeon.player.hoveredCard == rippedCard) {
                 AbstractDungeon.player.releaseCard();
             }
