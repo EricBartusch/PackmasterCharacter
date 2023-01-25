@@ -14,6 +14,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.CorruptionPower;
 import com.megacrit.cardcrawl.vfx.cardManip.CardFlashVfx;
 import com.megacrit.cardcrawl.vfx.cardManip.CardGlowBorder;
 import thePackmaster.cards.rippack.ArtAttack;
@@ -131,16 +132,22 @@ public class ArtCardPatch {
     public static class DontDoStuffWhenArtCardUnlessArtAttackWhoopsLol {
 
         @SpirePrefixPatch()
-        public static SpireReturn Prefix(AbstractPlayer __instance, @ByRef AbstractCard card[], AbstractMonster monster, int energyOnUse) {
-            if (AllCardsRippablePatches.AbstractCardFields.ripStatus.get(card[0]) == ART && card[0].cardID != ArtAttack.ID) {
-                AbstractDungeon.actionManager.addToBottom(new UseCardAction(card[0], monster));
-                if (!card[0].dontTriggerOnUseCard) {
-                    __instance.hand.triggerOnOtherCardPlayed(card[0]);
+        public static SpireReturn Prefix(AbstractPlayer __instance, AbstractCard card, AbstractMonster monster, int energyOnUse) {
+            if (AllCardsRippablePatches.AbstractCardFields.ripStatus.get(card) == ART && card.cardID != ArtAttack.ID) {
+                AbstractDungeon.actionManager.addToBottom(new UseCardAction(card, monster));
+                if (!card.dontTriggerOnUseCard) {
+                    __instance.hand.triggerOnOtherCardPlayed(card);
                 }
-                __instance.hand.removeCard(card[0]);
-                __instance.cardInUse = card[0];
-                card[0].target_x = (Settings.WIDTH / 2);
-                card[0].target_y = (Settings.HEIGHT / 2);
+                __instance.hand.removeCard(card);
+                __instance.cardInUse = card;
+                card.target_x = (Settings.WIDTH / 2);
+                card.target_y = (Settings.HEIGHT / 2);
+                if (card.costForTurn > 0
+                    && !card.freeToPlay()
+                    && !card.isInAutoplay
+                    && (!__instance.hasPower(CorruptionPower.POWER_ID) || card.type != AbstractCard.CardType.SKILL)) {
+                        __instance.energy.use(card.costForTurn);
+                }
                 if (!__instance.hand.canUseAnyCard() && !__instance.endTurnQueued) {
                     AbstractDungeon.overlayMenu.endTurnButton.isGlowing = true;
                 }

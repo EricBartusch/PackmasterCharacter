@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
@@ -16,10 +15,10 @@ import com.megacrit.cardcrawl.vfx.cardManip.CardFlashVfx;
 import com.megacrit.cardcrawl.vfx.cardManip.CardGlowBorder;
 
 import static thePackmaster.SpireAnniversary5Mod.modID;
+import static thePackmaster.util.Wiz.isTextCard;
 
 public class TextCardPatch {
 
-    private static ShaderProgram shader = AnyCardRippablePatches.shader;
     private static final Texture TEXT_GLOW = ImageMaster.loadImage(modID + "Resources/images/512/rip/card_text.png");
 
     //Completely skip rendering the portrait and title on text cards
@@ -29,7 +28,7 @@ public class TextCardPatch {
 
         @SpirePrefixPatch()
         public static SpireReturn Prefix(AbstractCard __instance, SpriteBatch sb) {
-            if (shouldApply(__instance)) {
+            if (isTextCard(__instance)) {
                 return SpireReturn.Return();
             } else {
                 return SpireReturn.Continue();
@@ -46,7 +45,7 @@ public class TextCardPatch {
 
         @SpirePrefixPatch()
         public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
-            if (shouldApply(__instance)) {
+            if (isTextCard(__instance)) {
                 sb.setShader(null);
             }
         }
@@ -59,8 +58,8 @@ public class TextCardPatch {
 
         @SpirePostfixPatch()
         public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
-            if (shouldApply(__instance)) {
-                sb.setShader(AnyCardRippablePatches.shader);
+            if (isTextCard(__instance)) {
+                sb.setShader(AllCardsRippablePatches.textShader);
             }
         }
     }
@@ -70,8 +69,8 @@ public class TextCardPatch {
 
         @SpirePrefixPatch()
         public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
-            if (shouldApply(__instance)) {
-                sb.setShader(AnyCardRippablePatches.shader);
+            if (isTextCard(__instance)) {
+                sb.setShader(AllCardsRippablePatches.textShader);
             }
         }
     }
@@ -81,7 +80,7 @@ public class TextCardPatch {
 
         @SpirePostfixPatch()
         public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
-            if (shouldApply(__instance)) {
+            if (isTextCard(__instance)) {
                 sb.setShader(null);
             }
         }
@@ -93,7 +92,7 @@ public class TextCardPatch {
 
         @SpirePrefixPatch()
         public static void Prefix(CardFlashVfx __instance, SpriteBatch sb, AbstractCard ___card, Color ___color, boolean ___isSuper) {
-            if (shouldApply(___card)) {
+            if (isTextCard(___card)) {
                 ReflectionHacks.setPrivate(__instance, CardFlashVfx.class, "img", new TextureAtlas.AtlasRegion(TEXT_GLOW, 0, 0, TEXT_GLOW.getWidth(), TEXT_GLOW.getHeight()));
             }
         }
@@ -105,7 +104,7 @@ public class TextCardPatch {
 
         @SpirePostfixPatch()
         public static void Postfix(CardGlowBorder __instance, AbstractCard ___card) {
-            if (shouldApply(___card)) {
+            if (isTextCard(___card)) {
                 ReflectionHacks.setPrivate(__instance, CardGlowBorder.class, "img", new TextureAtlas.AtlasRegion(TEXT_GLOW, 0, 0, TEXT_GLOW.getWidth(), TEXT_GLOW.getHeight()));
             }
         }
@@ -117,7 +116,7 @@ public class TextCardPatch {
 
         @SpirePrefixPatch()
         public static SpireReturn<TextureAtlas.AtlasRegion> Postfix(AbstractCard __instance) {
-            if (shouldApply(__instance)) {
+            if (isTextCard(__instance)) {
                 return SpireReturn.Return(new TextureAtlas.AtlasRegion(TEXT_GLOW, 0, 0, TEXT_GLOW.getWidth(), TEXT_GLOW.getHeight()));
             }
             return SpireReturn.Continue();
@@ -129,13 +128,8 @@ public class TextCardPatch {
 
         @SpirePostfixPatch
         public static AbstractCard Postfix(AbstractCard __result, AbstractCard __instance) {
-            AnyCardRippablePatches.AbstractCardFields.isRipped.set(__result, AnyCardRippablePatches.AbstractCardFields.isRipped.get(__instance));
-            AnyCardRippablePatches.AbstractCardFields.isRippable.set(__result, AnyCardRippablePatches.AbstractCardFields.isRippable.get(__instance));
+            AllCardsRippablePatches.AbstractCardFields.isRippable.set(__result, AllCardsRippablePatches.AbstractCardFields.isRippable.get(__instance));
             return __result;
         }
-    }
-
-    private static boolean shouldApply(AbstractCard card) {
-        return AllCardsRippablePatches.AbstractCardFields.ripStatus.get(card) == AllCardsRippablePatches.RipStatus.TEXT;
     }
 }

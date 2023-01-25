@@ -1,19 +1,35 @@
 package thePackmaster.patches.rippack;
 
+import basemod.BaseMod;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.evacipated.cardcrawl.mod.stslib.patches.HitboxRightClick;
 import com.evacipated.cardcrawl.modthespire.lib.SpireField;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.animations.VFXAction;
+import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.vfx.ThoughtBubble;
+import thePackmaster.actions.rippack.RipCardAction;
+import thePackmaster.vfx.rippack.ShowCardAndRipEffect;
 
+import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.SpireAnniversary5Mod.makeShaderPath;
 import static thePackmaster.util.Wiz.*;
 
 public class AllCardsRippablePatches {
+    private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(makeID("Rip"));
+    private static AbstractGameAction action;
+    private static AbstractCard card;
+
     static ShaderProgram artShader = null;
     static ShaderProgram textShader = null;
 
@@ -26,6 +42,49 @@ public class AllCardsRippablePatches {
     @SpirePatch(clz = AbstractCard.class, method = SpirePatch.CLASS)
     public static class AbstractCardFields {
         public static SpireField<RipStatus> ripStatus = new SpireField(() -> RipStatus.WHOLE);
+        public static SpireField<Boolean> isRippable = new SpireField(() -> false);
+    }
+
+    @SpirePatch(clz = AbstractCard.class, method = "update")
+    public static class HelloThere {
+
+        @SpirePostfixPatch()
+        public static void Postfix(AbstractCard __instance) {
+            if (action != null && action.isDone) {
+                action = null;
+            }
+            if (AbstractDungeon.player != null) {
+                card = __instance;
+                clickUpdate();
+            }
+        }
+    }
+
+    public static void clickUpdate() {
+        if (!AbstractDungeon.isScreenUp && HitboxRightClick.rightClicked.get(card.hb) && !AbstractDungeon.actionManager.turnHasEnded) {
+            onRightClick();
+        }
+    }
+
+    public static void onRightClick() {
+        if(action == null && AllCardsRippablePatches.AbstractCardFields.isRippable.get(card)) {
+            if (canRip()) {
+                AllCardsRippablePatches.AbstractCardFields.isRippable.set(card, false);
+                action = new RipCardAction(card);
+                att(action);
+                att(new WaitAction(0.1f));
+                att(new WaitAction(0.1f));
+                att(new WaitAction(0.1f));
+                att(new WaitAction(0.1f));
+                att(new VFXAction(new ShowCardAndRipEffect(card)));
+            } else{
+                AbstractDungeon.effectList.add(new ThoughtBubble(AbstractDungeon.player.dialogX, AbstractDungeon.player.dialogY, 2.0F, uiStrings.TEXT[1], true));
+            }
+        }
+    }
+
+    public static boolean canRip() {
+        return AbstractDungeon.player.hand.size() != BaseMod.MAX_HAND_SIZE;
     }
 
     @SpirePatch(clz = AbstractCard.class, method = "makeStatEquivalentCopy")
