@@ -6,24 +6,21 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.evacipated.cardcrawl.modthespire.lib.*;
-import com.megacrit.cardcrawl.actions.utility.UseCardAction;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
+import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
+import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.CorruptionPower;
 import com.megacrit.cardcrawl.vfx.cardManip.CardFlashVfx;
 import com.megacrit.cardcrawl.vfx.cardManip.CardGlowBorder;
-import thePackmaster.cards.rippack.ArtAttack;
 
 import static thePackmaster.SpireAnniversary5Mod.modID;
-import static thePackmaster.patches.rippack.AllCardsRippablePatches.RipStatus.ART;
 import static thePackmaster.util.Wiz.isArtCard;
 
-public class ArtCardPatch {
+//Houses patches specifically for rendering art half of cards
+//Minus the initial shader application done in AllCardsRippablePatches
+public class ArtCardRenderingPatches {
 
     static ShaderProgram shader = null;
     private static final Texture ART_GLOW = ImageMaster.loadImage(modID + "Resources/images/512/rip/card_art.png");
@@ -119,38 +116,6 @@ public class ArtCardPatch {
         @SpirePrefixPatch()
         public static SpireReturn Postfix(AbstractCard __instance) {
             if (isArtCard(__instance)) {
-                return SpireReturn.Return();
-            }
-            return SpireReturn.Continue();
-        }
-    }
-
-    //I don't want to see the quick attack animation when playing Art Halves of Attack cards
-    //Skips over other stuff at the start of useCard, picks up at UseCardAction since I do want playing card type side-effects to happen
-    //I'm sorry
-    @SpirePatch(clz = AbstractPlayer.class, method = "useCard")
-    public static class DontDoStuffWhenArtCardUnlessArtAttackWhoopsLol {
-
-        @SpirePrefixPatch()
-        public static SpireReturn Prefix(AbstractPlayer __instance, AbstractCard card, AbstractMonster monster, int energyOnUse) {
-            if (AllCardsRippablePatches.AbstractCardFields.ripStatus.get(card) == ART && card.cardID != ArtAttack.ID) {
-                AbstractDungeon.actionManager.addToBottom(new UseCardAction(card, monster));
-                if (!card.dontTriggerOnUseCard) {
-                    __instance.hand.triggerOnOtherCardPlayed(card);
-                }
-                __instance.hand.removeCard(card);
-                __instance.cardInUse = card;
-                card.target_x = (Settings.WIDTH / 2);
-                card.target_y = (Settings.HEIGHT / 2);
-                if (card.costForTurn > 0
-                    && !card.freeToPlay()
-                    && !card.isInAutoplay
-                    && (!__instance.hasPower(CorruptionPower.POWER_ID) || card.type != AbstractCard.CardType.SKILL)) {
-                        __instance.energy.use(card.costForTurn);
-                }
-                if (!__instance.hand.canUseAnyCard() && !__instance.endTurnQueued) {
-                    AbstractDungeon.overlayMenu.endTurnButton.isGlowing = true;
-                }
                 return SpireReturn.Return();
             }
             return SpireReturn.Continue();

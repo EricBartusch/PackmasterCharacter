@@ -17,7 +17,9 @@ import com.megacrit.cardcrawl.vfx.cardManip.CardGlowBorder;
 import static thePackmaster.SpireAnniversary5Mod.modID;
 import static thePackmaster.util.Wiz.isTextCard;
 
-public class TextCardPatch {
+//Houses patches specifically for rendering text half of cards
+//Minus the initial shader application done in AllCardsRippablePatches
+public class TextCardRenderingPatches {
 
     private static final Texture TEXT_GLOW = ImageMaster.loadImage(modID + "Resources/images/512/rip/card_text.png");
 
@@ -120,16 +122,6 @@ public class TextCardPatch {
                 return SpireReturn.Return(new TextureAtlas.AtlasRegion(TEXT_GLOW, 0, 0, TEXT_GLOW.getWidth(), TEXT_GLOW.getHeight()));
             }
             return SpireReturn.Continue();
-        }
-    }
-
-    @SpirePatch(clz = AbstractCard.class, method = "makeStatEquivalentCopy")
-    public static class CopyRippedStatus {
-
-        @SpirePostfixPatch
-        public static AbstractCard Postfix(AbstractCard __result, AbstractCard __instance) {
-            AllCardsRippablePatches.AbstractCardFields.isRippable.set(__result, AllCardsRippablePatches.AbstractCardFields.isRippable.get(__instance));
-            return __result;
         }
     }
 }
