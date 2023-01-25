@@ -11,8 +11,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 
 import static thePackmaster.SpireAnniversary5Mod.makeShaderPath;
-import static thePackmaster.patches.rippack.AllCardsRippablePatches.RipStatus.ART;
-import static thePackmaster.patches.rippack.AllCardsRippablePatches.RipStatus.TEXT;
+import static thePackmaster.util.Wiz.*;
 
 public class AllCardsRippablePatches {
     static ShaderProgram artShader = null;
@@ -35,7 +34,7 @@ public class AllCardsRippablePatches {
         @SpirePostfixPatch
         public static AbstractCard Postfix(AbstractCard __result, AbstractCard __instance) {
             AbstractCardFields.ripStatus.set(__result, AbstractCardFields.ripStatus.get(__instance));
-            if(AbstractCardFields.ripStatus.get(__result) != RipStatus.WHOLE) {
+            if(!isWholeCard(__result)) {
                 __result.exhaust = true;
             }
             return __result;
@@ -47,11 +46,11 @@ public class AllCardsRippablePatches {
 
         @SpirePrefixPatch
         public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
-            if (AllCardsRippablePatches.AbstractCardFields.ripStatus.get(__instance) == ART) {
+            if (isArtCard(__instance)) {
                 initArtShader();
                 sb.setShader(artShader);
             }
-            if (AllCardsRippablePatches.AbstractCardFields.ripStatus.get(__instance) == TEXT) {
+            if (isTextCard(__instance)) {
                 initTextShader();
                 sb.setShader(textShader);
             }
@@ -59,8 +58,7 @@ public class AllCardsRippablePatches {
 
         @SpirePostfixPatch
         public static void PostFix(AbstractCard __instance, SpriteBatch sb) {
-            if (AllCardsRippablePatches.AbstractCardFields.ripStatus.get(__instance) == ART ||
-                    AllCardsRippablePatches.AbstractCardFields.ripStatus.get(__instance) == TEXT) {
+            if (!isWholeCard(__instance)) {
                 sb.setShader(null);
             }
         }

@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.util.Wiz.atb;
+import static thePackmaster.util.Wiz.isArtCard;
 
 public class Inspiration extends AbstractRippableCard {
     public final static String ID = makeID("Inspiration");
@@ -28,7 +29,7 @@ public class Inspiration extends AbstractRippableCard {
     @Override
     public void applyPowers() {
         super.applyPowers();
-        int artCardsInExhaust = AbstractDungeon.player.exhaustPile.group.stream().filter(card -> card instanceof ArtCard).collect(Collectors.toList()).size();
+        int artCardsInExhaust = AbstractDungeon.player.exhaustPile.group.stream().filter(card -> isArtCard(card)).collect(Collectors.toList()).size();
         rawDescription = upgraded ? cardStrings.UPGRADE_DESCRIPTION : cardStrings.DESCRIPTION;
         rawDescription += cardStrings.EXTENDED_DESCRIPTION[0] + artCardsInExhaust;
         if (artCardsInExhaust == 1) {
@@ -47,7 +48,7 @@ public class Inspiration extends AbstractRippableCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        int statusAndArtCardsInExhaust = AbstractDungeon.player.exhaustPile.group.stream().filter(card -> card instanceof ArtCard || card.type == CardType.STATUS).collect(Collectors.toList()).size();
+        int statusAndArtCardsInExhaust = AbstractDungeon.player.exhaustPile.group.stream().filter(card -> isArtCard(card) || card.type == CardType.STATUS).collect(Collectors.toList()).size();
 
         AbstractGameEffect off = InspirationEffect.Off();
         atb(new VFXAction(off));

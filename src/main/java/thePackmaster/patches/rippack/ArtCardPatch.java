@@ -20,6 +20,7 @@ import thePackmaster.cards.rippack.ArtAttack;
 
 import static thePackmaster.SpireAnniversary5Mod.modID;
 import static thePackmaster.patches.rippack.AllCardsRippablePatches.RipStatus.ART;
+import static thePackmaster.util.Wiz.isArtCard;
 
 public class ArtCardPatch {
 
@@ -33,7 +34,7 @@ public class ArtCardPatch {
 
         @SpirePrefixPatch()
         public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
-            if (AllCardsRippablePatches.AbstractCardFields.ripStatus.get(__instance) == ART) {
+            if (isArtCard(__instance)) {
                 sb.setShader(null);
             }
         }
@@ -44,7 +45,7 @@ public class ArtCardPatch {
 
         @SpirePostfixPatch()
         public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
-            if (AllCardsRippablePatches.AbstractCardFields.ripStatus.get(__instance) == ART) {
+            if (isArtCard(__instance)) {
                 sb.setShader(shader);
             }
         }
@@ -57,7 +58,7 @@ public class ArtCardPatch {
 
         @SpirePrefixPatch()
         public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
-            if (AllCardsRippablePatches.AbstractCardFields.ripStatus.get(__instance) == ART) {
+            if (isArtCard(__instance)) {
                 sb.setShader(null);
             }
         }
@@ -68,7 +69,7 @@ public class ArtCardPatch {
 
         @SpirePostfixPatch()
         public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
-            if (AllCardsRippablePatches.AbstractCardFields.ripStatus.get(__instance) == ART) {
+            if (isArtCard(__instance)) {
                 sb.setShader(shader);
             }
         }
@@ -80,7 +81,7 @@ public class ArtCardPatch {
 
         @SpirePrefixPatch()
         public static void Prefix(CardFlashVfx __instance, SpriteBatch sb, AbstractCard ___card, Color ___color, boolean ___isSuper) {
-            if (AllCardsRippablePatches.AbstractCardFields.ripStatus.get(___card) == ART) {
+            if (isArtCard(___card)) {
                 ReflectionHacks.setPrivate(__instance, CardFlashVfx.class, "img", new TextureAtlas.AtlasRegion(ART_GLOW, 0, 0, ART_GLOW.getWidth(), ART_GLOW.getHeight()));
             }
         }
@@ -92,7 +93,7 @@ public class ArtCardPatch {
 
         @SpirePostfixPatch()
         public static void Postfix(CardGlowBorder __instance, AbstractCard ___card) {
-            if (AllCardsRippablePatches.AbstractCardFields.ripStatus.get(___card) == ART) {
+            if (isArtCard(___card)) {
                 ReflectionHacks.setPrivate(__instance, CardGlowBorder.class, "img", new TextureAtlas.AtlasRegion(ART_GLOW, 0, 0, ART_GLOW.getWidth(), ART_GLOW.getHeight()));
             }
         }
@@ -104,7 +105,7 @@ public class ArtCardPatch {
 
         @SpirePrefixPatch()
         public static SpireReturn<TextureAtlas.AtlasRegion> Postfix(AbstractCard __instance) {
-            if (AllCardsRippablePatches.AbstractCardFields.ripStatus.get(__instance) == ART) {
+            if (isArtCard(__instance)) {
                 return SpireReturn.Return(new TextureAtlas.AtlasRegion(ART_GLOW, 0, 0, ART_GLOW.getWidth(), ART_GLOW.getHeight()));
             }
             return SpireReturn.Continue();
@@ -116,7 +117,7 @@ public class ArtCardPatch {
 
         @SpirePrefixPatch()
         public static SpireReturn Postfix(AbstractCard __instance) {
-            if (AllCardsRippablePatches.AbstractCardFields.ripStatus.get(__instance) == ART) {
+            if (isArtCard(__instance)) {
                 return SpireReturn.Return();
             }
             return SpireReturn.Continue();

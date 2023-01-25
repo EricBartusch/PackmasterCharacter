@@ -10,13 +10,13 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
-import thePackmaster.patches.rippack.AllCardsRippablePatches;
 import thePackmaster.vfx.rippack.ArtAttackArtEffect;
 import thePackmaster.vfx.rippack.ArtAttackTextEffect;
 
 import static com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect.NONE;
 import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.util.Wiz.atb;
+import static thePackmaster.util.Wiz.isArtCard;
 
 public class ArtAttack extends AbstractRippableCard {
     public final static String ID = makeID("ArtAttack");
@@ -35,7 +35,7 @@ public class ArtAttack extends AbstractRippableCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         //YAY RAINBOW
-        if(AllCardsRippablePatches.AbstractCardFields.ripStatus.get(this) == AllCardsRippablePatches.RipStatus.ART) {
+        if(isArtCard(this)) {
             AbstractGameEffect rainbowEffect = ArtAttackArtEffect.RainbowBoomerang(m);
 
             atb(new SFXAction(makeID("RipPack_Yay")));

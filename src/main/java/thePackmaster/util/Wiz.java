@@ -22,6 +22,7 @@ import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import thePackmaster.SpireAnniversary5Mod;
 import thePackmaster.actions.TimedVFXAction;
 import thePackmaster.packs.AbstractCardPack;
+import thePackmaster.patches.rippack.AllCardsRippablePatches;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
@@ -386,5 +387,16 @@ public class Wiz {
     // Packmaster specific utilities
     public static AbstractCardPack getPackByCard(AbstractCard c) {
         return SpireAnniversary5Mod.packsByID.get(SpireAnniversary5Mod.cardParentMap.get(c.cardID));
+    }
+
+    public static boolean isArtCard(AbstractCard c) {
+        return AllCardsRippablePatches.AbstractCardFields.ripStatus.get(c) == AllCardsRippablePatches.RipStatus.ART;
+    }
+
+    public static boolean isTextCard(AbstractCard c) {
+        return AllCardsRippablePatches.AbstractCardFields.ripStatus.get(c) == AllCardsRippablePatches.RipStatus.TEXT;
+    }
+    public static boolean isWholeCard(AbstractCard c) {
+        return AllCardsRippablePatches.AbstractCardFields.ripStatus.get(c) == AllCardsRippablePatches.RipStatus.WHOLE;
     }
 }
