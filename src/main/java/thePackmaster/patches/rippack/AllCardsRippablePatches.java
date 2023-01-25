@@ -26,6 +26,7 @@ import thePackmaster.vfx.rippack.ShowCardAndRipEffect;
 
 import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.SpireAnniversary5Mod.makeShaderPath;
+import static thePackmaster.cardmodifiers.rippack.RippableModifier.isRippable;
 import static thePackmaster.patches.rippack.AllCardsRippablePatches.RipStatus.ART;
 import static thePackmaster.util.Wiz.*;
 
@@ -49,7 +50,6 @@ public class AllCardsRippablePatches {
     @SpirePatch(clz = AbstractCard.class, method = SpirePatch.CLASS)
     public static class AbstractCardFields {
         public static SpireField<RipStatus> ripStatus = new SpireField(() -> RipStatus.WHOLE);
-        public static SpireField<Boolean> isRippable = new SpireField(() -> false);
     }
 
     @SpirePatch(clz = AbstractCard.class, method = "update")
@@ -74,9 +74,8 @@ public class AllCardsRippablePatches {
     }
 
     public static void onRightClick() {
-        if(action == null && AllCardsRippablePatches.AbstractCardFields.isRippable.get(card)) {
+        if(action == null && isRippable(card)) {
             if (canRip()) {
-                AllCardsRippablePatches.AbstractCardFields.isRippable.set(card, false);
                 action = new RipCardAction(card);
                 att(action);
                 att(new WaitAction(0.1f));
@@ -100,7 +99,6 @@ public class AllCardsRippablePatches {
         @SpirePostfixPatch
         public static AbstractCard Postfix(AbstractCard __result, AbstractCard __instance) {
             AbstractCardFields.ripStatus.set(__result, AbstractCardFields.ripStatus.get(__instance));
-            AllCardsRippablePatches.AbstractCardFields.isRippable.set(__result, AllCardsRippablePatches.AbstractCardFields.isRippable.get(__instance));
             if(!isWholeCard(__result)) {
                 __result.exhaust = true;
             }

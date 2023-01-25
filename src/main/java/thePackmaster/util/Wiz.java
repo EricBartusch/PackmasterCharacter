@@ -392,7 +392,6 @@ public class Wiz {
     public static boolean isArtCard(AbstractCard c) {
         return AllCardsRippablePatches.AbstractCardFields.ripStatus.get(c) == AllCardsRippablePatches.RipStatus.ART;
     }
-
     public static boolean isTextCard(AbstractCard c) {
         return AllCardsRippablePatches.AbstractCardFields.ripStatus.get(c) == AllCardsRippablePatches.RipStatus.TEXT;
     }

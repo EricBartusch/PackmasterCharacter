@@ -7,8 +7,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import thePackmaster.SpireAnniversary5Mod;
 import thePackmaster.ThePackmaster;
-import thePackmaster.cardmodifiers.rippack.AddRippableModifier;
-import thePackmaster.patches.rippack.AllCardsRippablePatches;
+import thePackmaster.cardmodifiers.rippack.RippableModifier;
 
 import java.util.ArrayList;
 
@@ -24,8 +23,7 @@ public abstract class AbstractRippableCard extends AbstractRipCard {
     public AbstractRippableCard(String cardID, int cost, CardType type, CardRarity rarity, CardTarget target, CardColor color) {
         super(cardID, cost, type, rarity, target, color);
 
-        AllCardsRippablePatches.AbstractCardFields.isRippable.set(this, true);
-        CardModifierManager.addModifier(this, new AddRippableModifier());
+        CardModifierManager.addModifier(this, new RippableModifier());
         if (!SpireAnniversary5Mod.oneFrameMode)
             setBackgroundTexture(
                     "anniv5Resources/images/512/rip/" + type.name().toLowerCase() + "-rippable.png",
