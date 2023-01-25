@@ -10,20 +10,31 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.combat.CardPoofEffect;
 import thePackmaster.cards.rippack.*;
+import thePackmaster.patches.rippack.AllCardsRippablePatches;
 
 import static thePackmaster.SpireAnniversary5Mod.makeID;
 
 public class ShowCardAndRipEffect extends AbstractGameEffect {
     private static final float EFFECT_DUR = 0.8F;
 
-    private ArtCard artCard;
+    private AbstractCard artCard;
     private AbstractCard textCard;
     private boolean hasPlayedSound;
 
     public ShowCardAndRipEffect(AbstractCard sourceCard) {
-        artCard = new ArtCard(sourceCard);
+        //Set up Art Half properties
+        artCard = sourceCard.makeStatEquivalentCopy();
+        artCard.rawDescription = "";
+        artCard.initializeDescription();
+        AllCardsRippablePatches.AbstractCardFields.ripStatus.set(artCard, AllCardsRippablePatches.RipStatus.ART);
+
+        //Set up Text Half properties
         textCard = sourceCard.makeStatEquivalentCopy();
+        textCard.cost = 0;
         textCard.costForTurn = 0;
+        textCard.name = "";
+        AllCardsRippablePatches.AbstractCardFields.ripStatus.set(textCard, AllCardsRippablePatches.RipStatus.TEXT);
+
         identifySpawnLocation(Settings.WIDTH / 2.0F, Settings.HEIGHT / 2.0F);
         this.duration = EFFECT_DUR;
 
