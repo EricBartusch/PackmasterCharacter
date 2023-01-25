@@ -53,7 +53,6 @@ import thePackmaster.cards.bitingcoldpack.GrowingAffliction;
 import thePackmaster.cards.cardvars.SecondDamage;
 import thePackmaster.cards.cardvars.SecondMagicNumber;
 import thePackmaster.cards.ringofpainpack.Slime;
-import thePackmaster.cards.rippack.AbstractRippableCard;
 import thePackmaster.events.BlackMarketDealerEvent;
 import thePackmaster.hats.HatMenu;
 import thePackmaster.hats.Hats;
@@ -221,6 +220,7 @@ public class SpireAnniversary5Mod implements
 
     public static boolean selectedCards = false;
     public static int combatExhausts = 0;
+    public static int cardsRippedThisTurn;
 
     public static int CLAW_SHARP_TRACKER = 0;
 
@@ -661,7 +661,7 @@ public class SpireAnniversary5Mod implements
     @Override
     public void receiveOnPlayerTurnStart() {
         Leprechaun.staticStartOfTurn();
-        AbstractRippableCard.cardsRippedThisTurn = 0;
+        cardsRippedThisTurn = 0;
     }
 
     public static void declarePacks() {

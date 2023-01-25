@@ -13,7 +13,7 @@ import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.util.Wiz.atb;
 import static thePackmaster.util.Wiz.att;
 
-public class HazardousStrike extends AbstractRippableCard {
+public class HazardousStrike extends AbstractRippableCard implements OnRipInterface {
     public final static String ID = makeID("HazardousStrike");
 
 
@@ -46,7 +46,6 @@ public class HazardousStrike extends AbstractRippableCard {
 
     @Override
     public void onRip() {
-        super.onRip();
         att(new ExhaustRandomNonArtCardsAction(magicNumber)); //att to it runs before making the new text/art cards in hand
         att(new VFXAction(AbstractDungeon.player, HazardousStrikeEffect.CutCardsInHand(), 0.25f,true));
     }

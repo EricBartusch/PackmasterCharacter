@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import static thePackmaster.SpireAnniversary5Mod.*;
 import static thePackmaster.util.Wiz.atb;
 
-public class SurprisePack extends AbstractRippableCard {
+public class SurprisePack extends AbstractRippableCard implements OnRipInterface {
     public final static String ID = makeID("SurprisePack");
 
 
@@ -41,7 +41,6 @@ public class SurprisePack extends AbstractRippableCard {
 
     @Override
     public void onRip() {
-        super.onRip();
         atb(new GainEnergyAction(secondMagic));
     }
 }

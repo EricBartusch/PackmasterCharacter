@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import static thePackmaster.SpireAnniversary5Mod.makeID;
 import static thePackmaster.util.Wiz.atb;
 
-public class FragileShrug extends AbstractRippableCard {
+public class FragileShrug extends AbstractRippableCard implements OnRipInterface{
     public final static String ID = makeID("FragileShrug");
 
 
@@ -30,7 +30,6 @@ public class FragileShrug extends AbstractRippableCard {
 
     @Override
     public void onRip() {
-        super.onRip();
         atb(new DrawCardAction(magicNumber));
     }
 }
