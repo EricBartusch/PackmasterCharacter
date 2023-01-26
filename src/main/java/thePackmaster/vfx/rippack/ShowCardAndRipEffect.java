@@ -88,8 +88,8 @@ public class ShowCardAndRipEffect extends AbstractGameEffect {
         }
         if(duration < EFFECT_DUR / 2.0F) {
 
-            artCard.target_x = x - 200.F * Settings.scale;
-            textCard.target_x = x + 200.F * Settings.scale;
+            artCard.target_x = x + 200.F * Settings.scale;
+            textCard.target_x = x - 200.F * Settings.scale;
         }
         duration -= Gdx.graphics.getDeltaTime();
         artCard.update();
