@@ -20,8 +20,15 @@ public class ShowCardAndRipEffect extends AbstractGameEffect {
     private AbstractCard artCard;
     private AbstractCard textCard;
     private boolean hasPlayedSound;
+    private float x;
 
     public ShowCardAndRipEffect(AbstractCard sourceCard) {
+        this(sourceCard, Settings.WIDTH / 2.0F, Settings.HEIGHT / 2.0F);
+    }
+
+    public ShowCardAndRipEffect(AbstractCard sourceCard, float x, float y) {
+        this.x = x;
+
         //Set up Art Half properties
         artCard = sourceCard.makeStatEquivalentCopy();
         artCard.rawDescription = "";
@@ -35,7 +42,7 @@ public class ShowCardAndRipEffect extends AbstractGameEffect {
         textCard.name = "";
         AllCardsRippablePatches.AbstractCardFields.ripStatus.set(textCard, AllCardsRippablePatches.RipStatus.TEXT);
 
-        identifySpawnLocation(Settings.WIDTH / 2.0F, Settings.HEIGHT / 2.0F);
+        identifySpawnLocation(x, y);
         this.duration = EFFECT_DUR;
 
         artCard.drawScale = 0.75F;
@@ -52,11 +59,11 @@ public class ShowCardAndRipEffect extends AbstractGameEffect {
     }
 
     private void identifySpawnLocation(float x, float y) {
-        artCard.target_y = Settings.HEIGHT * 0.5F;
-        textCard.target_y = Settings.HEIGHT * 0.5F;
+        artCard.target_y = y;
+        textCard.target_y = y;
 
-        artCard.target_x = Settings.WIDTH * 0.5F;
-        textCard.target_x = Settings.WIDTH * 0.5F;
+        artCard.target_x = x;
+        textCard.target_x = x;
 
         artCard.current_x = artCard.target_x;
         textCard.current_x = artCard.target_x;
@@ -81,8 +88,8 @@ public class ShowCardAndRipEffect extends AbstractGameEffect {
         }
         if(duration < EFFECT_DUR / 2.0F) {
 
-            artCard.target_x = Settings.WIDTH * 0.5F - 200.F * Settings.scale;
-            textCard.target_x = Settings.WIDTH * 0.5F + 200.F * Settings.scale;
+            artCard.target_x = x - 200.F * Settings.scale;
+            textCard.target_x = x + 200.F * Settings.scale;
         }
         duration -= Gdx.graphics.getDeltaTime();
         artCard.update();
