@@ -15,6 +15,8 @@ import com.megacrit.cardcrawl.vfx.cardManip.CardFlashVfx;
 import com.megacrit.cardcrawl.vfx.cardManip.CardGlowBorder;
 
 import static thePackmaster.SpireAnniversary5Mod.modID;
+import static thePackmaster.patches.rippack.AllCardsRippablePatches.oldShader;
+import static thePackmaster.patches.rippack.AllCardsRippablePatches.textShader;
 import static thePackmaster.util.Wiz.isTextCard;
 
 //Houses patches specifically for rendering text half of cards
@@ -48,7 +50,7 @@ public class TextCardRenderingPatches {
         @SpirePrefixPatch()
         public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
             if (isTextCard(__instance)) {
-                sb.setShader(null);
+                sb.setShader(oldShader);
             }
         }
     }
@@ -61,7 +63,7 @@ public class TextCardRenderingPatches {
         @SpirePostfixPatch()
         public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
             if (isTextCard(__instance)) {
-                sb.setShader(AllCardsRippablePatches.textShader);
+                sb.setShader(textShader);
             }
         }
     }
@@ -72,7 +74,7 @@ public class TextCardRenderingPatches {
         @SpirePrefixPatch()
         public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
             if (isTextCard(__instance)) {
-                sb.setShader(AllCardsRippablePatches.textShader);
+                sb.setShader(textShader);
             }
         }
     }
@@ -83,7 +85,7 @@ public class TextCardRenderingPatches {
         @SpirePostfixPatch()
         public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
             if (isTextCard(__instance)) {
-                sb.setShader(null);
+                sb.setShader(oldShader);
             }
         }
     }

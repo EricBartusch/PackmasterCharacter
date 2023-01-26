@@ -42,8 +42,9 @@ public class AllCardsRippablePatches {
     private static AbstractGameAction action;
     private static AbstractCard card;
 
-    static ShaderProgram artShader = null;
-    static ShaderProgram textShader = null;
+    public static ShaderProgram oldShader = null;
+    public static ShaderProgram artShader = null;
+    public static ShaderProgram textShader = null;
 
     public enum RipStatus {
         WHOLE,
@@ -154,6 +155,7 @@ public class AllCardsRippablePatches {
 
         @SpirePrefixPatch
         public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
+            oldShader = sb.getShader();
             if (isArtCard(__instance)) {
                 initArtShader();
                 sb.setShader(artShader);
@@ -167,7 +169,7 @@ public class AllCardsRippablePatches {
         @SpirePostfixPatch
         public static void PostFix(AbstractCard __instance, SpriteBatch sb) {
             if (!isWholeCard(__instance)) {
-                sb.setShader(null);
+                sb.setShader(oldShader);
             }
         }
     }
