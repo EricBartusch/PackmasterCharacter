@@ -1,6 +1,5 @@
 package thePackmaster.patches.rippack;
 
-import basemod.BaseMod;
 import basemod.helpers.CardModifierManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,7 +19,6 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.CorruptionPower;
-import com.megacrit.cardcrawl.vfx.ThoughtBubble;
 import thePackmaster.actions.rippack.RipCardAction;
 import thePackmaster.cardmodifiers.rippack.ArtCardModifier;
 import thePackmaster.cardmodifiers.rippack.RippableModifier;
@@ -80,22 +78,14 @@ public class AllCardsRippablePatches {
 
     public static void onRightClick() {
         if(action == null && isRippable(card)) {
-            if (canRip()) {
-                action = new RipCardAction(card);
-                att(action);
-                att(new WaitAction(0.1f));
-                att(new WaitAction(0.1f));
-                att(new WaitAction(0.1f));
-                att(new WaitAction(0.1f));
-                att(new VFXAction(new ShowCardAndRipEffect(card)));
-            } else{
-                AbstractDungeon.effectList.add(new ThoughtBubble(AbstractDungeon.player.dialogX, AbstractDungeon.player.dialogY, 2.0F, uiStrings.TEXT[1], true));
-            }
+            action = new RipCardAction(card);
+            att(action);
+            att(new WaitAction(0.1f));
+            att(new WaitAction(0.1f));
+            att(new WaitAction(0.1f));
+            att(new WaitAction(0.1f));
+            att(new VFXAction(new ShowCardAndRipEffect(card)));
         }
-    }
-
-    public static boolean canRip() {
-        return AbstractDungeon.player.hand.size() != BaseMod.MAX_HAND_SIZE;
     }
 
     @SpirePatch(clz = AbstractCard.class, method = "makeStatEquivalentCopy")
