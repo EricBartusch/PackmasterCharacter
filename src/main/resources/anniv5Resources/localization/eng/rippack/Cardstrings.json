@@ -5,8 +5,8 @@
   },
   "${ModID}:DividedFury": {
     "NAME": "Divided Fury",
-    "DESCRIPTION": "At the start of your turn, add a *Fury into your hand.",
-    "UPGRADE_DESCRIPTION": "Innate. NL At the start of your turn, add a *Fury into your hand."
+    "DESCRIPTION": "At the start of your turn, make !M! card in your ${ModID}:rippable.",
+    "UPGRADE_DESCRIPTION": "At the start of your turn, make !M! card in your ${ModID}:rippable."
   },
   "${ModID}:ViciousCycle": {
     "NAME": "Vicious Cycle",
