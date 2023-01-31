@@ -27,51 +27,51 @@ public class ArtCardRenderingPatches {
 
 
     //This pair of patches removes the shader from rendering the portrait
-    @SpirePatch(clz = AbstractCard.class, method = "renderPortrait")
-    public static class SkipPortraitPre {
-
-        @SpirePrefixPatch()
-        public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
-            if (isArtCard(__instance)) {
-                sb.setShader(oldShader);
-            }
-        }
-    }
-
-    @SpirePatch(clz = AbstractCard.class, method = "renderPortrait")
-    public static class SkipPortraitPost {
-
-        @SpirePostfixPatch()
-        public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
-            if (isArtCard(__instance)) {
-                sb.setShader(artShader);
-            }
-        }
-    }
-
-    //This pair of shaders removes the shader from rendering the title
-    //A side effect of the shader causes some characters of the title to be removed
-    @SpirePatch(clz = AbstractCard.class, method = "renderTitle")
-    public static class SkipTitleRenderPre {
-
-        @SpirePrefixPatch()
-        public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
-            if (isArtCard(__instance)) {
-                sb.setShader(oldShader);
-            }
-        }
-    }
-
-    @SpirePatch(clz = AbstractCard.class, method = "renderTitle")
-    public static class SkipTitleRenderPost {
-
-        @SpirePostfixPatch()
-        public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
-            if (isArtCard(__instance)) {
-                sb.setShader(artShader);
-            }
-        }
-    }
+//    @SpirePatch(clz = AbstractCard.class, method = "renderPortrait")
+//    public static class SkipPortraitPre {
+//
+//        @SpirePrefixPatch()
+//        public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
+//            if (isArtCard(__instance)) {
+//                sb.setShader(oldShader);
+//            }
+//        }
+//    }
+//
+//    @SpirePatch(clz = AbstractCard.class, method = "renderPortrait")
+//    public static class SkipPortraitPost {
+//
+//        @SpirePostfixPatch()
+//        public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
+//            if (isArtCard(__instance)) {
+//                sb.setShader(artShader);
+//            }
+//        }
+//    }
+//
+//    //This pair of shaders removes the shader from rendering the title
+//    //A side effect of the shader causes some characters of the title to be removed
+//    @SpirePatch(clz = AbstractCard.class, method = "renderTitle")
+//    public static class SkipTitleRenderPre {
+//
+//        @SpirePrefixPatch()
+//        public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
+//            if (isArtCard(__instance)) {
+//                sb.setShader(oldShader);
+//            }
+//        }
+//    }
+//
+//    @SpirePatch(clz = AbstractCard.class, method = "renderTitle")
+//    public static class SkipTitleRenderPost {
+//
+//        @SpirePostfixPatch()
+//        public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
+//            if (isArtCard(__instance)) {
+//                sb.setShader(artShader);
+//            }
+//        }
+//    }
 
     //Removes the flash from appearing where there is no card
     @SpirePatch(clz = CardFlashVfx.class, method = "render")

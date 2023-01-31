@@ -40,55 +40,55 @@ public class TextCardRenderingPatches {
         }
     }
 
-    //This pair of patches removes the shader from rendering the description
-    //A side effect of the shader causes some characters of the description to be removed
-    @SpirePatch(clz = AbstractCard.class, method = "renderDescription")
-    @SpirePatch(clz = AbstractCard.class, method = "renderDescriptionCN")
-    @SpirePatch(clz = AbstractCard.class, method = "renderType")
-    public static class ISeeTreesOfGreen {
-
-        @SpirePrefixPatch()
-        public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
-            if (isTextCard(__instance)) {
-                sb.setShader(oldShader);
-            }
-        }
-    }
-
-    @SpirePatch(clz = AbstractCard.class, method = "renderDescription")
-    @SpirePatch(clz = AbstractCard.class, method = "renderDescriptionCN")
-    @SpirePatch(clz = AbstractCard.class, method = "renderType")
-    public static class RedRosesToo {
-
-        @SpirePostfixPatch()
-        public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
-            if (isTextCard(__instance)) {
-                sb.setShader(textShader);
-            }
-        }
-    }
-
-    @SpirePatch(clz = AbstractCard.class, method = "renderEnergy")
-    public static class PleaseMakeEnergyTransparent {
-
-        @SpirePrefixPatch()
-        public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
-            if (isTextCard(__instance)) {
-                sb.setShader(textShader);
-            }
-        }
-    }
-
-    @SpirePatch(clz = AbstractCard.class, method = "renderEnergy")
-    public static class IBegOfYou {
-
-        @SpirePostfixPatch()
-        public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
-            if (isTextCard(__instance)) {
-                sb.setShader(oldShader);
-            }
-        }
-    }
+//    //This pair of patches removes the shader from rendering the description
+//    //A side effect of the shader causes some characters of the description to be removed
+//    @SpirePatch(clz = AbstractCard.class, method = "renderDescription")
+//    @SpirePatch(clz = AbstractCard.class, method = "renderDescriptionCN")
+//    @SpirePatch(clz = AbstractCard.class, method = "renderType")
+//    public static class ISeeTreesOfGreen {
+//
+//        @SpirePrefixPatch()
+//        public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
+//            if (isTextCard(__instance)) {
+//                sb.setShader(oldShader);
+//            }
+//        }
+//    }
+//
+//    @SpirePatch(clz = AbstractCard.class, method = "renderDescription")
+//    @SpirePatch(clz = AbstractCard.class, method = "renderDescriptionCN")
+//    @SpirePatch(clz = AbstractCard.class, method = "renderType")
+//    public static class RedRosesToo {
+//
+//        @SpirePostfixPatch()
+//        public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
+//            if (isTextCard(__instance)) {
+//                sb.setShader(textShader);
+//            }
+//        }
+//    }
+//
+//    @SpirePatch(clz = AbstractCard.class, method = "renderEnergy")
+//    public static class PleaseMakeEnergyTransparent {
+//
+//        @SpirePrefixPatch()
+//        public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
+//            if (isTextCard(__instance)) {
+//                sb.setShader(textShader);
+//            }
+//        }
+//    }
+//
+//    @SpirePatch(clz = AbstractCard.class, method = "renderEnergy")
+//    public static class IBegOfYou {
+//
+//        @SpirePostfixPatch()
+//        public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
+//            if (isTextCard(__instance)) {
+//                sb.setShader(oldShader);
+//            }
+//        }
+//    }
 
     //Removes the flash from appearing where there is no card
     @SpirePatch(clz = CardFlashVfx.class, method = "render")

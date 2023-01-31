@@ -1,5 +1,6 @@
 package thePackmaster.patches.rippack;
 
+import basemod.ReflectionHacks;
 import basemod.helpers.CardModifierManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -21,6 +22,8 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.CorruptionPower;
+import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
+import thePackmaster.SpireAnniversary5Mod;
 import thePackmaster.actions.rippack.RipCardAction;
 import thePackmaster.cardmodifiers.rippack.ArtCardModifier;
 import thePackmaster.cardmodifiers.rippack.RippableModifier;
@@ -169,15 +172,16 @@ public class AllCardsRippablePatches {
 //    }
 
     @SpirePatch(clz = AbstractCard.class, method = "renderHelper", paramtypez = {SpriteBatch.class, Color.class, TextureAtlas.AtlasRegion.class, float.class, float.class})
-    @SpirePatch(clz = AbstractCard.class, method = "renderHelper", paramtypez = {SpriteBatch.class, Color.class, TextureAtlas.AtlasRegion.class, float.class, float.class, float.class})
+//    @SpirePatch(clz = AbstractCard.class, method = "renderHelper", paramtypez = {SpriteBatch.class, Color.class, TextureAtlas.AtlasRegion.class, float.class, float.class, float.class})
 //    @SpirePatch(clz = AbstractCard.class, method = "renderHelper", paramtypez = {SpriteBatch.class, Color.class, Texture.class, float.class, float.class})
 //    @SpirePatch(clz = AbstractCard.class, method = "renderHelper", paramtypez = {SpriteBatch.class, Color.class, Texture.class, float.class, float.class, float.class})
     public static class AHHHHHHHHHHH {
-
+//u_y = ((region_start_y + (region_height / 2)) / atlas_height
         @SpirePrefixPatch
-        public static void Prefix(AbstractCard __instance, SpriteBatch sb, TextureAtlas.AtlasRegion img) {
+        public static void Prefix(AbstractCard __instance, SpriteBatch sb, Color color, TextureAtlas.AtlasRegion img, float drawX, float drawY) {
             oldShader = sb.getShader();
-            float foo = (img.getRegionY() + (img.getRegionHeight() / 2)) / img.originalHeight;
+            TextureAtlas cardAtlas = ReflectionHacks.getPrivate(__instance, AbstractCard.class, "cardAtlas");
+            float foo = (float) (((float)img.getRegionY() + ((float)img.getRegionHeight() / 2)) / 2048.0);
             if (isArtCard(__instance)) {
                 initArtShader();
                 sb.setShader(artShader);
