@@ -2,7 +2,9 @@ package thePackmaster.patches.rippack;
 
 import basemod.helpers.CardModifierManager;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.evacipated.cardcrawl.mod.stslib.patches.HitboxRightClick;
@@ -140,19 +142,52 @@ public class AllCardsRippablePatches {
         }
     }
 
-    @SpirePatch(clz = AbstractCard.class, method = "render", paramtypez = {SpriteBatch.class})
-    public static class RenderArtAndTextCardsWithShader {
+//    @SpirePatch(clz = AbstractCard.class, method = "render", paramtypez = {SpriteBatch.class})
+//    public static class RenderArtAndTextCardsWithShader {
+//
+//        @SpirePrefixPatch
+//        public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
+//            oldShader = sb.getShader();
+//            if (isArtCard(__instance)) {
+//                initArtShader();
+//                sb.setShader(artShader);
+//                artShader.setUniformf("u_y", SpireAnniversary5Mod.iDatafart.get());
+//            }
+//            if (isTextCard(__instance)) {
+//                initTextShader();
+//                sb.setShader(textShader);
+//                artShader.setUniformf("u_y", SpireAnniversary5Mod.iDataftext.get());
+//            }
+//        }
+//
+//        @SpirePostfixPatch
+//        public static void PostFix(AbstractCard __instance, SpriteBatch sb) {
+//            if (!isWholeCard(__instance)) {
+//                sb.setShader(oldShader);
+//            }
+//        }
+//    }
+
+    @SpirePatch(clz = AbstractCard.class, method = "renderHelper", paramtypez = {SpriteBatch.class, Color.class, TextureAtlas.AtlasRegion.class, float.class, float.class})
+    @SpirePatch(clz = AbstractCard.class, method = "renderHelper", paramtypez = {SpriteBatch.class, Color.class, TextureAtlas.AtlasRegion.class, float.class, float.class, float.class})
+//    @SpirePatch(clz = AbstractCard.class, method = "renderHelper", paramtypez = {SpriteBatch.class, Color.class, Texture.class, float.class, float.class})
+//    @SpirePatch(clz = AbstractCard.class, method = "renderHelper", paramtypez = {SpriteBatch.class, Color.class, Texture.class, float.class, float.class, float.class})
+    public static class AHHHHHHHHHHH {
 
         @SpirePrefixPatch
-        public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
+        public static void Prefix(AbstractCard __instance, SpriteBatch sb, TextureAtlas.AtlasRegion img) {
             oldShader = sb.getShader();
+            float foo = (img.getRegionY() + (img.getRegionHeight() / 2)) / img.originalHeight;
             if (isArtCard(__instance)) {
                 initArtShader();
                 sb.setShader(artShader);
+                //((region_start_y + (region_height / 2)) / atlas_height
+                artShader.setUniformf("u_y", foo);
             }
             if (isTextCard(__instance)) {
                 initTextShader();
                 sb.setShader(textShader);
+                artShader.setUniformf("u_y", foo);
             }
         }
 
@@ -163,6 +198,7 @@ public class AllCardsRippablePatches {
             }
         }
     }
+
 
     private static void initArtShader() {
         if (artShader == null) {

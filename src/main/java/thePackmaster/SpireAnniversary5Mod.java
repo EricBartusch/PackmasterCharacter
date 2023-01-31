@@ -43,6 +43,10 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.stances.AbstractStance;
 import com.megacrit.cardcrawl.stances.CalmStance;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
+import imgui.ImGui;
+import imgui.ImVec2;
+import imgui.flag.ImGuiCond;
+import imgui.type.ImFloat;
 import javassist.CtClass;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -122,7 +126,8 @@ public class SpireAnniversary5Mod implements
         PostPowerApplySubscriber,
         StartGameSubscriber,
         PostExhaustSubscriber,
-        OnPlayerTurnStartSubscriber {
+        OnPlayerTurnStartSubscriber,
+        ImGuiSubscriber {
 
     public static final Logger logger = LogManager.getLogger("Packmaster");
 
@@ -907,6 +912,17 @@ public class SpireAnniversary5Mod implements
             SpireAnniversary5Mod.logger.info("completed start of game hats");
         }
 
+    }
+    public static final ImFloat iDataftext = new ImFloat();
+    public static final ImFloat iDatafart = new ImFloat();
+
+    @Override
+    public void receiveImGui() {
+        ImVec2 wPos = ImGui.getMainViewport().getPos();
+        ImGui.setNextWindowPos(wPos.x + 7, wPos.y + 270, ImGuiCond.FirstUseEver);
+        ImGui.setNextWindowSize(200, 200, ImGuiCond.FirstUseEver);
+        ImGui.sliderFloat("wtftext", iDataftext.getData(), 0, 1);
+        ImGui.sliderFloat("wtfart", iDatafart.getData(), 0, 1);
     }
 
     public static class Enums {
