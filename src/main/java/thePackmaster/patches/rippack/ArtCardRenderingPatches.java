@@ -15,8 +15,6 @@ import com.megacrit.cardcrawl.vfx.cardManip.CardFlashVfx;
 import com.megacrit.cardcrawl.vfx.cardManip.CardGlowBorder;
 
 import static thePackmaster.SpireAnniversary5Mod.modID;
-import static thePackmaster.patches.rippack.AllCardsRippablePatches.artShader;
-import static thePackmaster.patches.rippack.AllCardsRippablePatches.oldShader;
 import static thePackmaster.util.Wiz.isArtCard;
 
 //Houses patches specifically for rendering art half of cards
@@ -24,54 +22,6 @@ import static thePackmaster.util.Wiz.isArtCard;
 public class ArtCardRenderingPatches {
 
     private static final Texture ART_GLOW = ImageMaster.loadImage(modID + "Resources/images/512/rip/card_art.png");
-
-
-    //This pair of patches removes the shader from rendering the portrait
-//    @SpirePatch(clz = AbstractCard.class, method = "renderPortrait")
-//    public static class SkipPortraitPre {
-//
-//        @SpirePrefixPatch()
-//        public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
-//            if (isArtCard(__instance)) {
-//                sb.setShader(oldShader);
-//            }
-//        }
-//    }
-//
-//    @SpirePatch(clz = AbstractCard.class, method = "renderPortrait")
-//    public static class SkipPortraitPost {
-//
-//        @SpirePostfixPatch()
-//        public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
-//            if (isArtCard(__instance)) {
-//                sb.setShader(artShader);
-//            }
-//        }
-//    }
-//
-//    //This pair of shaders removes the shader from rendering the title
-//    //A side effect of the shader causes some characters of the title to be removed
-//    @SpirePatch(clz = AbstractCard.class, method = "renderTitle")
-//    public static class SkipTitleRenderPre {
-//
-//        @SpirePrefixPatch()
-//        public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
-//            if (isArtCard(__instance)) {
-//                sb.setShader(oldShader);
-//            }
-//        }
-//    }
-//
-//    @SpirePatch(clz = AbstractCard.class, method = "renderTitle")
-//    public static class SkipTitleRenderPost {
-//
-//        @SpirePostfixPatch()
-//        public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
-//            if (isArtCard(__instance)) {
-//                sb.setShader(artShader);
-//            }
-//        }
-//    }
 
     //Removes the flash from appearing where there is no card
     @SpirePatch(clz = CardFlashVfx.class, method = "render")

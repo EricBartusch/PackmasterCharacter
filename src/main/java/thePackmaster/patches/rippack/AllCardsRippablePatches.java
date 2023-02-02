@@ -1,7 +1,5 @@
 package thePackmaster.patches.rippack;
 
-import basemod.ReflectionHacks;
-import basemod.abstracts.CustomCard;
 import basemod.helpers.CardModifierManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -143,67 +141,38 @@ public class AllCardsRippablePatches {
             return SpireReturn.Continue();
         }
     }
-
-//    @SpirePatch(clz = AbstractCard.class, method = "render", paramtypez = {SpriteBatch.class})
-//    public static class RenderArtAndTextCardsWithShader {
-//
-//        @SpirePrefixPatch
-//        public static void Prefix(AbstractCard __instance, SpriteBatch sb) {
-//            oldShader = sb.getShader();
-//            if (isArtCard(__instance)) {
-//                initArtShader();
-//                sb.setShader(artShader);
-//                artShader.setUniformf("u_y", SpireAnniversary5Mod.iDatafart.get());
-//            }
-//            if (isTextCard(__instance)) {
-//                initTextShader();
-//                sb.setShader(textShader);
-//                artShader.setUniformf("u_y", SpireAnniversary5Mod.iDataftext.get());
-//            }
-//        }
-//
-//        @SpirePostfixPatch
-//        public static void PostFix(AbstractCard __instance, SpriteBatch sb) {
-//            if (!isWholeCard(__instance)) {
-//                sb.setShader(oldShader);
-//            }
-//        }
-//    }
-
     public static boolean setShader = false;
 
+    //I only want my patch in renderHelper below to apply on card backgrounds
     @SpirePatch(clz = AbstractCard.class, method = "renderCardBg")
-    public static class DearLordHelpMe {
+    public static class SetFlagForRenderHelperPatch {
 
         public static void Prefix(AbstractCard __instance, SpriteBatch sb, float x, float y) {
             setShader = true;
         }
     }
 
+    //Set art/text shaders appropriately
+    //Base game cards utilize an atlas that needs to be taken into account when determining the cutoff point where the shader should start
     @SpirePatch(clz = AbstractCard.class, method = "renderHelper", paramtypez = {SpriteBatch.class, Color.class, TextureAtlas.AtlasRegion.class, float.class, float.class})
-//    @SpirePatch(clz = AbstractCard.class, method = "renderHelper", paramtypez = {SpriteBatch.class, Color.class, TextureAtlas.AtlasRegion.class, float.class, float.class, float.class})
-//    @SpirePatch(clz = AbstractCard.class, method = "renderHelper", paramtypez = {SpriteBatch.class, Color.class, Texture.class, float.class, float.class})
-//    @SpirePatch(clz = AbstractCard.class, method = "renderHelper", paramtypez = {SpriteBatch.class, Color.class, Texture.class, float.class, float.class, float.class})
-    public static class AHHHHHHHHHHH {
-//u_y = ((region_start_y + (region_height / 2)) / atlas_height
+    public static class ApplyArtOrTextShaders {
         @SpirePrefixPatch
         public static void Prefix(AbstractCard __instance, SpriteBatch sb, Color color, TextureAtlas.AtlasRegion img, float drawX, float drawY) {
             oldShader = sb.getShader();
-            TextureAtlas cardAtlas = ReflectionHacks.getPrivate(__instance, AbstractCard.class, "cardAtlas");
-            float foo = (float) (((float)img.getRegionY() + ((float)img.getRegionHeight() * 5 / 8)) / 2048.0);
-            foo = __instance instanceof CustomCard ? 0.6f : foo;
+            //don't mess with the 5/8, it's how I got the cutoff to line up properly between base game/custom cards. I dunno why it's not exactly the same
+            float cutoff_y = ((float)img.getRegionY() + ((float)img.getRegionHeight() * 5 / 8)) / img.getTexture().getHeight();
+            cutoff_y = img.getRegionHeight() < img.getTexture().getHeight() ? cutoff_y : 0.6f; //if the region is less than the texture, we're using an atlas
             if (isArtCard(__instance) && setShader) {
                 initArtShader();
                 sb.setShader(artShader);
-                //((region_start_y + (region_height / 2)) / atlas_height
-                artShader.setUniformf("u_y", foo);
+                artShader.setUniformf("u_y", cutoff_y);
             }
-            if (isTextCard(__instance)) {
-                foo = (float) (((float)img.getRegionY() + ((float)img.getRegionHeight() * 3 / 5)) / 2048.0);
-                foo = __instance instanceof CustomCard ? 0.5f : foo;
+            if (isTextCard(__instance) && setShader) {
+                cutoff_y = ((float)img.getRegionY() + ((float)img.getRegionHeight() / 2)) / img.getTexture().getHeight();
+                cutoff_y = img.getRegionHeight() < img.getTexture().getHeight() ? cutoff_y : 0.5f;
                 initTextShader();
                 sb.setShader(textShader);
-                artShader.setUniformf("u_y", foo);
+                textShader.setUniformf("u_y", cutoff_y);
             }
         }
 
