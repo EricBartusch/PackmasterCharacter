@@ -5,7 +5,7 @@ precision mediump float;
 #define LOWP
 #endif
 
-uniform float u_strength;
+uniform float u_y;
 
 in vec2 v_texCoord;
 

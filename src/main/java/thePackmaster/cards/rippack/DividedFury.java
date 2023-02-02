@@ -1,11 +1,12 @@
 package thePackmaster.cards.rippack;
 
+import basemod.helpers.CardModifierManager;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import thePackmaster.powers.rippack.DividedFuryPower;
+import thePackmaster.cardmodifiers.rippack.RippableModifier;
 
 import static thePackmaster.SpireAnniversary5Mod.makeID;
-import static thePackmaster.util.Wiz.applyToSelf;
 
 
 public class DividedFury extends AbstractRipCard {
@@ -22,7 +23,10 @@ public class DividedFury extends AbstractRipCard {
     }
 
     @Override
-    public void use(AbstractPlayer abstractPlayer, AbstractMonster abstractMonster) {
-        applyToSelf(new DividedFuryPower(magicNumber));
+    public void use(AbstractPlayer p, AbstractMonster m) {
+        for(AbstractCard c : p.hand.group) {
+            CardModifierManager.addModifier(c, new RippableModifier());
+        }
+//        applyToSelf(new DividedFuryPower(magicNumber));
     }
 }

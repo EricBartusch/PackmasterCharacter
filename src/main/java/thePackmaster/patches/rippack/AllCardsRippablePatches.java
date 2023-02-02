@@ -1,6 +1,7 @@
 package thePackmaster.patches.rippack;
 
 import basemod.ReflectionHacks;
+import basemod.abstracts.CustomCard;
 import basemod.helpers.CardModifierManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -22,8 +23,6 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.CorruptionPower;
-import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
-import thePackmaster.SpireAnniversary5Mod;
 import thePackmaster.actions.rippack.RipCardAction;
 import thePackmaster.cardmodifiers.rippack.ArtCardModifier;
 import thePackmaster.cardmodifiers.rippack.RippableModifier;
@@ -171,6 +170,16 @@ public class AllCardsRippablePatches {
 //        }
 //    }
 
+    public static boolean setShader = false;
+
+    @SpirePatch(clz = AbstractCard.class, method = "renderCardBg")
+    public static class DearLordHelpMe {
+
+        public static void Prefix(AbstractCard __instance, SpriteBatch sb, float x, float y) {
+            setShader = true;
+        }
+    }
+
     @SpirePatch(clz = AbstractCard.class, method = "renderHelper", paramtypez = {SpriteBatch.class, Color.class, TextureAtlas.AtlasRegion.class, float.class, float.class})
 //    @SpirePatch(clz = AbstractCard.class, method = "renderHelper", paramtypez = {SpriteBatch.class, Color.class, TextureAtlas.AtlasRegion.class, float.class, float.class, float.class})
 //    @SpirePatch(clz = AbstractCard.class, method = "renderHelper", paramtypez = {SpriteBatch.class, Color.class, Texture.class, float.class, float.class})
@@ -181,14 +190,17 @@ public class AllCardsRippablePatches {
         public static void Prefix(AbstractCard __instance, SpriteBatch sb, Color color, TextureAtlas.AtlasRegion img, float drawX, float drawY) {
             oldShader = sb.getShader();
             TextureAtlas cardAtlas = ReflectionHacks.getPrivate(__instance, AbstractCard.class, "cardAtlas");
-            float foo = (float) (((float)img.getRegionY() + ((float)img.getRegionHeight() / 2)) / 2048.0);
-            if (isArtCard(__instance)) {
+            float foo = (float) (((float)img.getRegionY() + ((float)img.getRegionHeight() * 5 / 8)) / 2048.0);
+            foo = __instance instanceof CustomCard ? 0.6f : foo;
+            if (isArtCard(__instance) && setShader) {
                 initArtShader();
                 sb.setShader(artShader);
                 //((region_start_y + (region_height / 2)) / atlas_height
                 artShader.setUniformf("u_y", foo);
             }
             if (isTextCard(__instance)) {
+                foo = (float) (((float)img.getRegionY() + ((float)img.getRegionHeight() * 3 / 5)) / 2048.0);
+                foo = __instance instanceof CustomCard ? 0.5f : foo;
                 initTextShader();
                 sb.setShader(textShader);
                 artShader.setUniformf("u_y", foo);
@@ -198,6 +210,7 @@ public class AllCardsRippablePatches {
         @SpirePostfixPatch
         public static void PostFix(AbstractCard __instance, SpriteBatch sb) {
             if (!isWholeCard(__instance)) {
+                setShader = false;
                 sb.setShader(oldShader);
             }
         }
