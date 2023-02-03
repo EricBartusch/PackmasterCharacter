@@ -133,7 +133,6 @@ public class SpireAnniversary5Mod implements
         StartGameSubscriber,
         PostExhaustSubscriber,
         OnPlayerTurnStartSubscriber,
-        ImGuiSubscriber,
         OnCreateDescriptionSubscriber,
         OnPlayerLoseBlockSubscriber {
 
@@ -999,57 +998,6 @@ public class SpireAnniversary5Mod implements
             //SpireAnniversary5Mod.logger.info("completed start of game hats");
         }
 
-    }
-    public static final ImFloat iDataftext = new ImFloat();
-    public static final ImFloat iDatafart = new ImFloat();
-
-    @Override
-    public void receiveImGui() {
-        ImVec2 wPos = ImGui.getMainViewport().getPos();
-        ImGui.setNextWindowPos(wPos.x + 7, wPos.y + 270, ImGuiCond.FirstUseEver);
-        ImGui.setNextWindowSize(200, 200, ImGuiCond.FirstUseEver);
-        ImGui.sliderFloat("wtftext", iDataftext.getData(), 0, 1);
-        ImGui.sliderFloat("wtfart", iDatafart.getData(), 0, 1);
-    }
-
-    @Override
-    public String receiveCreateCardDescription(String currentRaw, AbstractCard card) {
-        if (AbstractDungeon.player != null) {
-            for(AbstractPower pow : p().powers) {
-                if(PrimeDirectivePower.POWER_ID.equals(pow.ID)) {
-                    currentRaw = ((PrimeDirectivePower)pow).modifyDescription(currentRaw, card);
-                } else if(GammaWardPower.POWER_ID.equals(pow.ID)) {
-                    currentRaw = ((GammaWardPower)pow).modifyDescription(currentRaw, card);
-                }
-            }
-        }
-        return currentRaw;
-    }
-
-    @Override
-    public int receiveOnPlayerLoseBlock(int i) {
-        i = Serene.receiveOnPlayerLoseBlock(i);
-        return i;
-    }
-
-    @Override
-    public String receiveCreateCardDescription(String currentRaw, AbstractCard card) {
-        if (AbstractDungeon.player != null) {
-            for(AbstractPower pow : p().powers) {
-                if(PrimeDirectivePower.POWER_ID.equals(pow.ID)) {
-                    currentRaw = ((PrimeDirectivePower)pow).modifyDescription(currentRaw, card);
-                } else if(GammaWardPower.POWER_ID.equals(pow.ID)) {
-                    currentRaw = ((GammaWardPower)pow).modifyDescription(currentRaw, card);
-                }
-            }
-        }
-        return currentRaw;
-    }
-
-    @Override
-    public int receiveOnPlayerLoseBlock(int i) {
-        i = Serene.receiveOnPlayerLoseBlock(i);
-        return i;
     }
 
     @Override
