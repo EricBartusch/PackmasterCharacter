@@ -28,7 +28,10 @@
     "SandTag",
     "Charlie",
     "Mindbomber",
-    "Jack Renoson"
+    "Jack Renoson",
+    "lobbien",
+    "Jedi",
+    "Mwalls"
   ],
   "description": "${project.description}",
   "version": "${project.version}",

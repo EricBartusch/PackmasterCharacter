@@ -12,7 +12,6 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.combat.WeightyImpactEffect;
-import thePackmaster.cards.AbstractPackmasterCard;
 
 import static thePackmaster.SpireAnniversary5Mod.makeID;
 
@@ -35,7 +34,8 @@ public class SlimeCrush extends AbstractDownfallCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         AbstractDungeon.actionManager.addToBottom(new AnimateJumpAction(p));
         if (!upgraded) {
-            AbstractDungeon.actionManager.addToBottom(new VFXAction(new WeightyImpactEffect(m.hb.cX, m.hb.cY, new Color(0.1F, 1.0F, 0.1F, 0.0F))));
+            if (m != null)
+                AbstractDungeon.actionManager.addToBottom(new VFXAction(new WeightyImpactEffect(m.hb.cX, m.hb.cY, new Color(0.1F, 1.0F, 0.1F, 0.0F))));
             AbstractDungeon.actionManager.addToBottom(new WaitAction(0.8F));
             AbstractDungeon.actionManager.addToBottom(new DamageAction(m, new com.megacrit.cardcrawl.cards.DamageInfo(p, damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.POISON));
         } else {
@@ -49,6 +49,8 @@ public class SlimeCrush extends AbstractDownfallCard {
     @Override
     public void upp() {
         upgradeDamage(UPGRADE_DAMAGE);
+        isMultiDamage = true;
+        target = CardTarget.ALL_ENEMY;
     }
 
 

@@ -11,13 +11,16 @@
     "NAME": "Banishing Decree",
     "FLAVOR": "Absorb what is useful, reject what is useless and add what is essentially your own.",
     "DESCRIPTIONS": [
-      "Upon pickup, choose one of your Packs. Cards from it will no longer appear in card rewards. Then, choose #b1 of #b5 new Packs to replace it with, and gain up to #b3 card rewards from that pack.",
+      "Upon pickup, choose one of your Packs. Cards from it will no longer appear in card rewards. Then, choose #b1 of #b5 new Packs to replace it with, and gain up to #b3 card rewards from that Pack.",
       "Choose a Pack to banish with ",
       "Cards from the Pack '",
       "' will no longer appear in card rewards.",
       "' will appear in card rewards.",
       "Choose a Pack to gain with ",
-      "Power!"
+      "Power!",
+      ".",
+      ".",
+      "Translator note: The 2 dots up here follows the structure 'Choose a Pack to banish with '+'Banishing Decree'+'.' and 'Choose a Pack to gain with '+'Banishing Decree'+'.' respectively. "
     ]
   },
   "${ModID}:CollectorBadge": {
@@ -48,7 +51,7 @@
     "NAME": "P.M. Booster Box",
     "FLAVOR": "Better price for buying in bulk.",
     "DESCRIPTIONS": [
-      "Upon pickup, choose #b1 of #b3 Packmaster Boosters, three times. Earn one additional card reward from these boosters at the end of each combat.",
+      "Upon pickup, choose #b1 of #b3 Packmaster Boosters, three times. Earn an additional card from these boosters at the end of each combat.",
       " NL Chosen Boosters: ",
       "Choose a Booster Pack."
     ]
@@ -57,7 +60,7 @@
     "NAME": "P.M. Booster Pack",
     "FLAVOR": "A package of cards in a foil wrapper. How did it end up in the Spire?",
     "DESCRIPTIONS": [
-      "Upon pickup, you may add any one card from a random Packmaster Booster to your deck.",
+      "Upon pickup, add any one card from a random Packmaster Booster to your deck.",
       "Choose a card to add to your deck."
     ]
   },

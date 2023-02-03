@@ -12,7 +12,7 @@
   "${ModID}:BlockVial": {
     "NAME": "Block Vial",
     "DESCRIPTION": "Gain !B! Block. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "Gain !B! Block. NL Your Block is not removed at the start of your next turn. NL Exhaust."
+    "UPGRADE_DESCRIPTION": "Gain !B! Block. NL Gain !${ModID}:m2! Block next turn. NL Exhaust."
   },
   "${ModID}:DynamicVial": {
     "NAME": "Dynamic Vial",
@@ -22,25 +22,25 @@
   "${ModID}:MetallicVial": {
     "NAME": "Metallic Vial",
     "DESCRIPTION": "Choose: Gain 4 Plated Armor, Gain 3 Thorns, or Gain 2 Artifact. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "Choose: Gain 4 Plated Armor, Gain 3 Thorns, or Gain 2 Artifact. NL stslib:Exhaustive 2.",
+    "UPGRADE_DESCRIPTION": "Choose: Gain 4 Plated Armor, Gain 3 Thorns, or Gain 2 Artifact. NL stslib:Exhaustive !stslib:ex!.",
     "EXTENDED_DESCRIPTION": ["Gain 4 Plated Armor.", "Gain 3 Thorns.","Gain 2 Artifact."]
   },
   "${ModID}:QuickBrew": {
     "NAME": "Quick Brew",
-    "DESCRIPTION": "Choose: Gain 2 Strength, or Gain 3 Focus.",
-    "UPGRADE_DESCRIPTION": "Choose: Gain 2 Strength, Gain 2 Dexterity, or Gain 3 Focus.",
-    "EXTENDED_DESCRIPTION": ["Gain 2 Strength.", "Gain 2 Dexterity.","Gain 3 Focus."]
+    "DESCRIPTION": "Choose: Gain !M! Strength, or Gain !M! Focus.",
+    "UPGRADE_DESCRIPTION": "Choose: Gain !M! Strength, Gain !M! Dexterity, or Gain !M! Focus.",
+    "EXTENDED_DESCRIPTION": ["Gain !M! Strength.", "Gain !M! Dexterity.","Gain !M! Focus."]
   },
   "${ModID}:ToxicVial": {
     "NAME": "Toxic Vial",
     "DESCRIPTION": "Choose: Apply 3 Weak, or Apply 8 Poison. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "Choose: Apply 3 Vulnerable, Apply 3 Weak, or Apply 8 Poison.",
+    "UPGRADE_DESCRIPTION": "Choose: Apply 3 Vulnerable, Apply 3 Weak, or Apply 8 Poison. NL Exhaust.",
     "EXTENDED_DESCRIPTION": ["Apply 3 Vulnerable.", "Apply 3 Weak.","Apply 8 Poison."]
   },
   "${ModID}:AttackVial": {
     "NAME": "Attack Vial",
     "DESCRIPTION": "Choose 1 of 3 Attacks to gain. It costs 0 until played. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "Choose 1 of 3 Attacks to gain. It costs 0 until played. NL stslib:Exhaustive 2.",
+    "UPGRADE_DESCRIPTION": "Choose 1 of 3 Attacks to gain. It costs 0 until played. NL stslib:Exhaustive !stslib:ex!.",
     "EXTENDED_DESCRIPTION": ["Choose 1 of 3 Attacks to gain. It costs 0 until played."]
   },
   "${ModID}:ChaosVial": {
@@ -50,6 +50,6 @@
   "${ModID}:VialOfMemory": {
     "NAME": "Vial of Memory",
     "DESCRIPTION": "Choose a card in your discard pile and return it to your hand. It costs 0 until played. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "Choose a card in your discard pile and return it to your hand. It costs 0 until played. NL stslib:Exhaustive 2."
+    "UPGRADE_DESCRIPTION": "Choose a card in your discard pile and return it to your hand. It costs 0 until played. NL stslib:Exhaustive !stslib:ex!."
   }
 }

@@ -14,6 +14,7 @@ import com.megacrit.cardcrawl.helpers.TipHelper;
 import com.megacrit.cardcrawl.screens.options.DropdownMenu;
 import thePackmaster.SpireAnniversary5Mod;
 import thePackmaster.packs.AbstractCardPack;
+import thePackmaster.patches.MainMenuUIPatch;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,7 +48,6 @@ public class PackFilterMenu {
     private static final float PREVIEW_Y = 700f * Settings.scale;
 
     public PackFilterMenu() {
-        SpireAnniversary5Mod.logger.info("Settings.HEIGHT = " + Settings.HEIGHT);
         ArrayList<String> optionNames = new ArrayList<>();
         List<AbstractCardPack> sortedPacks = new ArrayList<>(SpireAnniversary5Mod.unfilteredAllPacks);
         sortedPacks.sort(Comparator.comparing((pack) -> pack.name));
@@ -76,6 +76,8 @@ public class PackFilterMenu {
 
     private void open() {
         isOpen = true;
+        if (previewCard != null)
+            previewCard.stopGlowing();
     }
 
     private void close() {
@@ -85,6 +87,7 @@ public class PackFilterMenu {
     public void setViewedPack(int index) {
         viewedPack = packs.get(index);
         previewCard = viewedPack.previewPackCard;
+        previewCard.stopGlowing();
         checkbox.toggle.enabled = getFilterConfig(viewedPack.packID);
     }
 
@@ -107,12 +110,13 @@ public class PackFilterMenu {
         if (!dropdown.isOpen) {
             checkbox.update();
         }
+        previewCard.stopGlowing();
         previewCard.update();
         previewCard.current_x = PREVIEW_X;
         previewCard.current_y = PREVIEW_Y;
         previewCard.hb.move(previewCard.current_x, previewCard.current_y);
         previewCard.hb.update();
-        if (viewedPack.credits != null) {
+        if (viewedPack.credits != null && !MainMenuUIPatch.hatMenu.isOpen) {
             TipHelper.renderGenericTip(
                     previewCard.current_x + previewCard.hb.width,
                     previewCard.current_y + previewCard.hb.height,

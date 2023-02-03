@@ -1,6 +1,7 @@
 package thePackmaster.patches.coresetpack;
 
 import basemod.ReflectionHacks;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
@@ -20,11 +21,14 @@ public class EndTurnButtonChanges {
 
     public static void Postfix(EndTurnButton __instance, SpriteBatch sb) {
         boolean isHidden = ReflectionHacks.getPrivate(__instance, EndTurnButton.class, "isHidden");
-        if (!isHidden) {
+        if (!isHidden && AbstractDungeon.overlayMenu.endTurnButton.enabled) {
             AbstractPower form = AbstractDungeon.player.getPower(MayhemFormPower.POWER_ID);
             if (form != null) {
                 if (!((MayhemFormPower) form).activatedThisTurn) {
-                    ImageHelper.drawTextureScaled(sb, reminderTex, SHOW_X, SHOW_Y); //TODO: Looks just a little weird
+                    Color org = sb.getColor();
+                    sb.setColor(Color.WHITE);
+                    ImageHelper.drawTextureScaled(sb, reminderTex, SHOW_X, SHOW_Y);
+                    sb.setColor(org);
                 }
             }
         }

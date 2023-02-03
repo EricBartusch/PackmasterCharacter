@@ -2,6 +2,7 @@ package thePackmaster.relics;
 
 import basemod.BaseMod;
 import basemod.abstracts.CustomSavable;
+import com.evacipated.cardcrawl.mod.stslib.cards.interfaces.SpawnModificationCard;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -9,6 +10,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.random.Random;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.rooms.ShopRoom;
@@ -19,6 +21,7 @@ import thePackmaster.util.Wiz;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static thePackmaster.SpireAnniversary5Mod.*;
 
@@ -62,20 +65,9 @@ public class BanishingDecree extends AbstractPackmasterRelic implements CustomSa
             tmp.addToTop(c);
         }
         AbstractDungeon.gridSelectScreen.open(tmp,
-                1, DESCRIPTIONS[1] + name + ".",
+                1, DESCRIPTIONS[1] + name + DESCRIPTIONS[7],
                 false, false, false, false);
     }
-
-
-    @Override
-    public void onUnequip() {
-        if (bannedPack != null) {
-            SpireAnniversary5Mod.currentPoolPacks.add(packsByID.get(bannedPack));
-            CardCrawlGame.dungeon.initializeCardPools();
-        }
-
-    }
-
 
     @Override
     public void update() {
@@ -99,7 +91,7 @@ public class BanishingDecree extends AbstractPackmasterRelic implements CustomSa
                     tmp.addToTop(c);
                 }
                 AbstractDungeon.gridSelectScreen.open(tmp,
-                        1, DESCRIPTIONS[5] + name + ".",
+                        1, DESCRIPTIONS[5] + name + DESCRIPTIONS[7],
                         false, false, false, false);
             } else {
                 cardSelected2 = true;
@@ -118,9 +110,18 @@ public class BanishingDecree extends AbstractPackmasterRelic implements CustomSa
                 }
 
                 for (int i = 0; i < 3; i++) {
-                    RewardItem r = new RewardItem();
-                    r.cards = getCardsFromPacks(cp.packID, 3);
-                    AbstractDungeon.getCurrRoom().rewards.add(r);
+                    RewardItem reward = new RewardItem();
+                    reward.cards = getCardsFromPacks(cp.packID, reward.cards.size(), AbstractDungeon.cardRng);
+                    for (AbstractRelic relic : AbstractDungeon.player.relics) {
+                        for (AbstractCard c : reward.cards) {
+                            relic.onPreviewObtainCard(c);
+                        }
+                    }
+                    List<SpawnModificationCard> spawnModificationCards = reward.cards.stream().filter(c -> c instanceof SpawnModificationCard).map(c -> (SpawnModificationCard)c).collect(Collectors.toList());
+                    for (SpawnModificationCard c : spawnModificationCards) {
+                        c.onRewardListCreated(reward.cards);
+                    }
+                    AbstractDungeon.getCurrRoom().rewards.add(reward);
                 }
 
                 skipDefaultCardRewards = true;

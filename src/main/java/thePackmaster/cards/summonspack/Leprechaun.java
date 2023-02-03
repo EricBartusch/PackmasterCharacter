@@ -26,13 +26,14 @@ public class Leprechaun extends AbstractSummonsCard {
     public final static String ID = makeID(Leprechaun.class.getSimpleName());
     private static final int COST = 1;
     private static final CardType TYPE = CardType.SKILL;
-    private static final CardRarity RARITY = CardRarity.UNCOMMON;
+    private static final CardRarity RARITY = CardRarity.COMMON;
     private static final CardTarget TARGET = CardTarget.SELF;
 
     private static final int BLOCK = 6;
     private static final int UPGRADE_BLOCK = 3;
 
     private final TooltipInfo diceTip = new TooltipInfo(cardStrings.EXTENDED_DESCRIPTION[0], cardStrings.EXTENDED_DESCRIPTION[1]);
+    private final TooltipInfo jinxTip = new TooltipInfo(cardStrings.EXTENDED_DESCRIPTION[2], cardStrings.EXTENDED_DESCRIPTION[3]);
 
     public Leprechaun() {
         super(ID, COST, TYPE, RARITY, TARGET);
@@ -51,6 +52,7 @@ public class Leprechaun extends AbstractSummonsCard {
     public List<TooltipInfo> getCustomTooltips() {
         ArrayList<TooltipInfo> list = new ArrayList<>();
         list.add(diceTip);
+        list.add(jinxTip);
         return  list;
     }
 

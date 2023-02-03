@@ -62,6 +62,7 @@ public class CarvingKnife extends AbstractMonsterHunterCard {
         super(ID, 1, CardType.ATTACK, CardRarity.COMMON, CardTarget.ENEMY);
         baseDamage = damage = DAMAGE;
         FleetingField.fleeting.set(this, true);
+        tags.add(CardTags.HEALING);
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
@@ -142,6 +143,8 @@ public class CarvingKnife extends AbstractMonsterHunterCard {
                 return new SpireShield();
             case "SpireSpear":
                 return new SpireSpear();
+            case "Reptomancer":
+                return new SerpentineDagger();
             default:
                 return new Hyperbeam();
         }

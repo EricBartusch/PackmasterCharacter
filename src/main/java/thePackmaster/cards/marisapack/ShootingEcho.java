@@ -7,7 +7,6 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import thePackmaster.SpireAnniversary5Mod;
-import thePackmaster.cards.AbstractPackmasterCard;
 import thePackmaster.util.Wiz;
 import thePackmaster.vfx.marisapack.BetterFireballEffect;
 import thePackmaster.vfx.marisapack.MissileStrikeEffect;
