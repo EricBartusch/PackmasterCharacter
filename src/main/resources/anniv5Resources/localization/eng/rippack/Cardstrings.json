@@ -1,8 +1,4 @@
 {
-  "${ModID}:ArtCard": {
-    "NAME": "",
-    "DESCRIPTION": ""
-  },
   "${ModID}:DividedFury": {
     "NAME": "Divided Fury",
     "DESCRIPTION": "At the start of your turn, make !M! card in your ${ModID}:rippable.",
