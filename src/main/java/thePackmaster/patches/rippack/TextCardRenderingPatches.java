@@ -49,7 +49,7 @@ public class TextCardRenderingPatches {
             oldShader = sb.getShader();
             if (isTextCard(__instance)) {
                 sb.setShader(textShader);
-                textShader.setUniformf("u_y", 1.0f);
+                textShader.setUniformf("u_y", 1.0f); //Just set the shader to be completely transparent
             }
         }
     }
@@ -74,7 +74,7 @@ public class TextCardRenderingPatches {
             oldShader = sb.getShader();
             if (isTextCard(__instance)) {
                 sb.setShader(textShader);
-                textShader.setUniformf("u_y", 1.0f);
+                textShader.setUniformf("u_y", 1.0f);//Just set the shader to be completely transparent
             }
         }
     }

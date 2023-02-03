@@ -159,17 +159,17 @@ public class AllCardsRippablePatches {
         @SpirePrefixPatch
         public static void Prefix(AbstractCard __instance, SpriteBatch sb, Color color, TextureAtlas.AtlasRegion img, float drawX, float drawY) {
             oldShader = sb.getShader();
-            //don't mess with the 5/8, it's how I got the cutoff to line up properly between base game/custom cards. I dunno why it's not exactly the same
-            float cutoff_y = ((float)img.getRegionY() + ((float)img.getRegionHeight() * 5 / 8)) / img.getTexture().getHeight();
-            cutoff_y = img.getRegionHeight() < img.getTexture().getHeight() ? cutoff_y : 0.6f; //if the region is less than the texture, we're using an atlas
             if (isArtCard(__instance) && setShader) {
+                //don't mess with the 5/8, it's how I got the cutoff to line up properly between base game/custom cards. I dunno why it's not exactly the same
+                float cutoff_y = ((float)img.getRegionY() + ((float)img.getRegionHeight() * 5 / 8)) / img.getTexture().getHeight();
+                cutoff_y = isAtlasUsed(img) ? cutoff_y : 0.6f;
                 initArtShader();
                 sb.setShader(artShader);
                 artShader.setUniformf("u_y", cutoff_y);
             }
             if (isTextCard(__instance) && setShader) {
-                cutoff_y = ((float)img.getRegionY() + ((float)img.getRegionHeight() / 2)) / img.getTexture().getHeight();
-                cutoff_y = img.getRegionHeight() < img.getTexture().getHeight() ? cutoff_y : 0.5f;
+                float cutoff_y = ((float)img.getRegionY() + ((float)img.getRegionHeight() / 2)) / img.getTexture().getHeight();
+                cutoff_y = isAtlasUsed(img) ? cutoff_y : 0.5f;
                 initTextShader();
                 sb.setShader(textShader);
                 textShader.setUniformf("u_y", cutoff_y);
@@ -183,6 +183,11 @@ public class AllCardsRippablePatches {
                 sb.setShader(oldShader);
             }
         }
+    }
+
+    //if the region is less than the texture, we're using an atlas
+    private static boolean isAtlasUsed(TextureAtlas.AtlasRegion img) {
+        return img.getRegionHeight() < img.getTexture().getHeight();
     }
 
 
