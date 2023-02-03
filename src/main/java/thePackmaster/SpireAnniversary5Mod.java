@@ -1052,6 +1052,26 @@ public class SpireAnniversary5Mod implements
         return i;
     }
 
+    @Override
+    public String receiveCreateCardDescription(String currentRaw, AbstractCard card) {
+        if (AbstractDungeon.player != null) {
+            for(AbstractPower pow : p().powers) {
+                if(PrimeDirectivePower.POWER_ID.equals(pow.ID)) {
+                    currentRaw = ((PrimeDirectivePower)pow).modifyDescription(currentRaw, card);
+                } else if(GammaWardPower.POWER_ID.equals(pow.ID)) {
+                    currentRaw = ((GammaWardPower)pow).modifyDescription(currentRaw, card);
+                }
+            }
+        }
+        return currentRaw;
+    }
+
+    @Override
+    public int receiveOnPlayerLoseBlock(int i) {
+        i = Serene.receiveOnPlayerLoseBlock(i);
+        return i;
+    }
+
     public static class Enums {
         @SpireEnum
         public static AbstractGameAction.AttackEffect EVIL;
