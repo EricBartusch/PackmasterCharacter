@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.evacipated.cardcrawl.mod.stslib.patches.HitboxRightClick;
+import com.evacipated.cardcrawl.modthespire.Loader;
+import com.evacipated.cardcrawl.modthespire.ModInfo;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
@@ -24,12 +26,19 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.CorruptionPower;
 import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
+import javassist.*;
+import org.clapper.util.classutil.*;
 import thePackmaster.actions.rippack.RipCardAction;
 import thePackmaster.cardmodifiers.rippack.ArtCardModifier;
 import thePackmaster.cardmodifiers.rippack.RippableModifier;
 import thePackmaster.cardmodifiers.rippack.TextCardModifier;
 import thePackmaster.cards.rippack.ArtAttack;
+import thePackmaster.util.Wiz;
 import thePackmaster.vfx.rippack.ShowCardAndRipEffect;
+import java.io.File;
+
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 import static thePackmaster.SpireAnniversary5Mod.*;
 import static thePackmaster.cardmodifiers.rippack.RippableModifier.isRippable;
@@ -146,6 +155,75 @@ public class AllCardsRippablePatches {
             return SpireReturn.Continue();
         }
     }
+
+    @SpirePatch(clz = AbstractCard.class, method = "canUse")
+    public static class MakeAllTextCardsUsable {
+
+        @SpirePrefixPatch
+        public static SpireReturn Prefix(AbstractCard __instance, AbstractPlayer p, AbstractMonster m) {
+            if(isTextCard(__instance)) {
+                return SpireReturn.Return(true);
+            } else {
+                return SpireReturn.Continue();
+            }
+        }
+    }
+
+    //Dynamically patch triggerOnEndOfTurnForPlayingCard of cards
+    //This will make things like burn's effect not apply at the end of the players turn if it's an art car
+    @SpirePatch(clz = CardCrawlGame.class, method = SpirePatch.CONSTRUCTOR)
+    public static class MakeArtCardsDoNothingAtEndOfTurnPatch {
+        public static void Raw(CtBehavior ctBehavior) throws NotFoundException {
+            ClassFinder finder = new ClassFinder();
+
+            finder.add(new File(Loader.STS_JAR));
+
+            for (ModInfo modInfo : Loader.MODINFOS) {
+                if (modInfo.jarURL != null) {
+                    try {
+                        finder.add(new File(modInfo.jarURL.toURI()));
+                    } catch (URISyntaxException e) {
+                        // do nothing
+                    }
+                }
+            }
+
+            // Get all classes for AbstractCard
+            ClassFilter filter = new AndClassFilter(
+                    new NotClassFilter(new InterfaceOnlyClassFilter()),
+                    new ClassModifiersClassFilter(Modifier.PUBLIC),
+                    new OrClassFilter(
+                            new org.clapper.util.classutil.SubclassClassFilter(AbstractCard.class),
+                            (classInfo, classFinder) -> classInfo.getClassName().equals(AbstractCard.class.getName())
+                    )
+            );
+
+            ArrayList<ClassInfo> foundClasses = new ArrayList<>();
+            finder.findClasses(foundClasses, filter);
+
+            for (ClassInfo classInfo : foundClasses) {
+                CtClass ctClass = ctBehavior.getDeclaringClass().getClassPool().get(classInfo.getClassName());
+
+                try {
+                    CtMethod[] methods = ctClass.getDeclaredMethods();
+                    for (CtMethod m : methods) {
+                        if (m.getName().equals("triggerOnEndOfTurnForPlayingCard")) {
+                            m.insertBefore("{" +
+                                    "if(" + MakeArtCardsDoNothingAtEndOfTurnPatch.class.getName() + ".isArtCard($0)) { " +
+                                    "return;}}");
+                        }
+                    }
+                } catch (CannotCompileException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        public static boolean isArtCard(AbstractCard card) {
+            return Wiz.isArtCard(card);
+        }
+    }
+
     public static boolean setShader = false;
 
     //I only want my patch in renderHelper below to apply on card backgrounds
