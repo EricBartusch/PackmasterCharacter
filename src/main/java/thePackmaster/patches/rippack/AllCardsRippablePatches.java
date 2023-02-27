@@ -170,61 +170,6 @@ public class AllCardsRippablePatches {
         }
     }
 
-    //Dynamically patch triggerOnEndOfTurnForPlayingCard of cards
-    //This will make things like burn's effect not apply at the end of the players turn if it's an art card
-    @SpirePatch(clz = CardCrawlGame.class, method = SpirePatch.CONSTRUCTOR)
-    public static class MakeArtCardsDoNothingAtEndOfTurnPatch {
-        public static void Raw(CtBehavior ctBehavior) throws NotFoundException {
-            ClassFinder finder = new ClassFinder();
-
-            finder.add(new File(Loader.STS_JAR));
-
-            for (ModInfo modInfo : Loader.MODINFOS) {
-                if (modInfo.jarURL != null) {
-                    try {
-                        finder.add(new File(modInfo.jarURL.toURI()));
-                    } catch (URISyntaxException e) {
-                        // do nothing
-                    }
-                }
-            }
-
-            // Get all classes for AbstractCard
-            ClassFilter filter = new AndClassFilter(
-                    new NotClassFilter(new InterfaceOnlyClassFilter()),
-                    new ClassModifiersClassFilter(Modifier.PUBLIC),
-                    new OrClassFilter(
-                            new org.clapper.util.classutil.SubclassClassFilter(AbstractCard.class),
-                            (classInfo, classFinder) -> classInfo.getClassName().equals(AbstractCard.class.getName())
-                    )
-            );
-
-            ArrayList<ClassInfo> foundClasses = new ArrayList<>();
-            finder.findClasses(foundClasses, filter);
-
-            for (ClassInfo classInfo : foundClasses) {
-                CtClass ctClass = ctBehavior.getDeclaringClass().getClassPool().get(classInfo.getClassName());
-
-                try {
-                    CtMethod[] methods = ctClass.getDeclaredMethods();
-                    for (CtMethod m : methods) {
-                        if (m.getName().equals("canUse")) {
-                            m.insertBefore("{" +
-                                    "if(" + MakeArtCardsDoNothingAtEndOfTurnPatch.class.getName() + ".isTextCard($0)) { " +
-                                    "return true;}}");
-                        }
-                    }
-                } catch (CannotCompileException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        public static boolean isTextCard(AbstractCard card) {
-            return Wiz.isTextCard(card);
-        }
-    }
-
     //Dynamically patch canUse of cards to make Text halves always playable
     @SpirePatch(clz = CardCrawlGame.class, method = SpirePatch.CONSTRUCTOR)
     public static class MakeTextCardsAlwaysPlayable {
@@ -262,9 +207,70 @@ public class AllCardsRippablePatches {
                 try {
                     CtMethod[] methods = ctClass.getDeclaredMethods();
                     for (CtMethod m : methods) {
-                        if (m.getName().equals("triggerOnEndOfTurnForPlayingCard")) {
+                        if (m.getName().equals("canUse")) {
                             m.insertBefore("{" +
-                                    "if(" + MakeArtCardsDoNothingAtEndOfTurnPatch.class.getName() + ".isArtCard($0)) { " +
+                                    "if(" + MakeTextCardsAlwaysPlayable.class.getName() + ".isTextCard($0)) { " +
+                                    "return true;}}");
+                        }
+                    }
+                } catch (CannotCompileException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        public static boolean isTextCard(AbstractCard card) {
+            return Wiz.isTextCard(card);
+        }
+    }
+
+    //Dynamically patch a bunch of triggers of cards
+    //This will make things like burn's effect not apply at the end of the players turn if it's an art card
+    @SpirePatch(clz = CardCrawlGame.class, method = SpirePatch.CONSTRUCTOR)
+    public static class MakeArtCardsInertLikeDragonballs {
+        public static void Raw(CtBehavior ctBehavior) throws NotFoundException {
+            ClassFinder finder = new ClassFinder();
+
+            finder.add(new File(Loader.STS_JAR));
+
+            for (ModInfo modInfo : Loader.MODINFOS) {
+                if (modInfo.jarURL != null) {
+                    try {
+                        finder.add(new File(modInfo.jarURL.toURI()));
+                    } catch (URISyntaxException e) {
+                        // do nothing
+                    }
+                }
+            }
+
+            // Get all classes for AbstractCard
+            ClassFilter filter = new AndClassFilter(
+                    new NotClassFilter(new InterfaceOnlyClassFilter()),
+                    new ClassModifiersClassFilter(Modifier.PUBLIC),
+                    new OrClassFilter(
+                            new org.clapper.util.classutil.SubclassClassFilter(AbstractCard.class),
+                            (classInfo, classFinder) -> classInfo.getClassName().equals(AbstractCard.class.getName())
+                    )
+            );
+
+            ArrayList<ClassInfo> foundClasses = new ArrayList<>();
+            finder.findClasses(foundClasses, filter);
+
+            for (ClassInfo classInfo : foundClasses) {
+                CtClass ctClass = ctBehavior.getDeclaringClass().getClassPool().get(classInfo.getClassName());
+
+                try {
+                    CtMethod[] methods = ctClass.getDeclaredMethods();
+                    for (CtMethod m : methods) {
+                        if (m.getName().equals("triggerOnEndOfTurnForPlayingCard") ||
+                                m.getName().equals("triggerOnManualDiscard") ||
+                                m.getName().equals("triggerOnExhaust") ||
+                                m.getName().equals("triggerOnScry") ||
+                                m.getName().equals("triggerOnOtherCardPlayed") ||
+                                m.getName().equals("onRetained")) {
+
+                            m.insertBefore("{" +
+                                    "if(" + MakeArtCardsInertLikeDragonballs.class.getName() + ".isArtCard($0)) { " +
                                     "return;}}");
                         }
                     }
