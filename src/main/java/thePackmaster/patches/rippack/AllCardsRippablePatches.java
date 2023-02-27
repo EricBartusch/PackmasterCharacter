@@ -209,7 +209,7 @@ public class AllCardsRippablePatches {
                     for (CtMethod m : methods) {
                         if (m.getName().equals("canUse")) {
                             m.insertBefore("{" +
-                                    "if(" + MakeTextCardsAlwaysPlayable.class.getName() + ".isTextCard($0)) { " +
+                                    "if(" + MakeTextCardsAlwaysPlayable.class.getName() + ".isArtCard($0)) { " +
                                     "return true;}}");
                         }
                     }
@@ -219,8 +219,8 @@ public class AllCardsRippablePatches {
             }
         }
 
-        public static boolean isTextCard(AbstractCard card) {
-            return Wiz.isTextCard(card);
+        public static boolean isArtCard(AbstractCard card) {
+            return Wiz.isArtCard(card);
         }
     }
 
