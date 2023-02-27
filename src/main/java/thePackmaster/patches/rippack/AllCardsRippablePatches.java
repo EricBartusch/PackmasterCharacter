@@ -17,6 +17,7 @@ import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.curses.Normality;
 import com.megacrit.cardcrawl.cards.green.Reflex;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -163,6 +164,19 @@ public class AllCardsRippablePatches {
         @SpirePrefixPatch
         public static SpireReturn Prefix(AbstractCard __instance, AbstractPlayer p, AbstractMonster m) {
             if(isTextCard(__instance)) {
+                return SpireReturn.Return(true);
+            } else {
+                return SpireReturn.Continue();
+            }
+        }
+    }
+
+    @SpirePatch(clz = Normality.class, method = "canPlay")
+    public static class MakeArtNormalityDoNothing {
+
+        @SpirePrefixPatch
+        public static SpireReturn Prefix(Normality __instance, AbstractCard card) {
+            if(isArtCard(__instance)) {
                 return SpireReturn.Return(true);
             } else {
                 return SpireReturn.Continue();
