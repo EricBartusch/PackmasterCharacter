@@ -1,0 +1,16 @@
+---
+name: Build Packmaster
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: [self-hosted, StS]
+    steps:
+      # - uses: rtCamp/action-cleanup@master
+      - uses: actions/checkout@v3
+      - run: mvn clean package
